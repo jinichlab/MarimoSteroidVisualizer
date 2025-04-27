@@ -1,0 +1,8 @@
+marimo
+pandas
+scikit-learn
+altair
+rdkit-pypi
+Pillow
+py3Dmol
+ipython
