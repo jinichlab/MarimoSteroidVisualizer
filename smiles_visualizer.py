@@ -11,9 +11,26 @@ def simple_ui():
     from sklearn.cluster import KMeans
     import altair as alt
     from rdkit import Chem
+    from rdkit.Chem import AllChem
     from rdkit.Chem import Draw
+    from rdkit.Chem import rdmolfiles
     from IPython.display import display, HTML
-    return Chem, Draw, HTML, KMeans, alt, display, mo, pd
+    import base64
+    import py3Dmol
+    return (
+        AllChem,
+        Chem,
+        Draw,
+        HTML,
+        KMeans,
+        alt,
+        base64,
+        display,
+        mo,
+        pd,
+        py3Dmol,
+        rdmolfiles,
+    )
 
 
 @app.cell
@@ -64,9 +81,9 @@ def _(checkbox, data_df, mo, scatter):
 
 @app.cell
 def _(Chem, Draw, HTML, display, pd, table):
-    for _, row in table.value.iterrows():
-        smile_val = row["SMILES"]
-        compound_name = row["Compounds"]
+    for _, rows in table.value.iterrows():
+        smile_val = rows["SMILES"]
+        compound_name = rows["Compounds"]
         width = 1000
         height = 1000
 
@@ -91,7 +108,7 @@ def _(Chem, Draw, HTML, display, pd, table):
         img,
         molecule,
         molecules,
-        row,
+        rows,
         smile_parts,
         smile_val,
         width,
@@ -109,6 +126,82 @@ def _(chart, mo):
     table = mo.ui.table(chart.value)
     table
     return (table,)
+
+
+@app.cell
+def _(mo):
+    button = mo.ui.run_button(label = "Generate 3D Structures")
+    button
+    return (button,)
+
+
+@app.cell
+def _(AllChem, Chem, base64, button, py3Dmol, rdmolfiles, table):
+    smiles_list = table.value['SMILES']
+
+    # Keep only the first 9 (py3Dmol grid max is 3x3)
+    selected_smiles = smiles_list[:9]
+    download_link = ''
+    if button.value:
+        # Step 1: Generate PDBs from SMILES
+        pdb_list = []
+        for smi in selected_smiles:
+            mol = Chem.MolFromSmiles(smi)
+            mol = Chem.AddHs(mol)
+            AllChem.EmbedMolecule(mol, AllChem.ETKDG())
+            AllChem.UFFOptimizeMolecule(mol)
+            pdb = rdmolfiles.MolToPDBBlock(mol)
+            pdb_list.append((smi, pdb))
+
+        # Step 2: Set up py3Dmol viewer with 3x3 grid
+        viewer = py3Dmol.view(viewergrid=(3,3), width=900, height=900)
+        viewer.setBackgroundColor('white')
+
+        for i, (smi, pdb) in enumerate(pdb_list):
+            row = i // 3
+            col = i % 3
+            viewer.addModel(pdb, 'pdb', viewer=(row, col))
+            viewer.setStyle({'stick': {}}, viewer=(row, col))
+            viewer.zoomTo(viewer=(row, col))
+            viewer.addLabel(smi, {'position': {'x': 0, 'y': -5, 'z': 0}}, viewer=(row, col))
+
+        # Step 3: Generate HTML
+        html_code = f"""
+        <html>
+          <head>
+            <script src="https://3Dmol.csb.pitt.edu/build/3Dmol.js"></script>
+          </head>
+          <body>
+            {viewer._make_html()}
+          </body>
+        </html>
+        """
+
+        b64_html = base64.b64encode(html_code.encode()).decode()
+        
+        # Step 3: Create the download link
+        download_link = f'<a download="3D_rhea_values.html" href="data:text/html;base64,{b64_html}">Download 3D Viewer HTML</a>'
+    return (
+        b64_html,
+        col,
+        download_link,
+        html_code,
+        i,
+        mol,
+        pdb,
+        pdb_list,
+        row,
+        selected_smiles,
+        smi,
+        smiles_list,
+        viewer,
+    )
+
+
+@app.cell
+def _(download_link, mo):
+    mo.md(download_link)
+    return
 
 
 @app.cell
