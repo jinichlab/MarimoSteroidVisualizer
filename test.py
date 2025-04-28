@@ -12,15 +12,15 @@ def simple_ui():
     import altair as alt
     from rdkit import Chem
     from rdkit.Chem import Draw
-    from IPython.display import display
-    return Chem, Draw, KMeans, alt, display, mo, pd
+    from IPython.display import display, HTML
+    return Chem, Draw, HTML, KMeans, alt, display, mo, pd
 
 
 @app.cell
 def _(pd):
     data_df = pd.read_csv("umap_smiles.csv")
     data_df = data_df[['Compounds', 'SMILES', 'UMAP_1', 'UMAP_2']]
-    data_df
+    # data_df
     return (data_df,)
 
 
@@ -63,23 +63,41 @@ def _(checkbox, data_df, mo, scatter):
 
 
 @app.cell
-def _(Chem, Draw, display, table):
-    for smile_val in table.value["SMILES"]:
-        # Check if there is a semicolon in the SMILES string
+def _(Chem, Draw, HTML, display, pd, table):
+    for _, row in table.value.iterrows():
+        smile_val = row["SMILES"]
+        compound_name = row["Compounds"]
+
+        if pd.isna(smile_val):
+            continue
+
         if ";" in smile_val:
-            # Split the SMILES into individual components
             smile_parts = smile_val.split(";")
-            # Convert each part into a molecule
             molecules = [Chem.MolFromSmiles(smile) for smile in smile_parts]
-            # Display molecules side by side
             img = Draw.MolsToGridImage(molecules, molsPerRow=len(molecules))
-            display(img)
         else:
-            # If no semicolon, convert the SMILES and display as normal
-            molecules = Chem.MolFromSmiles(smile_val)
-            img = Draw.MolToImage(molecules)
-            display(img)
-    return img, molecules, smile_parts, smile_val
+            molecule = Chem.MolFromSmiles(smile_val)
+            img = Draw.MolToImage(molecule)
+
+        # Display the compound name and the image
+        display(HTML(f"<p><b>{compound_name}</b></p>"))
+        display(img)
+
+    return (
+        compound_name,
+        img,
+        molecule,
+        molecules,
+        row,
+        smile_parts,
+        smile_val,
+    )
+
+
+@app.cell
+def _():
+    # table.value.index
+    return
 
 
 @app.cell
