@@ -63,13 +63,6 @@ def _(checkbox, data_df, mo, scatter):
 
 
 @app.cell
-def _(chart, mo):
-    table = mo.ui.table(chart.value)
-    table
-    return (table,)
-
-
-@app.cell
 def _(Chem, Draw, display, table):
     for smile_val in table.value["SMILES"]:
         # Check if there is a semicolon in the SMILES string
@@ -87,6 +80,13 @@ def _(Chem, Draw, display, table):
             img = Draw.MolToImage(molecules)
             display(img)
     return img, molecules, smile_parts, smile_val
+
+
+@app.cell
+def _(chart, mo):
+    table = mo.ui.table(chart.value)
+    table
+    return (table,)
 
 
 @app.cell
