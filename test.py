@@ -10,7 +10,10 @@ def simple_ui():
     import pandas as pd
     from sklearn.cluster import KMeans
     import altair as alt
-    return KMeans, alt, mo, pd
+    from rdkit import Chem
+    from rdkit.Chem import Draw
+    from IPython.display import display
+    return Chem, Draw, KMeans, alt, display, mo, pd
 
 
 @app.cell
@@ -57,6 +60,33 @@ def _(checkbox, data_df, mo, scatter):
     chart = mo.ui.altair_chart(scatter(data_df, checkbox.value))
     chart
     return (chart,)
+
+
+@app.cell
+def _(chart, mo):
+    table = mo.ui.table(chart.value)
+    table
+    return (table,)
+
+
+@app.cell
+def _(Chem, Draw, display, table):
+    for smile_val in table.value["SMILES"]:
+        # Check if there is a semicolon in the SMILES string
+        if ";" in smile_val:
+            # Split the SMILES into individual components
+            smile_parts = smile_val.split(";")
+            # Convert each part into a molecule
+            molecules = [Chem.MolFromSmiles(smile) for smile in smile_parts]
+            # Display molecules side by side
+            img = Draw.MolsToGridImage(molecules, molsPerRow=len(molecules))
+            display(img)
+        else:
+            # If no semicolon, convert the SMILES and display as normal
+            molecules = Chem.MolFromSmiles(smile_val)
+            img = Draw.MolToImage(molecules)
+            display(img)
+    return img, molecules, smile_parts, smile_val
 
 
 @app.cell
