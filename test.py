@@ -7,39 +7,21 @@ app = marimo.App()
 @app.cell
 def simple_ui():
     import marimo as mo
-    return (mo,)
+    import pandas as pd
+    return mo, pd
 
 
 @app.cell
-def _(mo):
-    text = mo.ui.text(label="Enter your name:")
-    button = mo.ui.run_button(label="Say Hello")
-    return button, text
-
-
-@app.cell
-def _(button):
-    button
-    return
-
-
-@app.cell
-def _(text):
-    text
-    return
-
-
-@app.cell
-def _(button, text):
-    if button.value:
-        print(f"Hello, {text.value}!")
-    else:
-        print("Please type your name and click the button.")
-    return
+def _(pd):
+    data_df = pd.read_csv("umap_smiles.csv")
+    data_df = data_df[['Compounds', 'SMILES', 'UMAP_1', 'UMAP_2']]
+    data_df
+    return (data_df,)
 
 
 @app.cell
 def _():
+        
     return
 
 
