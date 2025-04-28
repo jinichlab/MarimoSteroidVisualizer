@@ -67,6 +67,8 @@ def _(Chem, Draw, HTML, display, pd, table):
     for _, row in table.value.iterrows():
         smile_val = row["SMILES"]
         compound_name = row["Compounds"]
+        width = 1000
+        height = 1000
 
         if pd.isna(smile_val):
             continue
@@ -74,10 +76,10 @@ def _(Chem, Draw, HTML, display, pd, table):
         if ";" in smile_val:
             smile_parts = smile_val.split(";")
             molecules = [Chem.MolFromSmiles(smile) for smile in smile_parts]
-            img = Draw.MolsToGridImage(molecules, molsPerRow=len(molecules))
+            img = Draw.MolsToGridImage(molecules, molsPerRow=len(molecules), subImgSize=(width, height))
         else:
             molecule = Chem.MolFromSmiles(smile_val)
-            img = Draw.MolToImage(molecule)
+            img = Draw.MolToImage(molecule, size=(width, height))
 
         # Display the compound name and the image
         display(HTML(f"<p><b>{compound_name}</b></p>"))
@@ -85,12 +87,14 @@ def _(Chem, Draw, HTML, display, pd, table):
 
     return (
         compound_name,
+        height,
         img,
         molecule,
         molecules,
         row,
         smile_parts,
         smile_val,
+        width,
     )
 
 
