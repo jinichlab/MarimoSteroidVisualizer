@@ -42,7 +42,8 @@ def _(pd):
 
 @app.cell
 def _(pd, raw_data_df):
-    chebi_df = pd.read_csv("compounds.tsv", sep="\t", encoding="ISO-8859-1", usecols=["ID", "NAME"])
+    # chebi_df = pd.read_csv("compounds.tsv", sep="\t", encoding="ISO-8859-1", usecols=["ID", "NAME"])
+    chebi_df = pd.read_csv("chebi_lookup_minimal.csv")
     chebi_df["ID"] = chebi_df["ID"].astype(str)
     raw_data_df["ChEBI ID"] = raw_data_df["ChEBI ID"].astype(str)
 
@@ -308,6 +309,35 @@ def _(
 def _(mo, mol3d_download_link):
     mo.md(mol3d_download_link)
     return
+
+
+@app.cell
+def _(chebi_df, data_df):
+    # 1. Extract all ChEBI IDs from your dataset
+    all_chebi_ids = data_df["ChEBI ID"].dropna().astype(str)
+
+    # 2. Flatten multi-ID rows like "16113; 46898"
+    chebi_id_list = []
+    for entry in all_chebi_ids:
+        chebi_id_list.extend([cid.strip() for cid in entry.split(";")])
+
+    # 3. Deduplicate
+    unique_chebi_ids = sorted(set(chebi_id_list))
+
+    # 4. Look up names from the full chebi_df
+    chebi_df["ID"] = chebi_df["ID"].astype(str).str.strip()
+    chebi_subset = chebi_df[chebi_df["ID"].isin(unique_chebi_ids)][["ID", "NAME"]].copy()
+
+    # 5. Write to CSV
+    chebi_subset.to_csv("chebi_lookup_minimal.csv", index=False)
+
+    return (
+        all_chebi_ids,
+        chebi_id_list,
+        chebi_subset,
+        entry,
+        unique_chebi_ids,
+    )
 
 
 @app.cell
