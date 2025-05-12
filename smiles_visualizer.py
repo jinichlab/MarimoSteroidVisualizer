@@ -117,9 +117,14 @@ def _(Chem, Draw, HTML, chebi_df, display, pd, table):
     for _, row in table.value.iterrows():
         smile_val = row["SMILES"]
         chebi_val = row["ChEBI ID"]
+        protein_name = row.get("Protein names", "[No Protein Name]")
 
         if pd.isna(smile_val) or pd.isna(chebi_val):
             continue
+
+        # Display protein name above molecule(s)
+        display(HTML(f"<h3><strong>Protein Name:</strong> {protein_name}</h3>"))
+
 
         if ";" in smile_val:
             smile_parts = [s.strip() for s in smile_val.split(";")]
@@ -137,10 +142,8 @@ def _(Chem, Draw, HTML, chebi_df, display, pd, table):
                 molsPerRow=mols_per_row,
                 subImgSize=(width, height),
                 legends=compound_names,
-                legendFontSize=24  # increase font size
+                legendFontSize=24
             )
-
-            # Display group
             display(img)
             display(HTML("<hr style='border:1px solid #ccc;'>"))
 
@@ -152,6 +155,7 @@ def _(Chem, Draw, HTML, chebi_df, display, pd, table):
             img = Draw.MolToImage(molecule, size=(width, height), legend=compound_name)
             display(img)
             display(HTML("<hr style='border:1px solid #ccc;'>"))
+
     return (
         chebi_id,
         chebi_lookup,
@@ -164,11 +168,17 @@ def _(Chem, Draw, HTML, chebi_df, display, pd, table):
         molecule,
         molecules,
         mols_per_row,
+        protein_name,
         row,
         smile_parts,
         smile_val,
         width,
     )
+
+
+@app.cell
+def _():
+    return
 
 
 @app.cell
