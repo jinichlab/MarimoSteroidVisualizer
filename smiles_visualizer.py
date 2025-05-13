@@ -49,16 +49,19 @@ def _(pd, raw_data_df):
 
     data_df = raw_data_df.merge(chebi_df, left_on="ChEBI ID", right_on="ID", how="left")
     data_df = data_df.rename(columns={"NAME": "Compound"}).drop(columns=["ID"])
+    data_df = data_df.drop("SMILES_clean", axis=1)
     return chebi_df, data_df
 
 
-@app.cell
-def _(KMeans, data_df):
-    #Clustering - Number of clusters
+app._unparsable_cell(
+    r"""
+        \\#Clustering - Number of clusters
     kmeans = KMeans(n_clusters=5, random_state=42)
     clusters = kmeans.fit_predict(data_df[['UMAP_1', 'UMAP_2']])
     data_df['clusters'] = clusters
-    return clusters, kmeans
+    """,
+    name="_"
+)
 
 
 @app.cell
@@ -91,8 +94,8 @@ def _(checkbox, data_df, mo, scatter):
 
 
 @app.cell
-def _(table):
-    table.value.index
+def _():
+    # table.value.index
     return
 
 
@@ -118,12 +121,18 @@ def _(Chem, Draw, HTML, chebi_df, display, pd, table):
         smile_val = row["SMILES"]
         chebi_val = row["ChEBI ID"]
         protein_name = row.get("Protein names", "[No Protein Name]")
+        entry_name = row.get("Entry Name", "[No Entry Name]")
+        organism_name = row.get("Organism", "[No Organism Name]")
 
         if pd.isna(smile_val) or pd.isna(chebi_val):
             continue
 
         # Display protein name above molecule(s)
-        display(HTML(f"<h3><strong>Protein Name:</strong> {protein_name}</h3>"))
+        display(HTML(f"<h3 style='font-size:23px;'><strong>Protein Name:</strong> {protein_name}</h3>"))
+        display(HTML(f"<h3 style='font-size:23px;'><strong>Entry Name:</strong> {entry_name}</h3>"))
+        display(HTML(f"<h3 style='font-size:23px;'><strong>Organism:</strong> {organism_name}</h3>"))
+
+
 
 
         if ";" in smile_val:
@@ -163,11 +172,13 @@ def _(Chem, Draw, HTML, chebi_df, display, pd, table):
         chebi_val,
         compound_name,
         compound_names,
+        entry_name,
         height,
         img,
         molecule,
         molecules,
         mols_per_row,
+        organism_name,
         protein_name,
         row,
         smile_parts,
