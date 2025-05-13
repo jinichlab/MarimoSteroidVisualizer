@@ -53,15 +53,13 @@ def _(pd, raw_data_df):
     return chebi_df, data_df
 
 
-app._unparsable_cell(
-    r"""
-        \\#Clustering - Number of clusters
-    kmeans = KMeans(n_clusters=5, random_state=42)
+@app.cell
+def _(KMeans, data_df):
+    #Clustering - Number of clusters
+    kmeans = KMeans(n_clusters=15, random_state=42)
     clusters = kmeans.fit_predict(data_df[['UMAP_1', 'UMAP_2']])
     data_df['clusters'] = clusters
-    """,
-    name="_"
-)
+    return clusters, kmeans
 
 
 @app.cell
@@ -164,7 +162,6 @@ def _(Chem, Draw, HTML, chebi_df, display, pd, table):
             img = Draw.MolToImage(molecule, size=(width, height), legend=compound_name)
             display(img)
             display(HTML("<hr style='border:1px solid #ccc;'>"))
-
     return (
         chebi_id,
         chebi_lookup,
