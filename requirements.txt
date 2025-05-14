@@ -6,3 +6,6 @@ rdkit-pypi
 Pillow
 py3Dmol
 ipython
+openai
+python-dotenv
+jinja2
