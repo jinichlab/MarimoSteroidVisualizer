@@ -11,25 +11,43 @@ def simple_ui():
     from sklearn.cluster import KMeans
     import altair as alt
     from rdkit import Chem
-    from rdkit.Chem import AllChem
-    from rdkit.Chem import Draw
-    from rdkit.Chem import rdmolfiles
+    from rdkit.Chem import AllChem, Draw, rdmolfiles
     from IPython.display import display, HTML
     import base64
     import py3Dmol
+
+    # For LLM summarization and secure API usage
+    from dotenv import load_dotenv
+    import os
+    import openai
+    import instructor
+    from anthropic import Anthropic
+    from pydantic import BaseModel
+    from typing import List
+    from jinja2 import Template
+    import re
     return (
         AllChem,
+        Anthropic,
+        BaseModel,
         Chem,
         Draw,
         HTML,
         KMeans,
+        List,
+        Template,
         alt,
         base64,
         display,
+        instructor,
+        load_dotenv,
         mo,
+        openai,
+        os,
         pd,
         py3Dmol,
         rdmolfiles,
+        re,
     )
 
 
@@ -337,6 +355,98 @@ def _(chebi_df, data_df):
         entry,
         unique_chebi_ids,
     )
+
+
+@app.cell
+def _():
+    return
+
+
+@app.cell
+def _(BaseModel, List):
+    class OutputFormat(BaseModel):
+        summary: str
+        highlights: List[str]
+        tldr: str
+    return (OutputFormat,)
+
+
+@app.cell
+def _(mo):
+    text_input = mo.ui.text(label="Enter Prompt Here:")
+
+    mo.md(f"""
+    AI generated information:
+
+    {text_input} 
+
+    """).batch(text_input=text_input).form()
+    return (text_input,)
+
+
+@app.cell
+def _(mo, openai, text_input):
+    # openai.api_key = "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"
+    client = openai.OpenAI(
+        api_key="35899148d64fa84c60d78a0c6ad802d100d8754bfb5ef6a4d04fad01b7088290",
+        base_url="https://api.together.xyz/v1"
+    )
+
+    if text_input.value.strip():
+        with mo.status.spinner("Generating information..."):
+            response = client.chat.completions.create(
+                model="mistralai/Mixtral-8x7B-Instruct-v0.1",
+                messages=[
+                    {
+                        "role": "user",
+                        "content": f"""Answer the prompt below.
+
+    Your answer must begin with 'TL;DR:' on a new line followed by a one-sentence summary. Then provide 3–5 bullet point highlights.
+
+    Prompt:
+    {text_input.value}
+    """
+                    }
+                ],
+                max_tokens=1000
+            )
+
+            output_text = response.choices[0].message.content
+            rendered = f"""## Response from Mixtral\n{output_text}"""
+    else:
+        output_text = ""
+        rendered = "⚠️ No input provided."
+
+    # output_text  # ← Add this so the next cell can access it
+    return client, output_text, rendered, response
+
+
+@app.cell
+def _(mo, output_text, re):
+    match = re.search(
+        r"^TL;DR[:：]?\s*(.+?)(?:\n{2,}|\n(?=[\d\-•]))",  # captures TLDR before list
+        output_text.strip(),
+        re.DOTALL | re.IGNORECASE
+    )
+
+    if match:
+        summary = match.group(1).strip()
+        main_content = output_text[match.end():].strip()
+    else:
+        summary = ""
+        main_content = output_text.strip()
+
+    # Only render if there is content
+    formatted_output = f"""
+    ## TL;DR
+    {summary}
+
+    ## Key Highlights
+    {main_content}
+    """ if len(main_content) + len(summary) > 0 else ""
+
+    mo.md(formatted_output)
+    return formatted_output, main_content, match, summary
 
 
 @app.cell
