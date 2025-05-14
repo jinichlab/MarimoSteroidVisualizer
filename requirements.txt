@@ -9,3 +9,6 @@ ipython
 openai
 python-dotenv
 jinja2
+pydantic
+instructor
+anthropic
