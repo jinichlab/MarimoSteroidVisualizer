@@ -388,14 +388,9 @@ def _(mo):
 def _(__file__, load_dotenv, os):
     env_path = os.path.join(os.path.dirname(__file__), ".env")
     load_dotenv(dotenv_path=env_path)
-    return (env_path,)
-
-
-@app.cell
-def _(os):
     'TOGETHER_API_KEY' in str(os.environ)
     TOGETHER_KEY = os.getenv("TOGETHER_API_KEY")
-    return (TOGETHER_KEY,)
+    return TOGETHER_KEY, env_path
 
 
 @app.cell
