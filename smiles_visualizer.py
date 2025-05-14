@@ -385,10 +385,23 @@ def _(mo):
 
 
 @app.cell
-def _(mo, openai, text_input):
-    # openai.api_key = "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"
+def _(__file__, load_dotenv, os):
+    env_path = os.path.join(os.path.dirname(__file__), ".env")
+    load_dotenv(dotenv_path=env_path)
+    return (env_path,)
+
+
+@app.cell
+def _(os):
+    'TOGETHER_API_KEY' in str(os.environ)
+    TOGETHER_KEY = os.getenv("TOGETHER_API_KEY")
+    return (TOGETHER_KEY,)
+
+
+@app.cell
+def _(TOGETHER_KEY, mo, openai, text_input):
     client = openai.OpenAI(
-        api_key="35899148d64fa84c60d78a0c6ad802d100d8754bfb5ef6a4d04fad01b7088290",
+        api_key=TOGETHER_KEY,
         base_url="https://api.together.xyz/v1"
     )
 
