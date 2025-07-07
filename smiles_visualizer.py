@@ -26,10 +26,15 @@ def simple_ui():
     from typing import List
     from jinja2 import Template
     import re
+
+    from io import BytesIO
+
+    import ast
     return (
         AllChem,
         Anthropic,
         BaseModel,
+        BytesIO,
         Chem,
         Draw,
         HTML,
@@ -37,6 +42,7 @@ def simple_ui():
         List,
         Template,
         alt,
+        ast,
         base64,
         display,
         instructor,
@@ -53,8 +59,39 @@ def simple_ui():
 
 @app.cell
 def _(pd):
-    raw_data_df = pd.read_csv("umap_compound_smiles.csv")
+    small_molecule_df = pd.read_csv("small_molecule.csv")
     # raw_data_df
+    return (small_molecule_df,)
+
+
+@app.cell
+def _(pd):
+    # protein_embedding_df = pd.read_csv("protein_embeddings.csv")
+    protein_embedding_df = pd.read_csv("sequence_embeddings.csv")
+    protein_embedding_df.drop('embedding', axis=1, inplace=True)
+    return (protein_embedding_df,)
+
+
+@app.cell
+def _(display):
+    display('Select the type of graph')
+    return
+
+
+@app.cell
+def _(mo):
+    dropdown = mo.ui.dropdown(["small molecule centric", "protein centric"])
+    dropdown
+    return (dropdown,)
+
+
+@app.cell
+def _(dropdown, pd, protein_embedding_df, small_molecule_df):
+    raw_data_df = pd.DataFrame()
+    if dropdown.value == "small molecule centric":
+        raw_data_df = small_molecule_df.copy()
+    elif dropdown.value == "protein centric":
+        raw_data_df = protein_embedding_df.copy()
     return (raw_data_df,)
 
 
@@ -67,14 +104,24 @@ def _(pd, raw_data_df):
 
     data_df = raw_data_df.merge(chebi_df, left_on="ChEBI ID", right_on="ID", how="left")
     data_df = data_df.rename(columns={"NAME": "Compound"}).drop(columns=["ID"])
-    data_df = data_df.drop("SMILES_clean", axis=1)
+    # data_df = data_df.drop("SMILES_clean", axis=1)
     return chebi_df, data_df
+
+
+@app.cell
+def _(data_df):
+    data_df['ChEBI ID'] = data_df['ChEBI ID'].apply(
+        lambda x: x[2:-2] if isinstance(x, str) and x.startswith("['") and x.endswith("']") else x
+    )
+
+    # data_df.head()
+    return
 
 
 @app.cell
 def _(KMeans, data_df):
     #Clustering - Number of clusters
-    kmeans = KMeans(n_clusters=15, random_state=42)
+    kmeans = KMeans(n_clusters=5, random_state=42)
     clusters = kmeans.fit_predict(data_df[['UMAP_1', 'UMAP_2']])
     data_df['clusters'] = clusters
     return clusters, kmeans
@@ -98,21 +145,14 @@ def _(alt):
 @app.cell
 def _(mo):
     checkbox = mo.ui.checkbox(label="Toggle Pan")
-    checkbox
     return (checkbox,)
 
 
 @app.cell
 def _(checkbox, data_df, mo, scatter):
     chart = mo.ui.altair_chart(scatter(data_df, checkbox.value))
-    chart
+    chart, checkbox
     return (chart,)
-
-
-@app.cell
-def _():
-    # table.value.index
-    return
 
 
 @app.cell
@@ -123,93 +163,161 @@ def _(chart, mo):
 
 
 @app.cell
-def _(Chem, Draw, HTML, chebi_df, display, pd, table):
+def _(BytesIO, Draw, base64, chebi_df):
+    # Helper to convert RDKit image to base64 HTML
+
     # Setup: Lookup dictionary for ChEBI names
     chebi_df["ID"] = chebi_df["ID"].astype(str).str.strip()
     chebi_lookup = dict(zip(chebi_df["ID"], chebi_df["NAME"]))
 
     # Font and image settings
-    width, height = 400, 400  # smaller individual molecule image size
-    mols_per_row = 2          # better readability
+    width, height = 400, 400  # individual molecule image size
 
-    # Loop through each row in your table
-    for _, row in table.value.iterrows():
-        smile_val = row["SMILES"]
-        chebi_val = row["ChEBI ID"]
-        protein_name = row.get("Protein names", "[No Protein Name]")
-        entry_name = row.get("Entry Name", "[No Entry Name]")
-        organism_name = row.get("Organism", "[No Organism Name]")
-
-        if pd.isna(smile_val) or pd.isna(chebi_val):
-            continue
-
-        # Display protein name above molecule(s)
-        display(HTML(f"<h3 style='font-size:23px;'><strong>Protein Name:</strong> {protein_name}</h3>"))
-        display(HTML(f"<h3 style='font-size:23px;'><strong>Entry Name:</strong> {entry_name}</h3>"))
-        display(HTML(f"<h3 style='font-size:23px;'><strong>Organism:</strong> {organism_name}</h3>"))
-
-
-
-
-        if ";" in smile_val:
-            smile_parts = [s.strip() for s in smile_val.split(";")]
-            chebi_parts = [c.strip() for c in chebi_val.split(";")]
-
-            # Convert SMILES → RDKit Mol
-            molecules = [Chem.MolFromSmiles(smi) for smi in smile_parts]
-
-            # Get names using ChEBI lookup
-            compound_names = [chebi_lookup.get(cid, f"[Unknown: {cid}]") for cid in chebi_parts]
-
-            # Draw molecules with legends
-            img = Draw.MolsToGridImage(
-                molecules,
-                molsPerRow=mols_per_row,
-                subImgSize=(width, height),
-                legends=compound_names,
-                legendFontSize=24
-            )
-            display(img)
-            display(HTML("<hr style='border:1px solid #ccc;'>"))
-
-        else:
-            molecule = Chem.MolFromSmiles(smile_val)
-            chebi_id = str(chebi_val).strip()
-            compound_name = chebi_lookup.get(chebi_id, f"[Unknown: {chebi_id}]")
-
-            img = Draw.MolToImage(molecule, size=(width, height), legend=compound_name)
-            display(img)
-            display(HTML("<hr style='border:1px solid #ccc;'>"))
+    max_scroll_height = 200   # scroll box height
+    mols_per_row = 2          # readability
+    def mols_to_base64_html(molecules, legends=None, mols_per_row=mols_per_row):
+        img = Draw.MolsToGridImage(
+            molecules,
+            molsPerRow=mols_per_row,
+            subImgSize=(width, height),
+            legends=legends,
+            legendFontSize=24
+        )
+        buffer = BytesIO()
+        img.save(buffer, format="PNG")
+        b64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
+        return f'<img src="data:image/png;base64,{b64}" />'
     return (
-        chebi_id,
         chebi_lookup,
-        chebi_parts,
-        chebi_val,
-        compound_name,
-        compound_names,
-        entry_name,
         height,
-        img,
-        molecule,
-        molecules,
+        max_scroll_height,
         mols_per_row,
-        organism_name,
-        protein_name,
-        row,
-        smile_parts,
-        smile_val,
+        mols_to_base64_html,
         width,
     )
 
 
 @app.cell
 def _():
-    return
+    def counter(protein_list):
+        items = []
+        for i, p in enumerate(set(protein_list), start=1):
+            # give each <li> some bottom margin for a blank line effect
+            items.append(
+              f'<li style="margin-bottom:15px;">'
+              f'<b>{i}</b>. {p}'
+              '</li>'
+            )
+        return "".join(items)
+    return (counter,)
 
 
 @app.cell
-def _(mo):
-    button = mo.ui.run_button(label = "Generate 3D Structures")
+def _(
+    Chem,
+    HTML,
+    ast,
+    chebi_lookup,
+    counter,
+    display,
+    dropdown,
+    max_scroll_height,
+    mols_to_base64_html,
+):
+    def display_compound_with_scroll(smile_val, chebi_val, proteins):
+        """
+        Render one SMILES entry as:
+         • An RDKit-drawn grid of molecule images (with legends from ChEBI)
+         • A fixed-height, scrollable box listing the associated proteins,
+           each numbered.
+        """
+        # 1) Normalize & dedupe proteins
+        if len(proteins) == 1 and isinstance(proteins[0], str) and ";" in proteins[0]:
+            # split on semicolons
+            proteins = [p.strip() for p in proteins[0].split(";")]
+
+        seen = set()
+        clean_proteins = []
+        for p in proteins:
+            if p not in seen:
+                seen.add(p)
+                clean_proteins.append(p)
+
+        # 2) Prepare molecule images
+        smile_parts = [s.strip() for s in smile_val.split(";")]
+        mols = [Chem.MolFromSmiles(s) for s in smile_parts]
+        chebi_ids = [c.strip() for c in chebi_val.split(";")]
+        legends = [chebi_lookup.get(cid, f"[Unknown:{cid}]") for cid in chebi_ids]
+        img_html = mols_to_base64_html(mols, legends)
+
+        # 3) Build the numbered <ul>
+        # clean proteins = list(clean_proteins)
+        if dropdown.value == 'small molecule centric':
+            clean_proteins = ast.literal_eval(clean_proteins[0])
+        # print(clean_proteins)
+        protein_items = counter(clean_proteins)
+        protein_list_html = f"<ul>{protein_items}</ul>"
+
+        # 4) Wrap in a scroll box
+        scroll_box = f"""
+          <div style="
+             max-height: {max_scroll_height}px;
+             overflow-y: auto;
+             border: 1px solid #ccc;
+             padding: 8px;
+             width: 350px;
+             background: #fafafa;
+             word-wrap: break-word;
+          ">
+            {protein_list_html}
+          </div>
+        """
+
+        # 5) Compose the final flex layout + separator
+        html = f"""
+        <div style="
+          display: flex;
+          gap: 20px;
+          align-items: flex-start;
+          margin-bottom: 24px;
+        ">
+          <div>{img_html}</div>
+          <div>
+            <div style="font-size:16px; margin-bottom:4px;">
+              <strong>Proteins:</strong> (scroll)
+            </div>
+
+            {scroll_box}
+          </div>
+        </div>
+        """
+
+        display(HTML(html))
+    return (display_compound_with_scroll,)
+
+
+@app.cell
+def _(HTML, display, display_compound_with_scroll, pd, table):
+    # Loop through each row in your table
+    for _, row in table.value.iterrows():
+        smile_val = row["SMILES"]
+        chebi_val = row["ChEBI ID"]
+        proteins = row.get("Protein names", [])
+        if isinstance(proteins, str):
+            proteins = [proteins]
+
+        if pd.isna(smile_val) or pd.isna(chebi_val):
+            continue
+
+        display_compound_with_scroll(smile_val, chebi_val, proteins)
+        display(HTML('<hr style="border:1px solid #ccc; margin:16px 0;">'))
+    return chebi_val, proteins, row, smile_val
+
+
+@app.cell
+def _(dropdown, mo):
+    if len(dropdown.value)>0:
+        button = mo.ui.run_button(label = "Generate 3D Structures")
     button
     return (button,)
 

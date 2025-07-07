@@ -61,13 +61,10 @@ ID,NAME
 50593,3-dehydro-4-methylzymosterol
 52972,"ergosta-5,7,24(28)-trien-3beta-ol"
 52973,ergosteryl 3-beta-D-glucoside
-57379,palmitoyl-CoA(4-)
 58301,taurolithocholic acid sulfate(2-)
-58342,acyl-CoA(4-)
 58387,3beta-hydroxy-4beta-methyl-5alpha-cholest-7-ene-4alpha-carboxylate
 57525,dolichyl beta-D-glucosyl phosphate(1-)
 57529,17alpha-estradiol 3-glucosiduronate
-57783,NADPH(4-)
 57905,dehydroepiandrosterone sulfate(1-)
 63692,"9,17-dioxo-1,2,3,4,10,19-hexanorandrostan-5-oate"
 62117,6beta-hydroxyprogesterone
@@ -96,7 +93,6 @@ ID,NAME
 78605,7-oxolithocholate
 78602,isoursodeoxycholate
 78603,3beta-hydroxy-7-oxo-5beta-cholan-24-oate
-72956,N-dodecanoylsphingosine
 78666,5beta-pregnan-20alpha-ol-3-one
 78595,21-dehydrocortisol
 78601,"11,21-dioxoprogesterone"
@@ -111,7 +107,6 @@ ID,NAME
 72331,(22S)-22-hydroxycampesterol
 79834,"3beta-hydroxy-5alpha-androstane-7,17-dione"
 71550,lathosterone
-73432,beta-D-galactosyl-N-(dodecanoyl)sphingosine
 76591,"(25R)-cholest-5-ene-3beta,26-diol"
 78594,5alpha-pregan-20beta-ol-3-one
 78596,21-dehydrocortisone
@@ -119,7 +114,6 @@ ID,NAME
 71541,(25S)-Delta(4)-dafachronate
 71542,(25S)-Delta(7)-dafachronate
 76592,"(25R)-7alpha,26-dihydroxycholesterol"
-71407,3-oxooctadecanoyl-CoA(4-)
 78904,"4,4-dimethyl-8,14-cholestadien-3beta-ol"
 80401,"(22R,23R)-22,23-dihydroxycampesterol"
 80402,"(22R,23R)-22,23-dihydroxycampest-4-en-3-one"
@@ -311,7 +305,6 @@ ID,NAME
 138842,3alpha-hydroxy bile acid CoA thioester(4-)
 138843,3-oxo bile acid CoA thioester(4-)
 138974,mogrol
-139140,beta-D-glucosyl-N-(oleoyl)sphingosine
 139269,6beta-hydroxycortisone
 139271,6beta-hydroxycortisol
 139311,20beta-dihydrocortisol
@@ -444,20 +437,15 @@ ID,NAME
 9407,taurochenodeoxycholate
 11901,"3alpha,7alpha-dihydroxy-12-oxo-5beta-cholanate"
 13601,3-oxo-5alpha-steroid
-15377,water
-15378,hydron
 15826,16alpha-hydroxyprogesterone
 15889,sterol
-15994,"5alpha-androstane-3,17-dione"
 16032,androsterone
 16074,5beta-cholestan-3-one
 16113,cholesterol
 16175,cholest-4-en-3-one
 16229,3beta-hydroxy-5beta-pregnan-20-one
 16290,"5alpha-cholesta-7,24-dien-3beta-ol"
-16330,17beta-hydroxy-5alpha-androstan-3-one
 16418,"(20S)-17,20-dihydroxypregn-4-en-3-one"
-16422,"androst-4-ene-3,17-dione"
 16455,"4,4-dimethyl-5alpha-cholest-7-en-3beta-ol"
 16469,17beta-estradiol
 16485,18-hydroxycorticosterone
@@ -482,13 +470,11 @@ ID,NAME
 17179,taurolithocholate
 17252,17alpha-hydroxyprogesterone
 17263,estrone
-17347,testosterone
 17495,cholesteryl beta-D-glucoside
 17500,7alpha-hydroxycholesterol
 17650,cortisol
 17703,26-hydroxycholesterol
 17737,desmosterol
-17759,"cholesta-5,7-dien-3beta-ol"
 17792,organohalogen compound
 17813,"4,4-dimethyl-5alpha-cholesta-8,14,24-trien-3beta-ol"
 17899,7alpha-hydroxycholest-4-en-3-one
@@ -523,7 +509,6 @@ ID,NAME
 28952,"5alpha-pregnane-3,20-dione"
 28955,2-methoxy-17beta-estradiol
 29107,24-methylidenelophenol
-29744,lithocholate
 29746,glycocholate
 29747,cholate
 30154,"5beta-pregnane-3,20-dione"
