@@ -138,7 +138,7 @@ def _(alt):
                 y=alt.Y("UMAP_2:Q"),
                 color=alt.Color("clusters:N")
             )
-            ).add_params(selection)
+            ).add_params(selection).properties(width = 800, height = 600)
     return (scatter,)
 
 
