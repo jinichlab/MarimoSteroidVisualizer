@@ -151,8 +151,14 @@ def _(mo):
 @app.cell
 def _(checkbox, data_df, mo, scatter):
     chart = mo.ui.altair_chart(scatter(data_df, checkbox.value))
-    chart, checkbox
+    chart
     return (chart,)
+
+
+@app.cell
+def _(checkbox):
+    checkbox
+    return
 
 
 @app.cell
@@ -274,23 +280,42 @@ def _(
         """
 
         # 5) Compose the final flex layout + separator
-        html = f"""
-        <div style="
-          display: flex;
-          gap: 20px;
-          align-items: flex-start;
-          margin-bottom: 24px;
-        ">
-          <div>{img_html}</div>
-          <div>
-            <div style="font-size:16px; margin-bottom:4px;">
-              <strong>Proteins:</strong> (scroll)
+        if dropdown.value == "small molecule centric":
+            html = f"""
+            <div style="
+              display: flex;
+              gap: 20px;
+              align-items: flex-start;
+              margin-bottom: 24px;
+            ">
+              <div>{img_html}</div>
+              <div>
+                <div style="font-size:16px; margin-bottom:4px;">
+                  <strong>Proteins:</strong> (scroll)
+                </div>
+        
+                {scroll_box}
+              </div>
             </div>
-
-            {scroll_box}
-          </div>
-        </div>
-        """
+            """
+        elif dropdown.value == "protein centric":
+            html = f"""
+            <div style="
+              display: flex;
+              gap: 20px;
+              align-items: flex-start;
+              margin-bottom: 24px;
+            ">
+              <div>{img_html}</div>
+              <div>
+                <div style="font-size:16px; margin-bottom:4px;">
+                  <strong>Proteins:</strong>
+                </div>
+        
+                {scroll_box}
+              </div>
+            </div>
+            """
 
         display(HTML(html))
     return (display_compound_with_scroll,)
