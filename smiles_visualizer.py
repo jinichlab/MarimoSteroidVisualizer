@@ -1,6 +1,6 @@
 import marimo
 
-__generated_with = "0.10.2"
+__generated_with = "0.14.10"
 app = marimo.App(width="medium")
 
 
@@ -10,8 +10,8 @@ def simple_ui():
     import pandas as pd
     from sklearn.cluster import KMeans
     import altair as alt
-    from rdkit import Chem
-    from rdkit.Chem import AllChem, Draw, rdmolfiles
+    # from rdkit import Chem
+    # from rdkit.Chem import AllChem, Draw, rdmolfiles
     from IPython.display import display, HTML
     import base64
     import py3Dmol
@@ -31,28 +31,21 @@ def simple_ui():
 
     import ast
     return (
-        AllChem,
-        Anthropic,
         BaseModel,
         BytesIO,
-        Chem,
-        Draw,
         HTML,
         KMeans,
         List,
-        Template,
         alt,
         ast,
         base64,
         display,
-        instructor,
         load_dotenv,
         mo,
         openai,
         os,
         pd,
         py3Dmol,
-        rdmolfiles,
         re,
     )
 
@@ -83,6 +76,44 @@ def _(mo):
     dropdown = mo.ui.dropdown(["small molecule centric", "protein centric"])
     dropdown
     return (dropdown,)
+
+
+@app.cell
+def _(pd):
+    full_chebi_df = pd.read_csv("compounds.tsv", sep="\t", encoding="ISO-8859-1", usecols=["ID", "NAME"])
+    return (full_chebi_df,)
+
+
+@app.cell
+def _(full_chebi_df):
+    full_chebi_df['ID'] = full_chebi_df['ID'].apply(lambda x: int(x))
+    return
+
+
+@app.cell
+def _(ast, full_chebi_df, small_molecule_df):
+    # Select relevant columns
+    small_molecule_names = small_molecule_df[['SMILES', 'ChEBI ID']].copy()
+
+    # Safely extract the number from the string list
+    small_molecule_names['ChEBI ID'] = small_molecule_names['ChEBI ID'].apply(
+        lambda x: int(ast.literal_eval(x)[0])
+    )
+
+    # Now merge with full_chebi_df
+    merged_df = small_molecule_names.merge(
+        full_chebi_df,
+        left_on='ChEBI ID',
+        right_on='ID',
+        how='left'
+    )
+    return (merged_df,)
+
+
+@app.cell
+def _(merged_df):
+    merged_df[['SMILES', 'ChEBI ID', 'NAME']].to_csv('small_molecules_names.csv')
+    return
 
 
 @app.cell
@@ -124,7 +155,7 @@ def _(KMeans, data_df):
     kmeans = KMeans(n_clusters=5, random_state=42)
     clusters = kmeans.fit_predict(data_df[['UMAP_1', 'UMAP_2']])
     data_df['clusters'] = clusters
-    return clusters, kmeans
+    return
 
 
 @app.cell
@@ -193,29 +224,20 @@ def _(BytesIO, Draw, base64, chebi_df):
         img.save(buffer, format="PNG")
         b64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
         return f'<img src="data:image/png;base64,{b64}" />'
-    return (
-        chebi_lookup,
-        height,
-        max_scroll_height,
-        mols_per_row,
-        mols_to_base64_html,
-        width,
-    )
+    return chebi_lookup, max_scroll_height, mols_to_base64_html
 
 
-@app.cell
-def _():
-    def counter(protein_list):
-        items = []
-        for i, p in enumerate(set(protein_list), start=1):
-            # give each <li> some bottom margin for a blank line effect
-            items.append(
-              f'<li style="margin-bottom:15px;">'
-              f'<b>{i}</b>. {p}'
-              '</li>'
-            )
-        return "".join(items)
-    return (counter,)
+@app.function
+def counter(protein_list):
+    items = []
+    for i, p in enumerate(set(protein_list), start=1):
+        # give each <li> some bottom margin for a blank line effect
+        items.append(
+          f'<li style="margin-bottom:15px;">'
+          f'<b>{i}</b>. {p}'
+          '</li>'
+        )
+    return "".join(items)
 
 
 @app.cell
@@ -224,7 +246,6 @@ def _(
     HTML,
     ast,
     chebi_lookup,
-    counter,
     display,
     dropdown,
     max_scroll_height,
@@ -293,7 +314,7 @@ def _(
                 <div style="font-size:16px; margin-bottom:4px;">
                   <strong>Proteins:</strong> (scroll)
                 </div>
-        
+
                 {scroll_box}
               </div>
             </div>
@@ -311,7 +332,7 @@ def _(
                 <div style="font-size:16px; margin-bottom:4px;">
                   <strong>Proteins:</strong>
                 </div>
-        
+
                 {scroll_box}
               </div>
             </div>
@@ -336,7 +357,7 @@ def _(HTML, display, display_compound_with_scroll, pd, table):
 
         display_compound_with_scroll(smile_val, chebi_val, proteins)
         display(HTML('<hr style="border:1px solid #ccc; margin:16px 0;">'))
-    return chebi_val, proteins, row, smile_val
+    return
 
 
 @app.cell
@@ -348,17 +369,7 @@ def _(dropdown, mo):
 
 
 @app.cell
-def _(
-    AllChem,
-    Chem,
-    base64,
-    button,
-    chebi_df,
-    pd,
-    py3Dmol,
-    rdmolfiles,
-    table,
-):
+def _(AllChem, Chem, base64, button, chebi_df, pd, py3Dmol, rdmolfiles, table):
     # 1. Build ChEBI ID → Name dictionary (safe var name)
     chebi_name_lookup = dict(zip(chebi_df["ID"].astype(str).str.strip(), chebi_df["NAME"]))
 
@@ -428,32 +439,7 @@ def _(
         """
         mol3d_b64_html = base64.b64encode(mol3d_html_code.encode()).decode()
         mol3d_download_link = f'<a download="3D_rhea_compounds.html" href="data:text/html;base64,{mol3d_b64_html}">Download 3D Viewer HTML</a>'
-    return (
-        chebi_name_lookup,
-        cid,
-        col_idx,
-        i,
-        label,
-        mol,
-        mol3d_b64_html,
-        mol3d_chebi_ids,
-        mol3d_chebi_parts,
-        mol3d_chebi_str,
-        mol3d_download_link,
-        mol3d_html_code,
-        mol3d_pdb_data,
-        mol3d_rows,
-        mol3d_selected_chebis,
-        mol3d_selected_smiles,
-        mol3d_smi_parts,
-        mol3d_smi_str,
-        mol3d_smiles_list,
-        mol3d_total,
-        mol3d_viewer,
-        pdb,
-        row_idx,
-        smi,
-    )
+    return (mol3d_download_link,)
 
 
 @app.cell
@@ -481,13 +467,7 @@ def _(chebi_df, data_df):
 
     # 5. Write to CSV
     chebi_subset.to_csv("chebi_lookup_minimal.csv", index=False)
-    return (
-        all_chebi_ids,
-        chebi_id_list,
-        chebi_subset,
-        entry,
-        unique_chebi_ids,
-    )
+    return
 
 
 @app.cell
@@ -501,7 +481,7 @@ def _(BaseModel, List):
         summary: str
         highlights: List[str]
         tldr: str
-    return (OutputFormat,)
+    return
 
 
 @app.cell
@@ -518,12 +498,12 @@ def _(mo):
 
 
 @app.cell
-def _(__file__, load_dotenv, os):
+def _(load_dotenv, os):
     env_path = os.path.join(os.path.dirname(__file__), ".env")
     load_dotenv(dotenv_path=env_path)
     'TOGETHER_API_KEY' in str(os.environ)
     TOGETHER_KEY = os.getenv("TOGETHER_API_KEY")
-    return TOGETHER_KEY, env_path
+    return (TOGETHER_KEY,)
 
 
 @app.cell
@@ -559,7 +539,7 @@ def _(TOGETHER_KEY, mo, openai, text_input):
         rendered = "⚠️ No input provided."
 
     # output_text  # ← Add this so the next cell can access it
-    return client, output_text, rendered, response
+    return (output_text,)
 
 
 @app.cell
@@ -587,7 +567,7 @@ def _(mo, output_text, re):
     """ if len(main_content) + len(summary) > 0 else ""
 
     mo.md(formatted_output)
-    return formatted_output, main_content, match, summary
+    return
 
 
 @app.cell
