@@ -1,6 +1,6 @@
 import marimo
 
-__generated_with = "0.14.10"
+__generated_with = "0.14.12"
 app = marimo.App(width="medium")
 
 
@@ -10,8 +10,8 @@ def simple_ui():
     import pandas as pd
     from sklearn.cluster import KMeans
     import altair as alt
-    # from rdkit import Chem
-    # from rdkit.Chem import AllChem, Draw, rdmolfiles
+    from rdkit import Chem
+    from rdkit.Chem import AllChem, Draw, rdmolfiles
     from IPython.display import display, HTML
     import base64
     import py3Dmol
@@ -26,13 +26,17 @@ def simple_ui():
     from typing import List
     from jinja2 import Template
     import re
+    import pyarrow
 
     from io import BytesIO
 
     import ast
     return (
+        AllChem,
         BaseModel,
         BytesIO,
+        Chem,
+        Draw,
         HTML,
         KMeans,
         List,
@@ -46,8 +50,26 @@ def simple_ui():
         os,
         pd,
         py3Dmol,
+        rdmolfiles,
         re,
     )
+
+
+@app.cell
+def _():
+    import requests
+    def get_uniprot_entry(uniprot_id):
+        url = f"https://rest.uniprot.org/uniprotkb/{uniprot_id}.json"
+        response = requests.get(url)
+        if response.status_code != 200:
+            raise Exception("Failed to fetch UniProt data")
+        return response.json()
+
+    # Example usage
+    ent = get_uniprot_entry("P12345")
+    print(ent["organism"]["scientificName"])
+    print(ent["sequence"]["value"])
+    return
 
 
 @app.cell
@@ -117,44 +139,41 @@ def _(merged_df):
 
 
 @app.cell
-def _(dropdown, pd, protein_embedding_df, small_molecule_df):
+def _(ast, dropdown, pd, protein_embedding_df, small_molecule_df):
+    # chebi_df = pd.read_csv("compounds.tsv", sep="\t", encoding="ISO-8859-1", usecols=["ID", "NAME"])
+    chebi_df = pd.read_csv("chebi_lookup_minimal.csv")
+    chebi_df["ID"] = chebi_df["ID"].astype(int)
+
     raw_data_df = pd.DataFrame()
     if dropdown.value == "small molecule centric":
         raw_data_df = small_molecule_df.copy()
+        raw_data_df['ChEBI ID'] = raw_data_df['ChEBI ID'].apply(lambda x: int(ast.literal_eval(x)[0]))
+        data_df = raw_data_df.merge(chebi_df, left_on="ChEBI ID", right_on="ID", how="left")
+        data_df = data_df.rename(columns={"NAME": "Compound"}).drop(columns=["ID"])
     elif dropdown.value == "protein centric":
-        raw_data_df = protein_embedding_df.copy()
-    return (raw_data_df,)
-
-
-@app.cell
-def _(pd, raw_data_df):
-    # chebi_df = pd.read_csv("compounds.tsv", sep="\t", encoding="ISO-8859-1", usecols=["ID", "NAME"])
-    chebi_df = pd.read_csv("chebi_lookup_minimal.csv")
-    chebi_df["ID"] = chebi_df["ID"].astype(str)
-    raw_data_df["ChEBI ID"] = raw_data_df["ChEBI ID"].astype(str)
-
-    data_df = raw_data_df.merge(chebi_df, left_on="ChEBI ID", right_on="ID", how="left")
-    data_df = data_df.rename(columns={"NAME": "Compound"}).drop(columns=["ID"])
-    # data_df = data_df.drop("SMILES_clean", axis=1)
+        data_df = protein_embedding_df.copy()
     return chebi_df, data_df
 
 
-@app.cell
-def _(data_df):
-    data_df['ChEBI ID'] = data_df['ChEBI ID'].apply(
-        lambda x: x[2:-2] if isinstance(x, str) and x.startswith("['") and x.endswith("']") else x
-    )
+@app.class_definition
+class SkipCell(Exception):
+    pass
 
-    # data_df.head()
+
+@app.cell
+def _(data_df, display, dropdown):
+    if dropdown.value != None:
+        display(data_df)
     return
 
 
 @app.cell
-def _(KMeans, data_df):
+def _(KMeans, data_df, dropdown):
     #Clustering - Number of clusters
-    kmeans = KMeans(n_clusters=5, random_state=42)
-    clusters = kmeans.fit_predict(data_df[['UMAP_1', 'UMAP_2']])
-    data_df['clusters'] = clusters
+    if dropdown.value !=None:
+        kmeans = KMeans(n_clusters=5, random_state=42)
+        clusters = kmeans.fit_predict(data_df[['UMAP_1', 'UMAP_2']])
+        data_df['clusters'] = clusters
     return
 
 
@@ -180,9 +199,10 @@ def _(mo):
 
 
 @app.cell
-def _(checkbox, data_df, mo, scatter):
-    chart = mo.ui.altair_chart(scatter(data_df, checkbox.value))
-    chart
+def _(checkbox, data_df, display, dropdown, mo, scatter):
+    if dropdown.value != None:
+        chart = mo.ui.altair_chart(scatter(data_df, checkbox.value))
+        display(chart)
     return (chart,)
 
 
@@ -193,14 +213,15 @@ def _(checkbox):
 
 
 @app.cell
-def _(chart, mo):
-    table = mo.ui.table(chart.value)
-    table
+def _(chart, display, dropdown, mo):
+    if dropdown.value != None:
+        table = mo.ui.table(chart.value)
+        display(table)
     return (table,)
 
 
-@app.cell
-def _(BytesIO, Draw, base64, chebi_df):
+@app.cell(hide_code=True)
+def rdkittohtml(BytesIO, Draw, base64, chebi_df):
     # Helper to convert RDKit image to base64 HTML
 
     # Setup: Lookup dictionary for ChEBI names
@@ -227,7 +248,7 @@ def _(BytesIO, Draw, base64, chebi_df):
     return chebi_lookup, max_scroll_height, mols_to_base64_html
 
 
-@app.function
+@app.function(hide_code=True)
 def counter(protein_list):
     items = []
     for i, p in enumerate(set(protein_list), start=1):
@@ -240,7 +261,7 @@ def counter(protein_list):
     return "".join(items)
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(
     Chem,
     HTML,
@@ -251,38 +272,48 @@ def _(
     max_scroll_height,
     mols_to_base64_html,
 ):
-    def display_compound_with_scroll(smile_val, chebi_val, proteins):
+    def display_compound_with_scroll(smile_val, chebi_val, proteins, entries):
         """
         Render one SMILES entry as:
          • An RDKit-drawn grid of molecule images (with legends from ChEBI)
-         • A fixed-height, scrollable box listing the associated proteins,
-           each numbered.
+         • A fixed-height, scrollable box listing the associated proteins with Entries
         """
-        # 1) Normalize & dedupe proteins
+        # 1) Normalize & dedupe proteins + entries
         if len(proteins) == 1 and isinstance(proteins[0], str) and ";" in proteins[0]:
-            # split on semicolons
             proteins = [p.strip() for p in proteins[0].split(";")]
+        if len(entries) == 1 and isinstance(entries[0], str) and ";" in entries[0]:
+            entries = [e.strip() for e in entries[0].split(";")]
 
+        # Deduplicate by (protein, entry) pair
         seen = set()
-        clean_proteins = []
-        for p in proteins:
-            if p not in seen:
-                seen.add(p)
-                clean_proteins.append(p)
+        paired = []
+        for prot, entry in zip(proteins, entries):
+            key = (prot.strip(), entry.strip())
+            if key not in seen:
+                seen.add(key)
+                paired.append(key)
 
         # 2) Prepare molecule images
-        smile_parts = [s.strip() for s in smile_val.split(";")]
+        smile_parts = [s.strip() for s in str(smile_val).split(";")]
         mols = [Chem.MolFromSmiles(s) for s in smile_parts]
-        chebi_ids = [c.strip() for c in chebi_val.split(";")]
+        chebi_ids = [c.strip() for c in str(chebi_val).split(";")]
         legends = [chebi_lookup.get(cid, f"[Unknown:{cid}]") for cid in chebi_ids]
         img_html = mols_to_base64_html(mols, legends)
 
         # 3) Build the numbered <ul>
-        # clean proteins = list(clean_proteins)
-        if dropdown.value == 'small molecule centric':
-            clean_proteins = ast.literal_eval(clean_proteins[0])
-        # print(clean_proteins)
-        protein_items = counter(clean_proteins)
+        if dropdown.value == 'small molecule centric' and isinstance(paired[0][0], str):
+            paired = [ast.literal_eval(p) if isinstance(p, str) else p for p in paired]
+
+        protein_items = ""
+        for i, (prot, entry) in enumerate(paired, 1):
+            protein_items += f"""
+            <li style="margin-bottom: 12px;">
+                <strong>{i}.</strong> <strong>Entry:</strong> {entry}<br> <strong>Name:</strong> {prot} <br><a href="https://alphafold.ebi.ac.uk/entry/{entry}"
+               target="_blank"
+               style="color: #1a73e8; text-decoration: underline;">
+               AlphaFold Structure
+            </a>
+            """
         protein_list_html = f"<ul>{protein_items}</ul>"
 
         # 4) Wrap in a scroll box
@@ -300,173 +331,183 @@ def _(
           </div>
         """
 
-        # 5) Compose the final flex layout + separator
-        if dropdown.value == "small molecule centric":
-            html = f"""
-            <div style="
-              display: flex;
-              gap: 20px;
-              align-items: flex-start;
-              margin-bottom: 24px;
-            ">
-              <div>{img_html}</div>
-              <div>
-                <div style="font-size:16px; margin-bottom:4px;">
-                  <strong>Proteins:</strong> (scroll)
-                </div>
-
-                {scroll_box}
-              </div>
+        # 5) Compose the final layout
+        html = f"""
+        <div style="
+          display: flex;
+          gap: 20px;
+          align-items: flex-start;
+          margin-bottom: 24px;
+        ">
+          <div>{img_html}</div>
+          <div>
+            <div style="font-size:16px; margin-bottom:4px;">
+              <strong>Proteins:</strong> (scroll)
             </div>
-            """
-        elif dropdown.value == "protein centric":
-            html = f"""
-            <div style="
-              display: flex;
-              gap: 20px;
-              align-items: flex-start;
-              margin-bottom: 24px;
-            ">
-              <div>{img_html}</div>
-              <div>
-                <div style="font-size:16px; margin-bottom:4px;">
-                  <strong>Proteins:</strong>
-                </div>
-
-                {scroll_box}
-              </div>
-            </div>
-            """
-
+            {scroll_box}
+          </div>
+        </div>
+        """
         display(HTML(html))
+
     return (display_compound_with_scroll,)
 
 
 @app.cell
-def _(HTML, display, display_compound_with_scroll, pd, table):
-    # Loop through each row in your table
-    for _, row in table.value.iterrows():
-        smile_val = row["SMILES"]
-        chebi_val = row["ChEBI ID"]
-        proteins = row.get("Protein names", [])
-        if isinstance(proteins, str):
-            proteins = [proteins]
+def _(HTML, ast, display, display_compound_with_scroll, dropdown, pd, table):
 
-        if pd.isna(smile_val) or pd.isna(chebi_val):
-            continue
+    if dropdown.value != None:
+        # Loop through each row in your table
+        for _, row in table.value.iterrows():
+            smile_val = row["SMILES"]
+            chebi_val = row["ChEBI ID"]
 
-        display_compound_with_scroll(smile_val, chebi_val, proteins)
-        display(HTML('<hr style="border:1px solid #ccc; margin:16px 0;">'))
+            proteins = row.get("Protein names", [])
+            entries = row.get("Entry", [])
+
+            # Handle semicolon-delimited or stringified lists
+            if dropdown.value == "small molecule centric":
+                if isinstance(proteins, str):
+                    proteins = ast.literal_eval(proteins)
+                if isinstance(entries, str):
+                    entries = ast.literal_eval(entries)
+            else:
+                if isinstance(proteins, str):
+                    proteins = [p.strip() for p in proteins.split(";")]
+                if isinstance(entries, str):
+                    entries = [e.strip() for e in entries.split(";")]
+
+            if pd.isna(smile_val) or pd.isna(chebi_val):
+                continue
+
+            display_compound_with_scroll(smile_val, chebi_val, proteins, entries)
+            display(HTML('<hr style="border:1px solid #ccc; margin:16px 0;">'))
+
     return
 
 
 @app.cell
-def _(dropdown, mo):
-    if len(dropdown.value)>0:
-        button = mo.ui.run_button(label = "Generate 3D Structures")
-    button
+def _(display, dropdown, mo):
+    if dropdown.value != None:
+        if len(dropdown.value)>0:
+            button = mo.ui.run_button(label = "Generate Small molecule 3D Structures")
+        display(button)
     return (button,)
 
 
 @app.cell
-def _(AllChem, Chem, base64, button, chebi_df, pd, py3Dmol, rdmolfiles, table):
+def _(
+    AllChem,
+    Chem,
+    base64,
+    button,
+    chebi_df,
+    dropdown,
+    pd,
+    py3Dmol,
+    rdmolfiles,
+    table,
+):
+    if dropdown.value != None:
     # 1. Build ChEBI ID → Name dictionary (safe var name)
-    chebi_name_lookup = dict(zip(chebi_df["ID"].astype(str).str.strip(), chebi_df["NAME"]))
+        chebi_name_lookup = dict(zip(chebi_df["ID"].astype(str).str.strip(), chebi_df["NAME"]))
 
-    # 2. Get first 9 SMILES and ChEBI ID entries
-    mol3d_smiles_list = table.value['SMILES']
-    mol3d_chebi_ids = table.value['ChEBI ID']
-    mol3d_selected_smiles = mol3d_smiles_list[:9]
-    mol3d_selected_chebis = mol3d_chebi_ids[:9]
+        # 2. Get first 9 SMILES and ChEBI ID entries
+        mol3d_smiles_list = table.value['SMILES']
+        mol3d_chebi_ids = table.value['ChEBI ID']
+        mol3d_selected_smiles = mol3d_smiles_list[:9]
+        mol3d_selected_chebis = mol3d_chebi_ids[:9]
 
-    mol3d_download_link = ''
+        mol3d_download_link = ''
 
-    if button.value:
-        mol3d_pdb_data = []
+        if button.value:
+            mol3d_pdb_data = []
 
-        for mol3d_smi_str, mol3d_chebi_str in zip(mol3d_selected_smiles, mol3d_selected_chebis):
-            if pd.isna(mol3d_smi_str) or pd.isna(mol3d_chebi_str):
-                continue
-
-            mol3d_smi_parts = [s.strip() for s in mol3d_smi_str.split(";")]
-            mol3d_chebi_parts = [c.strip() for c in mol3d_chebi_str.split(";")]
-
-            for smi, cid in zip(mol3d_smi_parts, mol3d_chebi_parts):
-                mol = Chem.MolFromSmiles(smi)
-                if mol is None:
-                    print(f"⚠️ Invalid SMILES skipped: {smi}")
+            for mol3d_smi_str, mol3d_chebi_str in zip(mol3d_selected_smiles, mol3d_selected_chebis):
+                if pd.isna(mol3d_smi_str) or pd.isna(mol3d_chebi_str):
                     continue
-                mol = Chem.AddHs(mol)
-                try:
-                    AllChem.EmbedMolecule(mol, AllChem.ETKDG())
-                    AllChem.UFFOptimizeMolecule(mol)
-                    pdb = rdmolfiles.MolToPDBBlock(mol)
-                    label = chebi_name_lookup.get(cid, f"[Unknown: {cid}]")
-                    mol3d_pdb_data.append((label, pdb))
-                except Exception as e:
-                    print(f"⚠️ Error processing {smi}:\n{e}")
 
-        # 3. Create py3Dmol viewer (max 3x3 grid)
-        mol3d_total = min(len(mol3d_pdb_data), 9)
-        mol3d_rows = (mol3d_total + 2) // 3
-        mol3d_viewer = py3Dmol.view(viewergrid=(mol3d_rows, 3), width=900, height=900)
-        mol3d_viewer.setBackgroundColor('white')
+                mol3d_smi_parts = [s.strip() for s in mol3d_smi_str.split(";")]
+                mol3d_chebi_parts = [c.strip() for c in mol3d_chebi_str.split(";")]
 
-        for i, (label, pdb) in enumerate(mol3d_pdb_data[:9]):
-            row_idx = i // 3
-            col_idx = i % 3
-            mol3d_viewer.addModel(pdb, 'pdb', viewer=(row_idx, col_idx))
-            mol3d_viewer.setStyle({'stick': {}}, viewer=(row_idx, col_idx))
-            mol3d_viewer.zoomTo(viewer=(row_idx, col_idx))
-            mol3d_viewer.addLabel(label, {
-                'position': {'x': 0, 'y': 5, 'z': 0},
-                'fontSize': 16,
-                'fontColor': 'black',
-                'backgroundOpacity': 0,  # transparent background
-                'inFront': True
-            }, viewer=(row_idx, col_idx))
+                for smi, cid in zip(mol3d_smi_parts, mol3d_chebi_parts):
+                    mol = Chem.MolFromSmiles(smi)
+                    if mol is None:
+                        print(f"⚠️ Invalid SMILES skipped: {smi}")
+                        continue
+                    mol = Chem.AddHs(mol)
+                    try:
+                        AllChem.EmbedMolecule(mol, AllChem.ETKDG())
+                        AllChem.UFFOptimizeMolecule(mol)
+                        pdb = rdmolfiles.MolToPDBBlock(mol)
+                        label = chebi_name_lookup.get(cid, f"[Unknown: {cid}]")
+                        mol3d_pdb_data.append((label, pdb))
+                    except Exception as e:
+                        print(f"⚠️ Error processing {smi}:\n{e}")
 
-        # 4. Generate downloadable HTML
-        mol3d_html_code = f"""
-        <html>
-          <head>
-            <script src="https://3Dmol.csb.pitt.edu/build/3Dmol.js"></script>
-          </head>
-          <body>
-            {mol3d_viewer._make_html()}
-          </body>
-        </html>
-        """
-        mol3d_b64_html = base64.b64encode(mol3d_html_code.encode()).decode()
-        mol3d_download_link = f'<a download="3D_rhea_compounds.html" href="data:text/html;base64,{mol3d_b64_html}">Download 3D Viewer HTML</a>'
+            # 3. Create py3Dmol viewer (max 3x3 grid)
+            mol3d_total = min(len(mol3d_pdb_data), 9)
+            mol3d_rows = (mol3d_total + 2) // 3
+            mol3d_viewer = py3Dmol.view(viewergrid=(mol3d_rows, 3), width=900, height=900)
+            mol3d_viewer.setBackgroundColor('white')
+
+            for i, (label, pdb) in enumerate(mol3d_pdb_data[:9]):
+                row_idx = i // 3
+                col_idx = i % 3
+                mol3d_viewer.addModel(pdb, 'pdb', viewer=(row_idx, col_idx))
+                mol3d_viewer.setStyle({'stick': {}}, viewer=(row_idx, col_idx))
+                mol3d_viewer.zoomTo(viewer=(row_idx, col_idx))
+                mol3d_viewer.addLabel(label, {
+                    'position': {'x': 0, 'y': 5, 'z': 0},
+                    'fontSize': 16,
+                    'fontColor': 'black',
+                    'backgroundOpacity': 0,  # transparent background
+                    'inFront': True
+                }, viewer=(row_idx, col_idx))
+
+            # 4. Generate downloadable HTML
+            mol3d_html_code = f"""
+            <html>
+              <head>
+                <script src="https://3Dmol.csb.pitt.edu/build/3Dmol.js"></script>
+              </head>
+              <body>
+                {mol3d_viewer._make_html()}
+              </body>
+            </html>
+            """
+            mol3d_b64_html = base64.b64encode(mol3d_html_code.encode()).decode()
+            mol3d_download_link = f'<a download="3D_rhea_compounds.html" href="data:text/html;base64,{mol3d_b64_html}">Download 3D Viewer HTML</a>'
     return (mol3d_download_link,)
 
 
 @app.cell
-def _(mo, mol3d_download_link):
-    mo.md(mol3d_download_link)
+def _(dropdown, mo, mol3d_download_link):
+    if dropdown.value != None:
+        mo.md(mol3d_download_link)
     return
 
 
 @app.cell
-def _(chebi_df, data_df):
-    # 1. Extract all ChEBI IDs from your dataset
-    all_chebi_ids = data_df["ChEBI ID"].dropna().astype(str)
+def _(chebi_df, data_df, dropdown):
+    if dropdown.value != None:
+        # 1. Extract all ChEBI IDs from your dataset
+        all_chebi_ids = data_df["ChEBI ID"].dropna().astype(str)
 
-    # 2. Flatten multi-ID rows like "16113; 46898"
-    chebi_id_list = []
-    for entry in all_chebi_ids:
-        chebi_id_list.extend([cid.strip() for cid in entry.split(";")])
+        # 2. Flatten multi-ID rows like "16113; 46898"
+        chebi_id_list = []
+        for entry in all_chebi_ids:
+            chebi_id_list.extend([cid.strip() for cid in entry.split(";")])
 
-    # 3. Deduplicate
-    unique_chebi_ids = sorted(set(chebi_id_list))
+        # 3. Deduplicate
+        unique_chebi_ids = sorted(set(chebi_id_list))
 
-    # 4. Look up names from the full chebi_df
-    chebi_df["ID"] = chebi_df["ID"].astype(str).str.strip()
-    chebi_subset = chebi_df[chebi_df["ID"].isin(unique_chebi_ids)][["ID", "NAME"]].copy()
+        # 4. Look up names from the full chebi_df
+        chebi_df["ID"] = chebi_df["ID"].astype(str).str.strip()
+        chebi_subset = chebi_df[chebi_df["ID"].isin(unique_chebi_ids)][["ID", "NAME"]].copy()
 
-    # 5. Write to CSV
-    chebi_subset.to_csv("chebi_lookup_minimal.csv", index=False)
+        # 5. Write to CSV
+        chebi_subset.to_csv("chebi_lookup_minimal.csv", index=False)
     return
 
 
@@ -507,9 +548,14 @@ def _(load_dotenv, os):
 
 
 @app.cell
-def _(TOGETHER_KEY, mo, openai, text_input):
+def _(TOGETHER_KEY):
+    TOGETHER_KEY
+    return
+
+
+@app.cell
+def _(mo, openai, text_input):
     client = openai.OpenAI(
-        api_key=TOGETHER_KEY,
         base_url="https://api.together.xyz/v1"
     )
 
