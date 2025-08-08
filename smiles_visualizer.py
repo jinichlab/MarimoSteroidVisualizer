@@ -161,9 +161,9 @@ class SkipCell(Exception):
 
 
 @app.cell
-def _(data_df, display, dropdown):
-    if dropdown.value != None:
-        display(data_df)
+def _():
+    # if dropdown.value != None:
+    #     display(data_df)
     return
 
 
