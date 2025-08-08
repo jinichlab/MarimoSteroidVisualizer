@@ -554,8 +554,9 @@ def _(TOGETHER_KEY):
 
 
 @app.cell
-def _(mo, openai, text_input):
+def _(TOGETHER_API_KEY, mo, openai, text_input):
     client = openai.OpenAI(
+        api_key=TOGETHER_API_KEY,
         base_url="https://api.together.xyz/v1"
     )
 
