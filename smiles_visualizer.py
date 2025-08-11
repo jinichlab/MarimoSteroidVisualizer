@@ -548,12 +548,6 @@ def _(load_dotenv, os):
 
 
 @app.cell
-def _(TOGETHER_KEY):
-    TOGETHER_KEY
-    return
-
-
-@app.cell
 def _(TOGETHER_KEY, mo, openai, text_input):
     client = openai.OpenAI(
         api_key=TOGETHER_KEY,
