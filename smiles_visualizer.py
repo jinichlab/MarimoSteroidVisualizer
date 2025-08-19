@@ -544,13 +544,14 @@ def _(load_dotenv, os):
     load_dotenv(dotenv_path=env_path)
     'TOGETHER_API_KEY' in str(os.environ)
     TOGETHER_KEY = os.getenv("TOGETHER_API_KEY")
-    return (TOGETHER_KEY,)
+    return
 
 
 @app.cell
-def _(TOGETHER_KEY, mo, openai, text_input):
+def _(mo, openai, text_input):
     client = openai.OpenAI(
-        api_key=TOGETHER_KEY,
+        # api_key=TOGETHER_KEY,
+        api_key = 'tgp_v1_irSn3D0Td5-2O8C85Nr81ylpwR40llvgk6_38K6ko2I',
         base_url="https://api.together.xyz/v1"
     )
 
