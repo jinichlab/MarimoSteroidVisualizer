@@ -27,6 +27,7 @@ def simple_ui():
     from jinja2 import Template
     import re
     import pyarrow
+    from openai import Client
 
     from io import BytesIO
 
@@ -36,6 +37,7 @@ def simple_ui():
         BaseModel,
         BytesIO,
         Chem,
+        Client,
         Draw,
         HTML,
         KMeans,
@@ -44,14 +46,10 @@ def simple_ui():
         ast,
         base64,
         display,
-        load_dotenv,
         mo,
-        openai,
-        os,
         pd,
         py3Dmol,
         rdmolfiles,
-        re,
     )
 
 
@@ -516,7 +514,7 @@ def _():
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(BaseModel, List):
     class OutputFormat(BaseModel):
         summary: str
@@ -525,90 +523,162 @@ def _(BaseModel, List):
     return
 
 
-@app.cell
-def _(mo):
-    text_input = mo.ui.text(label="Enter Prompt Here:")
+@app.cell(hide_code=True)
+def _():
+    # text_input = mo.ui.text(label="Enter Prompt Here:")
 
-    mo.md(f"""
-    AI generated information:
+    # mo.md(f"""
+    # AI generated information:
 
-    {text_input} 
+    # {text_input} 
 
-    """).batch(text_input=text_input).form()
-    return (text_input,)
+    # """).batch(text_input=text_input).form()
+    return
 
 
-@app.cell
-def _(load_dotenv, os):
-    env_path = os.path.join(os.path.dirname(__file__), ".env")
-    load_dotenv(dotenv_path=env_path)
-    'TOGETHER_API_KEY' in str(os.environ)
-    TOGETHER_KEY = os.getenv("TOGETHER_API_KEY")
+@app.cell(hide_code=True)
+def _():
+    # env_path = os.path.join(os.path.dirname(__file__), ".env")
+    # load_dotenv(dotenv_path=env_path)
+    # 'TOGETHER_API_KEY' in str(os.environ)
+    # TOGETHER_KEY = os.getenv("TOGETHER_API_KEY")
+    return
+
+
+@app.cell(hide_code=True)
+def _():
+    # client = openai.OpenAI(
+    #     # api_key=TOGETHER_KEY,
+    #     api_key = 'tgp_v1_irSn3D0Td5-2O8C85Nr81ylpwR40llvgk6_38K6ko2I',
+    #     base_url="https://api.together.xyz/v1"
+    # )
+
+    # if text_input.value.strip():
+    #     with mo.status.spinner("Generating information..."):
+    #         response = client.chat.completions.create(
+    #             model="mistralai/Mixtral-8x7B-Instruct-v0.1",
+    #             messages=[
+    #                 {
+    #                     "role": "user",
+    #                     "content": f"""Answer the prompt below.
+
+    # Your answer must begin with 'TL;DR:' on a new line followed by a one-sentence summary. Then provide 3–5 bullet point highlights.
+
+    # Prompt:
+    # {text_input.value}
+    # """
+    #                 }
+    #             ],
+    #             max_tokens=1000
+    #         )
+
+    #         output_text = response.choices[0].message.content
+    #         rendered = f"""## Response from Mixtral\n{output_text}"""
+    # else:
+    #     output_text = ""
+    #     rendered = "⚠️ No input provided."
+
+    # # output_text  # ← Add this so the next cell can access it
+    return
+
+
+@app.cell(hide_code=True)
+def _():
+    # match = re.search(
+    #     r"^TL;DR[:：]?\s*(.+?)(?:\n{2,}|\n(?=[\d\-•]))",  # captures TLDR before list
+    #     output_text.strip(),
+    #     re.DOTALL | re.IGNORECASE
+    # )
+
+    # if match:
+    #     summary = match.group(1).strip()
+    #     main_content = output_text[match.end():].strip()
+    # else:
+    #     summary = ""
+    #     main_content = output_text.strip()
+
+    # # Only render if there is content
+    # formatted_output = f"""
+    # ## TL;DR
+    # {summary}
+
+    # ## Key Highlights
+    # {main_content}
+    # """ if len(main_content) + len(summary) > 0 else ""
+
+    # mo.md(formatted_output)
     return
 
 
 @app.cell
-def _(mo, openai, text_input):
-    client = openai.OpenAI(
-        # api_key=TOGETHER_KEY,
-        api_key = 'tgp_v1_irSn3D0Td5-2O8C85Nr81ylpwR40llvgk6_38K6ko2I',
-        base_url="https://api.together.xyz/v1"
-    )
+def _(Client):
+    # 🔑 Together AI API key (placeholder — replace with your real one)
+    TOGETHER_API_KEY = "tgp_v1_irSn3D0Td5-2O8C85Nr81ylpwR40llvgk6_38K6ko2I"
 
-    if text_input.value.strip():
-        with mo.status.spinner("Generating information..."):
-            response = client.chat.completions.create(
-                model="mistralai/Mixtral-8x7B-Instruct-v0.1",
-                messages=[
-                    {
-                        "role": "user",
-                        "content": f"""Answer the prompt below.
+    # Create the Together client
+    client = Client(api_key=TOGETHER_API_KEY, base_url="https://api.together.xyz/v1")
 
-    Your answer must begin with 'TL;DR:' on a new line followed by a one-sentence summary. Then provide 3–5 bullet point highlights.
-
-    Prompt:
-    {text_input.value}
-    """
-                    }
-                ],
-                max_tokens=1000
-            )
-
-            output_text = response.choices[0].message.content
-            rendered = f"""## Response from Mixtral\n{output_text}"""
-    else:
-        output_text = ""
-        rendered = "⚠️ No input provided."
-
-    # output_text  # ← Add this so the next cell can access it
-    return (output_text,)
+    return (client,)
 
 
 @app.cell
-def _(mo, output_text, re):
-    match = re.search(
-        r"^TL;DR[:：]?\s*(.+?)(?:\n{2,}|\n(?=[\d\-•]))",  # captures TLDR before list
-        output_text.strip(),
-        re.DOTALL | re.IGNORECASE
+def _(client):
+    def my_model(messages):
+        history = []
+        last_role = None
+        for m in messages:
+            role = "assistant" if m.role == "assistant" else "user"
+            if role == last_role:
+                continue
+            history.append({"role": role, "content": m.content})
+            last_role = role
+
+        if not history:
+            history = [{"role": "user", "content": "Hello!"}]
+
+        resp = client.chat.completions.create(
+            model="mistralai/Mixtral-8x7B-Instruct-v0.1",
+            messages=history,
+            temperature=0.7,
+        )
+        return resp.choices[0].message.content
+
+    return (my_model,)
+
+
+@app.cell
+def _(mo, my_model):
+    chat_ui = mo.ui.chat(
+        my_model,
+        prompts=[
+            "Summarize this chat app in one sentence.",
+            "Give me three ideas for improving this UI.",
+            "Write a friendly greeting."
+        ],
     )
 
-    if match:
-        summary = match.group(1).strip()
-        main_content = output_text[match.end():].strip()
-    else:
-        summary = ""
-        main_content = output_text.strip()
+    # Only the messages area scrolls
+    chat_ui.style({
+        "height": "400px",
+        "overflow-y": "auto",
+    })
 
-    # Only render if there is content
-    formatted_output = f"""
-    ## TL;DR
-    {summary}
+    mo.Html(
+        f"""
+        <div id="chat-container" style="height:400px; overflow-y:auto; border:1px solid #ccc; border-radius:8px; padding:8px;">
+            {chat_ui}
+        </div>
+        <script>
+        const container = document.getElementById("chat-container");
+        const observer = new MutationObserver(() => {{
+            container.scrollTop = container.scrollHeight;
+        }});
+        observer.observe(container, {{ childList: true, subtree: true }});
+        </script>
+        """
+    )
 
-    ## Key Highlights
-    {main_content}
-    """ if len(main_content) + len(summary) > 0 else ""
 
-    mo.md(formatted_output)
     return
 
 
