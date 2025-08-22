@@ -1,0 +1,552 @@
+,SMILES,ChEBI ID,NAME
+0,**,17792,organohalogen compound
+1,C(SCCNC(CCNC(=O)[C@@H](C(COP([O-])(=O)[O-])(C)C)O)=O)(=O)C(CCC[C@H]([C@@]1([C@@]2([C@]([C@]3([C@](C[C@@H]2O)([C@@]4([C@@](C[C@@H](CC4)O)(C[C@H]3O)[H])C)[H])[H])(CC1)[H])C)[H])C)C,132021,"S-(3alpha,7alpha,12alpha-trihydroxy-5beta-cholestan-26-oyl)-4'-phosphopantetheine(2-)"
+2,C12(C=CC(C=C1CCC3C2CCC4(C3CCC4*)C)=O)C,77166,"3-oxo-Delta(1),Delta(4)-steroid"
+3,C12(CCCCC1CCC3C2C(CC4(C3CCC4*)C)=O)C,47787,11-oxo steroid
+4,C12(CCCCC1CCC3C2[C@H](CC4(C3CCC4*)C)O)C,35346,11beta-hydroxy steroid
+5,C12=C([C@]3([C@]([C@](CC3)([C@@H](CCC=C(C)C)C)[H])(C)CC1)[H])CC[C@@]4([C@@]2(CC[C@@H](C4(C)C)O)C)[H],18364,14-demethyllanosterol
+6,C12=C([C@]3([C@]([C@](CC3)([C@@H](CCC=C(C)C)C)[H])(C)CC1)[H])CC[C@@]4([C@@]2(CC[C@@H]([C@@]4(C(=O)[O-])C)O)C)[H],143574,"3beta-hydroxy-4alpha-methyl-5alpha-cholesta-8,24-diene-4beta-carboxylate"
+7,C12=C([C@]3([C@]([C@](CC3)([C@@H](CCC=C(C)C)C)[H])(C)CC1)[H])CC[C@@]4([C@@]2(CC[C@@H]([C@@]4(C=O)C)O)C)[H],143573,"4beta-formyl-4alpha-methyl-5alpha-cholesta-8,24-dien-3beta-ol"
+8,C12=C([C@]3([C@]([C@](CC3)([C@@H](CCC=C(C)C)C)[H])(C)CC1)[H])CC[C@@]4([C@@]2(CC[C@@H]([C@@]4(CO)C)O)C)[H],143572,"4beta-hydroxymethyl-4alpha-methyl-5alpha-cholesta-8,24-dien-3beta-ol"
+9,C12=C([C@]3([C@]([C@](CC3)([C@@H](CCC=C(C)C)C)[H])(C)CC1)[H])CC[C@@]4([C@@]2(CC[C@@H]([C@H]4C(=O)[O-])O)C)[H],143575,4alpha-carboxyzymosterol(1-)
+10,C12=CC=C(C=C1CC[C@@]3([C@@]2(CC[C@]4([C@]3(C[C@H]([C@H]4O)O)[H])C)[H])[H])O,42156,17-epiestriol
+11,C12C(C3C(C(CC3)*)(C)CC1)=CC=C4C2(CCC(C4)O)C,138131,"Delta(5),Delta(7)-sterol"
+12,C12C(C3C(C(CC3)*)(C)CC1)=CCC4C2(CCC(C4)O)C,138130,Delta(7)-sterol
+13,C12C(C3C(C(CC3)*)(C)CC1)C(CC4C2(CCCC4)C)=O,47789,7-oxo steroid
+14,C12C(C3C(C(CC3)*)(C)CC1)CC=C4C2(CCC(C4)=O)C,47907,3-oxo-Delta(5)-steroid
+15,C12C(C3C(C(CC3)*)(C)CC1)CC=C4C2(CC[C@@H](C4)O)C,1722,3beta-hydroxy-Delta(5)-steroid
+16,C12C(C3C(C(CC3)*)(C)CC1)CCC4C2(C=CC(C4)=O)C,20156,3-oxo-Delta(1) steroid
+17,C12C(C3C(C(CC3)*)(C)CC1)CCC4C2(CCC(C4)=O)C,47788,3-oxo steroid
+18,C12C(C3C(C(CC3)*)(C)CC1)CCC4C2(CCC(C4)O)C,15889,sterol
+19,C12C(C3C(C(CC3)*)(C)CC1)CCC4C2(CCC(C4)OC(*)=O)C,35915,sterol ester
+20,C12C(C3C(C(CC3)*)(C)CC1)CCC4C2(CCC(C4)O[C@@H]5O[C@@H]([C@H]([C@@H]([C@H]5O)O)O)CO)C,37424,sterol 3-beta-D-glucoside
+21,C12C(C3C(C(CC3)*)(C)CC1)CCC4C2(CCC([C@H]4C)=O)C,143570,4alpha-methyl-3-oxosteroid
+22,C12C(C3C(C(CC3)*)(C)CC1)CCC4C2(CCCC4)C,35341,steroid
+23,C12C(C3C(C(CC3)*)(C)CC1)CCC4C2(CC[C@@H](C4(C)C)O)C,143563,"3beta-hydroxy-4,4-dimethylsteroid"
+24,C12C(C3C(C(CC3)*)(C)CC1)CCC4C2(CC[C@@H](C4)O)C,36836,3beta-hydroxy steroid
+25,C12C(C3C(C(CC3)*)(C)CC1)CCC4C2(CC[C@@H]([C@@]4(C(=O)[O-])C)O)C,143569,3beta-hydroxy-4alpha-methylsteroid-4beta-carboxylate
+26,C12C(C3C(C(CC3)*)(C)CC1)CCC4C2(CC[C@@H]([C@@]4(C=O)C)O)C,143568,3beta-hydroxy-4beta-formyl-4alpha-methylsteroid
+27,C12C(C3C(C(CC3)*)(C)CC1)CCC4C2(CC[C@@H]([C@@]4(CO)C)O)C,143566,3beta-hydroxy-4beta-hydroxymethyl-4alpha-methylsteroid
+28,C12C(C3C(C(CC3)*)(C)CC1)CCC4C2(CC[C@@H]([C@H]4C([O-])=O)O)C,136966,3beta-hydroxysteroid-4alpha-carboxylate
+29,C12C(C3C(C(CC3)*)(C)CC1)CCC4C2(CC[C@H](C4)O)C,36835,3alpha-hydroxy steroid
+30,C12C(C3C(C(CC3)*)(C)CC1)CCC=4C2(CCC(C4)=O)C,47909,3-oxo-Delta(4) steroid
+31,C12C(C3C(C(CC3)*)(C)CC1)CC[C@@]4(C2(CCC(C4)=O)C)[H],13601,3-oxo-5alpha-steroid
+32,C12C(C3C(C(CC3)*)(C)CC1)[C@H](CC4C2(CCCC4)C)O,35349,7beta-hydroxy steroid
+33,C12C(C=3C(C(CC3)*)(C)CC1)CCC4C2(CCCC4)C,138031,Delta(14) steroid
+34,C12C([C@]3(C(C(CC3)*)(C)CC1)C)CCC4C2(CCCC4)C,138029,14alpha-methyl steroid
+35,C12C([C@]3(C(C(CC3)*)(C)CC1)CO)CCC4C2(CCCC4)C,176901,14alpha-hydroxymethyl steroid
+36,C1=2[C@]3([C@](CC[C@@]1([C@@]4([C@](C(C2)=O)(C[C@H](CC4)O)[H])C)[H])([C@@](CC3)([H])[C@@H]([C@@H](CCC(C)(C)O)OP(=O)([O-])[O-])C)C)O,147386,2-deoxyecdysone 22-phosphate(2-)
+37,C1=2[C@]3([C@](CC[C@@]1([C@@]4([C@](C(C2)=O)(C[C@H]([C@H](C4)O)O)[H])C)[H])([C@@](CC3)([H])[C@@H]([C@@H](CCC(C)(C)O)OP(=O)([O-])[O-])C)C)O,147380,ecdysone 22-phosphate(2-)
+38,C1=2[C@]3([C@](CC[C@@]1([C@@]4([C@](C(C2)=O)(C[C@H]([C@H](C4)O)O)[H])C)[H])([C@@](CC3)([H])[C@@]([C@@H](CCC(C)(C)O)OP(=O)([O-])[O-])(C)O)C)O,147382,20-hydroxyecdysone 22-phosphate(2-)
+39,C1=C2C(CC[C@]3([C@@]4(CC[C@@H]([C@]4(CC[C@@]32[H])C)O)[H])[H])=CC(=C1)OS([O-])(=O)=O,136582,17beta-estradiol 3-sulfate(1-)
+40,C1=C2C(CC[C@]3([C@@]4(CC[C@@H]([C@]4(CC[C@@]32[H])C)O)[H])[H])=CC(=C1O)OC,89268,2-hydroxyestradiol 3-methyl ether
+41,C1=C2C(CC[C@]3([C@@]4(C[C@@H]([C@@H]([C@]4(CC[C@@]32[H])C)O)O)[H])[H])=CC(=C1)O,87620,16beta-hydroxyestradiol
+42,C1=C2C(CC[C@]3([C@@]4(C[C@@H]([C@@H]([C@]4(CC[C@@]32[H])C)O)O)[H])[H])=CC(=C1)O[C@@H]5O[C@@H]([C@H]([C@@H]([C@H]5O)O)O)C([O-])=O,136885,16-epiestriol 3-O-(beta-D-glucuronide)(1-)
+43,C1=C2C(CC[C@]3([C@@]4(C[C@@H]([C@@H]([C@]4(CC[C@@]32[H])C)O)O[C@@H]5O[C@@H]([C@H]([C@@H]([C@H]5O)O)O)C([O-])=O)[H])[H])=CC(=C1)O,136886,16-epiestriol 16-O-(beta-D-glucuronide)(1-)
+44,C1=C2C(CC[C@]3([C@@]4(C[C@H]([C@H]([C@]4(CC[C@@]32[H])C)O)O)[H])[H])=CC(=C1)O[C@@H]5O[C@@H]([C@H]([C@@H]([C@H]5O)O)O)C([O-])=O,136882,17-epiestriol 3-O-(beta-D-glucuronide)(1-)
+45,C1=C2C(CC[C@]3([C@@]4(C[C@H]([C@H]([C@]4(CC[C@@]32[H])C)O)O[C@@H]5O[C@@H]([C@H]([C@@H]([C@H]5O)O)O)C([O-])=O)[H])[H])=CC(=C1)O,136884,17-epiestriol 16-O-(beta-D-glucuronide)(1-)
+46,C1=C2C(CC[C@]3([C@@]4(C[C@H]([C@H]([C@]4(CC[C@@]32[H])C)O[C@@H]5O[C@@H]([C@H]([C@@H]([C@H]5O)O)O)C([O-])=O)O)[H])[H])=CC(=C1)O,136883,17-epiestriol 17-O-(beta-D-glucuronide)(1-)
+47,C1=C2C(CC[C@]3([C@@]4([C@H](C[C@@H]([C@]4(CC[C@@]32[H])C)O)O)[H])[H])=CC(=C1)O,87593,15alpha-hydroxyestradiol
+48,C1=C2C(C[C@H]([C@]3([C@@]4(CC[C@@H]([C@]4(CC[C@@]32[H])C)O)[H])[H])O)=CC(=C1)O,87598,7alpha-hydroxyestradiol
+49,C1=C2[C@@]3(CC[C@@]([C@]3(CCC2[C@]4(CC[C@H](O)[C@H]([C@@]4(C1)[H])C(=O)[O-])C)C)([C@@H](CCCC(C)C)C)[H])[H],145943,4alpha-carboxy-5alpha-cholest-7-en-3beta-ol(1-)
+50,C1=C2[C@]3(CC[C@]4([C@]([C@@]3(CCC2=C(C(=C1)O)O[C@H]5[C@@H]([C@H]([C@@H]([C@H](O5)C(=O)[O-])O)O)O)[H])(CC[C@@H]4O)[H])C)[H],136937,4-hydroxy-17beta-estradiol 4-O-(beta-D-glucuronide)(1-)
+51,C1=C2[C@]3(CC[C@]4([C@]([C@@]3(CC[C@]2(CC(C1)=O)[H])[H])(CC[C@@H]4O)[H])C)[H],137110,17beta-hydroxy-5alpha-estr-1(10)-en-3-one
+52,C1C(C=C2[C@](C1)([C@@]3([C@@](CC2)([C@@]4([H])[C@@](CC3)(C)[C@H]([C@@H](C4)O)O)[H])[H])C)=O,34172,16alpha-hydroxytestosterone
+53,C1C(C[C@@]2([C@](C1)([C@@]3([C@@](CC2)([C@@]4([H])[C@@](C[C@@H]3O)(C)[C@](CC4)(C(CO)=O)O)[H])[H])C)[H])=O,732,5beta-dihydrocortisol
+54,C1C2=CC(CC[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(C1)[H])(CC[C@H]4OS(=O)([O-])=O)[H])C)[H])C)=O,190485,epitestosterone sulfate(1-)
+55,C1C2=CC(CC[C@@]2([C@]3([C@H](C[C@]4([C@]([C@@]3(C1)[H])(CC[C@@H]4O)[H])C)O)[H])C)=O,81481,11beta-hydroxytestosterone
+56,C1C2=CC(C[C@@H]([C@@]2([C@]3(CC[C@]4([C@]([C@@]3(C1)[H])(CC[C@@H]4O)[H])C)[H])C)O)=O,132358,1alpha-hydroxytestosterone
+57,C1C2=CC(C[C@H]([C@@]2([C@]3(CC[C@]4([C@]([C@@]3(C1)[H])(CC[C@@H]4O)[H])C)[H])C)O)=O,137076,1beta-hydroxytestosterone
+58,C1C2C3C(CCC2(C(C1)C(CCC(C(C)C)C)C)C)C4(C(CC3)CCCC4)C,188921,C28-steroid
+59,C1C2C3C(CCC2(C(C1)C(CCC(C(C)C)CC)C)C)C4(C(CC3)CCCC4)C,188923,C29-steroid
+60,C1C2C3C(CCC2(C(C1)C(CCCC(C)C)C)C)C4(C(CC3)CCCC4)C,188919,a C27-steroid
+61,C1C2C3C(CCC2(C(C1)C([C@H](CC(C(C)C)C)O)C)C)C4(C(CC3)CCCC4)C,188922,(22S)-22-hydroxy C28-steroid
+62,C1C2C3C(CCC2(C(C1)C([C@H](CC(C(C)C)CC)O)C)C)C4(C(CC3)CCCC4)C,188924,(22S)-22-hydroxy C29-steroid
+63,C1C2C3C(CCC2(C(C1)C([C@H](CCC(C)C)O)C)C)C4(C(CC3)CCCC4)C,188920,a (22S)-22-hydroxy C27-steroid
+64,C1CCCC2C1(C3C(CC2)C4C(CC3)(C(CC4)CC)C)C,61313,C21-steroid
+65,C1CCCC2C1(C3C(CC2)C4C(CC3)([C@](CC4)(CC)O)C)C,138141,17alpha-hydroxy-C21-steroid
+66,C1C[C@@H](C[C@@]2([C@]1([C@@]3([C@@](CC2)([C@@]4([C@](CC3)([C@](CC4)(C=5[CH-]OC(C5)=O)[H])C)O)[H])[H])C)[H])O[C@H]6C[C@@H]([C@@H]([C@H](O6)C)O[C@@H]7O[C@@H]([C@H]([C@H](C7)O)O[C@H]8C[C@@H]([C@@H]([C@H](O8)C)O)O)C)O,145796,digitoxin(1-)
+67,C1C[C@@H](C[C@@]2([C@]1([C@@]3([C@@](CC2)([C@@]4([C@]([C@@H](C3)O)([C@](CC4)(C=5[CH-]OC(C5)=O)[H])C)O)[H])[H])C)[H])O,145797,digoxigenin(1-)
+68,C1O[C@H]([C@@H]([C@H]([C@@H]1O)O)O)O[C@@H]2CC=3[C@@]([C@@]4([C@]([C@]5([H])CC[C@@]([C@@]5(C)CC4)([C@@H](CCCC(C)C)C)[H])(CC3)[H])[H])(CC2)C,189067,cholesteryl beta-D-xyloside
+69,C1[C@@]([C@@]2([C@@](C1)(C3=CC[C@@]4([H])[C@H](C)[C@@H](O)CC[C@]4(C)[C@]3(CC2)[H])[H])C)([C@H](C)CCC(=C)C(C)C)[H],29107,24-methylidenelophenol
+70,C1[C@@]2(C=3CC[C@]4(C(C3CC[C@]2(C([C@H](C1)O)(C)C)[H])=CC[C@@]4([C@H](C)CCC(C(C)C)=C)[H])C)C,194330,"4,4,24-trimethyl-5alpha-cholesta-8,14,24(28)-triene-3beta-ol"
+71,C1[C@@]2(C=3CC[C@]4([C@](C3CC[C@]2(C([C@H](C1)O)(C)C)[H])(CC[C@@]4([C@H](C)CCC(C(C)C)=C)[H])C)C)C,70315,eburicol
+72,C1[C@@]2(C=3CC[C@]4([C@](C3CC[C@]2(C([C@H](C1)O)(C)C)[H])(CC[C@@]4([C@H](C)CCC(C(C)C)=C)[H])C=O)C)C,194329,32-ketoeburicol
+73,C1[C@@]2(C=3CC[C@]4([C@](C3CC[C@]2(C([C@H](C1)O)(C)C)[H])(CC[C@@]4([C@H](C)CCC(C(C)C)=C)[H])CO)C)C,194328,32-hydroxyeburicol
+74,C1[C@@]2(C=3CC[C@]4([C@](C3CC[C@]2([C@@H](C(C1)=O)C)[H])(CC[C@@]4([C@@H](CCC=C(C)C)C)[H])[H])C)C,136486,3-dehydro-4alpha-methylzymosterol
+75,C1[C@@]2([C@@]([C@@]3(C(C1)=CC(CC3)=O)C)(C(C[C@@]4(C)[C@@]2([H])CCC4=O)=O)[H])[H],2495,adrenosterone
+76,C1[C@@]2([C@@]([C@@]3(C(C1)=CC(CC3)=O)C)(C(C[C@@]4(C)[C@@]2([H])CC[C@@H]4O)=O)[H])[H],34133,11-oxotestosterone
+77,C1[C@@]2([C@@]([C@@]3(C(C1)=CC(CC3)=O)C)(CC[C@@]4([C@@](CC[C@@]24[H])(O)C(CO)=O)CO)[H])[H],195179,18-hydroxy-11-deoxycortisol
+78,C1[C@@]2([C@@]([C@@]3(C(C1)=CC(CC3)=O)C)(CC[C@@]4([C@@](CC[C@@]24[H])([H])C(CO)O)C)[H])[H],87841,"4-pregnen-20,21-diol-3-one"
+79,C1[C@@]2([C@@]([C@@]3(C(C1)=CC(CC3)=O)C)([C@H](C[C@@]4([C@@](CC[C@@]24[H])(O)[C@@H](CO)O)C)O)[H])[H],139311,20beta-dihydrocortisol
+80,C1[C@@]2([C@@]([C@@]3(C(C1)=CC(CC3)=O)C)([C@H](C[C@@]4([C@@](CC[C@@]24[H])([H])[C@@H](CO)O)C)O)[H])[H],189050,20beta-dihydrocorticosterone
+81,C1[C@@]2([C@@]([C@@]3(C(C[C@@H](OS([O-])(=O)=O)CC3)=C1)C)(CC[C@]4([C@]2(CCC4=O)[H])C)[H])[H],57905,dehydroepiandrosterone sulfate(1-)
+82,C1[C@@]2([C@@]([C@@]3(C(C[C@@H](OS([O-])(=O)=O)CC3)=C1)C)(CC[C@]4([C@]2(C[C@H](C4=O)O)[H])C)[H])[H],87538,16alpha-hydroxydehydroepiandrosterone 3-sulfate(1-)
+83,C1[C@@]2([C@@]([C@@]3(C([C@@H]1O)=CC(CC3)=O)C)(C(C[C@@]4([C@@](CC[C@@]24[H])(O)C(CO)=O)C)=O)[H])[H],139269,6beta-hydroxycortisone
+84,C1[C@@]2([C@@]([C@@]3(C([C@@H]1O)=CC(CC3)=O)C)([C@H](C[C@@]4([C@@](CC[C@@]24[H])(O)C(CO)=O)C)O)[H])[H],139271,6beta-hydroxycortisol
+85,C1[C@@]2([C@@]([C@@]3([C@](C[C@@H](OS([O-])(=O)=O)CC3)(C1)[H])C)(CC[C@@]4(C(CC[C@@]24[H])=O)C)[H])[H],133729,epiandrosterone sulfate(1-)
+86,C1[C@@]2([C@@]([C@@]3([C@](C[C@H](O)CC3)(C1)[H])C)(CC[C@@]4([C@H](CC[C@@]24[H])OS([O-])(=O)=O)C)[H])[H],133105,"(3alpha,5alpha,17beta)-3-hydroxyandrostan-17-yl sulfate(1-)"
+87,C1[C@@]2([C@@]([C@@]3([C@](C[C@H](OS([O-])(=O)=O)CC3)(C1)[H])C)(CC[C@@]4(C(CC[C@@]24[H])=O)C)[H])[H],133003,androsterone sulfate(1-)
+88,C1[C@@]2([C@@]([C@]3(CCC(C=C3[C@@H]1O)=O)C)(CC[C@]4([C@]2(C[C@H]([C@]4(O)C(C)=O)O)[H])C)[H])[H],137046,"6beta,16alpha,17alpha-trihydroxyprogesterone"
+89,C1[C@@]2([C@@]3([C@]([C@]4([C@](CC3)([C@H](CC4)C(CO)=O)C)[H])(CCC2=CC(C1)=O)[H])[H])CO,195167,19-hydroxy-11-deoxycorticosterone
+90,C1[C@@]2([C@@]3([C@]([C@]4([C@](CC3)([C@H](CC4)C(CO)=O)CO)[H])(CCC2=CC(C1)=O)[H])[H])C,195166,18-hydroxydeoxycorticosterone
+91,C1[C@@]2([C@]3(C(C[C@]4([C@]([C@@]3(CC[C@@]2(C[C@@H](C1)O[C@@H]5O[C@@H]([C@H]([C@@H]([C@H]5O)O)O)C([O-])=O)[H])[H])(CC[C@@]4(C([O-])=O)O)[H])C)=O)[H])C,178107,"5beta-androstane-3alpha,17alpha-diol-11-one-17beta-carboxylate 3-O-(beta-D-glucuronide)(2-)"
+92,C1[C@@]2([C@]3(C(C[C@]4([C@]([C@@]3(CC[C@@]2(C[C@@H](C1)O[C@@H]5O[C@@H]([C@H]([C@@H]([C@H]5O)OS([O-])(=O)=O)O)C([O-])=O)[H])[H])(CC[C@@]4(C([O-])=O)O)[H])C)=O)[H])C,178108,"5beta-androstane-3alpha,17alpha-diol-11-one-17beta-carboxylate 3-O-(3-sulfo-beta-D-glucuronide)(3-)"
+93,C1[C@@]2([C@]3(CC([C@]4([C@]([C@@]3(C(C[C@@]2(CC(C1)=O)[H])=O)[H])(CC[C@]4([H])[C@@H](CCC([O-])=O)C)[H])C)=O)[H])C,137881,"3,7,12-trioxo-5beta-cholan-24-oate"
+94,C1[C@@]2([C@]3(CC([C@]4([C@]([C@@]3(C(C[C@@]2(C[C@@H](C1)O)[H])=O)[H])(CC[C@@]4([C@@H](CCC([O-])=O)C)[H])[H])C)=O)[H])C,137789,"7,12-dioxolithocholate"
+95,C1[C@@]2([C@]3(CC([C@]4([C@]([C@@]3([C@@H](C[C@@]2(CC(C1)=O)[H])O)[H])(CC[C@]4([H])[C@@H](CCC([O-])=O)C)[H])C)=O)[H])C,156270,"7alpha-hydroxy-3,12-dioxo-5beta-cholanate"
+96,C1[C@@]2([C@]3(CC([C@]4([C@]([C@@]3([C@H](C[C@@]2(CC(C1)=O)[H])O)[H])(CC[C@]4([H])[C@@H](CCC([O-])=O)C)[H])C)=O)[H])C,137882,"7beta-hydroxy-3,12-dioxo-5beta-cholanate"
+97,C1[C@@]2([C@]3(CC([C@]4([C@]([C@@]3([C@H](C[C@@]2(C[C@@H](C1)O)[H])O)[H])(CC[C@]4([H])[C@@H](CCC([O-])=O)C)[H])C)=O)[H])C,137886,"3alpha,7beta-dihydroxy-12-oxo-5beta-cholanate"
+98,C1[C@@]2([C@]3(CC[C@]4(C)[C@@H](C(C)=O)CC[C@]4([C@@]3(CC=C2C[C@H](C1)OS([O-])(=O)=O)[H])[H])[H])C,133000,pregnenolone sulfate(1-)
+99,C1[C@@]2([C@]3(CC[C@]4(C)[C@@H](C(C)=O)CC[C@]4([C@@]3([C@@H](C=C2C[C@H](C1)O)O)[H])[H])[H])C,81467,7alpha-hydroxypregnenolone
+100,C1[C@@]2([C@]3(CC[C@]4(C)[C@](CC[C@]4([C@@]3(CC=C2C[C@H](C1)OS([O-])(=O)=O)[H])[H])(C(C)=O)O)[H])C,133742,17alpha-hydroxypregnenolone 3-sulfate(1-)
+101,C1[C@@]2([C@]3(CC[C@]4(C)[C@]([C@@H](C[C@]4([C@@]3(CC=C2C[C@H](C1)O)[H])[H])O)(C(=O)C)O)[H])C,137049,"16alpha,17alpha-dihydroxypregnenolone"
+102,C1[C@@]2([C@]3(CC[C@]4([C@](C3=CC=C2C[C@H](C1)O)(CC[C@@]4([C@@H](CCCC(C)(C)O)C)[H])[H])C)[H])C,137057,"cholesta-5,7-dien-3beta,25-diol"
+103,C1[C@@]2([C@]3(CC[C@]4([C@](C3=CC=C2C[C@H](C1)O)(CC[C@@]4([C@@H](CC[C@@H](C(C)C)O)C)[H])[H])C)[H])C,137061,"cholesta-5,7-dien-3beta,24S-diol"
+104,C1[C@@]2([C@]3(CC[C@]4([C@](C3=CC[C@]2([C@@H]([C@H](C1)O)C(=O)[O-])[H])(CC[C@@]4([C@@H](CCC(C(C)C)=C)C)[H])[H])C)[H])C,142850,"3beta-hydroxy-5alpha-ergosta-7,24(28)-diene-4alpha-carboxylate"
+105,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(C(C=C2C[C@H](C1)O)=O)[H])(CC[C@@]4([C@H](C)CCC[C@@H](C)C([H])=O)[H])[H])C)[H])C,87677,(25R)-3beta-hydroxycholest-5-en-7-one-26-al
+106,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(C(C=C2C[C@H](C1)O)=O)[H])(CC[C@@]4([C@H](C)CCC[C@@H](C)C([O-])=O)[H])[H])C)[H])C,87678,(25R)-3beta-hydroxycholest-5-en-7-one-26-oate
+107,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(C(C=C2C[C@H](C1)O)=O)[H])(CC[C@@]4([C@H](C)CCC[C@@H](C)CO)[H])[H])C)[H])C,87653,"(25R)-3beta,26-dihydroxycholest-5-en-7-one"
+108,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(C(C[C@@]2(C[C@@H](C1)O)[H])=O)[H])(CC[C@@]4([C@@H](CCC(NCC([O-])=O)=O)C)[H])[H])C)[H])C,137818,7-oxoglycolithocholate
+109,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(C(C[C@@]2(C[C@@H](C1)O)[H])=O)[H])(CC[C@@]4([C@@H](CCC(NCCS([O-])(=O)=O)=O)C)[H])[H])C)[H])C,137724,7-oxotaurolithocholate
+110,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(C(C[C@]2(C[C@H](C1)O)[H])=O)[H])(CC[C@@]4([C@@H](CCCC(C)C)C)[H])[H])C)[H])C,137062,7-oxo-5alpha-cholestan-3beta-ol
+111,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(CC([C@]2(CC(C1)=O)[H])=O)[H])(CC[C@@]4([C@@H]([C@H]([C@@H](CC(C)C)O)O)C)[H])[H])C)[H])C,188991,6-dehydro-28-norteasterone
+112,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(CC([C@]2(C[C@@H](C1)O)[H])=O)[H])(CC[C@@]4([C@@H]([C@H]([C@@H](CC(C)C)O)O)C)[H])[H])C)[H])C,188994,28-nortyphasterol
+113,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(CC([C@]2(C[C@@H]([C@@H]1O)O)[H])=O)[H])(CC[C@@]4([C@@H]([C@H]([C@@H](CC(C)C)O)O)C)[H])[H])C)[H])C,188997,28-norcastasterone
+114,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(CC=C2CC(C1)=O)[H])(CC[C@@H]4O)[H])C)[H])C,141179,17beta-hydroxy-5-androsten-3-one
+115,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(CC=C2C[C@H](C1)O)[H])(CC[C@@]4([C@H](C)CC/C=C(\CO)/C)[H])[H])C)[H])C,137053,"(24Z),26-hydroxydesmosterol"
+116,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(CC=C2C[C@H](C1)O)[H])(CC[C@@]4([C@H](C)CCCC(C)C)[H])[H])C)[H])C,16113,cholesterol
+117,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(CC=C2C[C@H](C1)OC(=O)CCCCCCCCC/C=C\C/C=C\C/C=C\CC)[H])(CC[C@@]4([C@H](C)CCCC(C)C)[H])[H])C)[H])C,137412,"cholesteryl (11Z,14Z,17Z)-icosatrienoate"
+118,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(CC=C2C[C@H](C1)OC(CCC/C=C\C/C=C\C/C=C\CCCCCCCC)=O)[H])(CC[C@@]4([C@H](C)CCCC(C)C)[H])[H])C)[H])C,88752,"cholesteryl (5Z,8Z,11Z)-icosatrienoate"
+119,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(CC=C2C[C@H](C1)OC(CCCC/C=C\C/C=C\C/C=C\CCCCC)=O)[H])(CC[C@@]4([C@H](C)CCCC(C)C)[H])[H])C)[H])C,88756,cholesteryl gamma-linolenate
+120,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(CC=C2C[C@H](C1)OC(CN*)=O)[H])(CC[C@@]4([C@H](C)CCCC(C)C)[H])[H])C)[H])C,143135,Glycino 3beta-cholesterol ester group
+121,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(CC=C2C[C@H](C1)OS([O-])(=O)=O)[H])(CC[C@@H]4O)[H])C)[H])C,190287,androstenediol 3-sulfate(1-)
+122,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(CC[C@@]2(CC(C1)=O)[H])[H])(CC[C@]4([H])[C@@H](O)C)[H])C)[H])C,78666,5beta-pregnan-20alpha-ol-3-one
+123,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(CC[C@@]2(C[C@@H](C1)O)[H])[H])(CC[C@@]4([C@@H](CCC(O[C@@H]5O[C@@H]([C@H]([C@@H]([C@H]5O)O)O)C([O-])=O)=O)C)[H])[H])C)[H])C,136902,lithocholic acid 24-O-(beta-D-glucuronide)(1-)
+124,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(CC[C@@]2(C[C@@H](C1)OS([O-])(=O)=O)[H])[H])(CC[C@@]4([C@H](C)CCC([O-])=O)[H])[H])C)[H])C,133940,lithocholate sulfate(2-)
+125,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(CC[C@@]2(C[C@@H](C1)O[C@@H]5O[C@@H]([C@H]([C@@H]([C@H]5O)O)O)C([O-])=O)[H])[H])(CCC4=O)[H])C)[H])C,178197,etiocholan-3alpha-ol-17-one 3-O-(beta-D-glucuronide)(1-)
+126,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(CC[C@@]2(C[C@@H](C1)O[C@@H]5O[C@@H]([C@H]([C@@H]([C@H]5O)O)O)C([O-])=O)[H])[H])(CC[C@@]4([C@@H](CCC([O-])=O)C)[H])[H])C)[H])C,136965,lithocholate 3-O-(beta-D-glucuronide)(2-)
+127,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(CC[C@@]2(C[C@@H](C1)O[C@@H]5O[C@@H]([C@H]([C@@H]([C@H]5O)O)O)C([O-])=O)[H])[H])(CC[C@]4([H])[C@@H](O)C)[H])C)[H])C,178102,"5beta-pregnane 3alpha,20alpha-diol 3-O-(beta-D-glucuronide)(1-)"
+128,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(CC[C@@]2(C[C@@H](C1)O[C@@H]5O[C@@H]([C@H]([C@@H]([C@H]5O)O)O)CO)[H])[H])(CC[C@@]4([C@@H](CCC([O-])=O)C)[H])[H])C)[H])C,57525,dolichyl beta-D-glucosyl phosphate(1-)
+129,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(CC[C@@]2(C[C@@H](C1)O[C@@H]5O[C@@H]([C@H]([C@@H]([C@H]5O)OS([O-])(=O)=O)O)C([O-])=O)[H])[H])(CCC4=O)[H])C)[H])C,178198,etiocholan-3alpha-ol-17-one 3-O-(3-sulfo-beta-D-glucuronide)(2-)
+130,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(CC[C@@]2(C[C@@H](C1)O[C@@H]5O[C@@H]([C@H]([C@@H]([C@H]5O)OS([O-])(=O)=O)O)C([O-])=O)[H])[H])(CC[C@]4([H])[C@@H](O)C)[H])C)[H])C,178103,"5beta-pregnane 3alpha,20alpha-diol 3-O-(3-sulfo-beta-D-glucuronide)(2-)"
+131,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(CC[C@@]2(C[C@H](C1)O)[H])[H])(CC[C@@]4([C@@H](CCC([O-])=O)C)[H])[H])C)[H])C,87728,isolithocholate
+132,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(CC[C@@]2(C[C@H](C1)O)[H])[H])(CC[C@]4([H])[C@@H](O)C)[H])C)[H])C,156526,"5beta-pregnane-3beta,20alpha-diol"
+133,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(CC[C@]2(CC(C1)=O)[H])[H])(CC[C@@H]4O)[H])C)[H])C=O,137032,19-oxo-5alpha-dihydrotestosterone
+134,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(CC[C@]2(CC(C1)=O)[H])[H])(CC[C@@H]4O)[H])C)[H])CO,137031,19-hydroxy-5alpha-dihydrotestosterone
+135,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(CC[C@]2(CC(C1)=O)[H])[H])(CC[C@@H]4O)[H])CO)[H])C,137037,18-hydroxy-5alpha-dihydrotestosterone
+136,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(CC[C@]2(CC(C1)=O)[H])[H])(CC[C@@H]4O[C@H]5[C@@H]([C@H]([C@@H]([C@H](O5)C(=O)[O-])O)O)O)[H])C)[H])C,136914,5alpha-dihydrotestosterone 17-O-(beta-D-glucuronide)(1-)
+137,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(CC[C@]2(CC(C1)=O)[H])[H])(CC[C@@H]4O[C@H]5[C@@H]([C@H]([C@@H]([C@H](O5)C(=O)[O-])O)O)O[C@H]6[C@@H]([C@H]([C@@H]([C@H](O6)C([O-])=O)O)O)O)[H])C)[H])C,136916,5alpha-dihydrotestosterone 17-O-[beta-D-glucuronosyl-(1->2)-glucuronide](2-)
+138,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(CC[C@]2(CC(C1)=O)[H])[H])(CC[C@@]4([C@@H]([C@H]([C@@H](CC(C)C)O)O)C)[H])[H])C)[H])C,188989,3-dehydro-6-deoxo-28-norteasterone
+139,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(CC[C@]2(C[C@@H](C1)O)[H])[H])(CC[C@@]4([C@@H]([C@H]([C@@H](CC(C)C)O)O)C)[H])[H])C)[H])C,188992,6-deoxo-28-nortyphasterol
+140,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(CC[C@]2(C[C@@H]([C@@H]1O)O)[H])[H])(CC[C@@]4([C@@H]([C@H]([C@@H](CC(C)C)O)O)C)[H])[H])C)[H])C,188995,6-deoxo-28-norcastasterone
+141,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(CC[C@]2(C[C@H](C1)O)[H])[H])(CC[C@@]4([C@@H]([C@H]([C@@H](CC(C)C)O)O)C)[H])[H])C)[H])C,188985,6-deoxo-28-norteasterone
+142,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(CC[C@]2(C[C@H](C1)O)[H])[H])(CC[C@@]4([C@H](C)CCC[C@@H](C)CO)[H])[H])C)[H])C,137688,(25R)-26-hydroxycholestanol
+143,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(CC[C@]2(C[C@H](C1)O)[H])[H])(CC[C@@]4([C@H](C)CC[C@@H](C(C)C)O)[H])[H])C)[H])C,137687,(24S)-hydroxycholestanol
+144,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(C[C@@H]([C@@]2(C[C@@H](C1)O)[H])O)[H])(CC[C@@]4([C@@H](CCC(O[C@@H]5O[C@@H]([C@H]([C@@H]([C@H]5O)O)O)C([O-])=O)=O)C)[H])[H])C)[H])C,136903,hyodeoxycholic acid 24-O-(beta-D-glucuronide)(1-)
+145,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(C[C@@H]([C@@]2(C[C@@H](C1)O)[H])O[C@@H]5O[C@@H]([C@H]([C@@H]([C@H]5O)O)O)C([O-])=O)[H])(CC[C@@]4([C@@H](CCC(=O)[O-])C)[H])[H])C)[H])C,136905,hyodeoxycholate 6-O-(beta-D-glucuronide)(2-)
+146,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(C[C@@H]([C@]2(CC(C1)=O)[H])O)[H])(CC[C@@]4([C@@H]([C@H]([C@@H](CC(C)C)O)O)C)[H])[H])C)[H])C,188990,3-dehydro-6alpha-hydroxy-28-norteasterone
+147,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(C[C@@H]([C@]2(C[C@@H](C1)O)[H])O)[H])(CC[C@@]4([C@@H]([C@H]([C@@H](CC(C)C)O)O)C)[H])[H])C)[H])C,188993,6alpha-hydroxy-28-nortyphasterol
+148,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(C[C@@H]([C@]2(C[C@@H]([C@@H]1O)O)[H])O)[H])(CC[C@@]4([C@@H]([C@H]([C@@H](CC(C)C)O)O)C)[H])[H])C)[H])C,188996,6alpha-hydroxy-28-norcastasterone
+149,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3(C[C@@H]([C@]2(C[C@H](C1)O)[H])O)[H])(CC[C@@]4([C@@H]([C@H]([C@@H](CC(C)C)O)O)C)[H])[H])C)[H])C,188987,6alpha-hydroxy-28-norteasterone
+150,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3([C@@H](C[C@@]2(CC(C1)=O)[H])O)[H])(CC[C@@]4([C@@H](CCC([O-])=O)C)[H])[H])C)[H])C,87731,7alpha-hydroxy-3-oxo-5beta-cholan-24-oate
+151,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3([C@@H](C[C@@]2(C[C@@H](C1)O)[H])O)[H])(CC[C@@]4([C@@H](CCC(O[C@@H]5O[C@@H]([C@H]([C@@H]([C@H]5O)O)O)C([O-])=O)=O)C)[H])[H])C)[H])C,136899,chenodeoxycholic acid 24-O-(beta-D-glucuronide)(1-)
+152,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3([C@@H](C[C@@]2(C[C@@H](C1)O)[H])OS([O-])(=O)=O)[H])(CC[C@@]4([C@@H](CCC(NCCS(=O)(=O)[O-])=O)C)[H])[H])C)[H])C,172396,taurochenodeoxycholate 7-sulfate(2-)
+153,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3([C@@H](C[C@@]2(C[C@@H](C1)O)[H])OS([O-])(=O)=O)[H])(CC[C@@]4([C@@H](CCC([O-])=O)C)[H])[H])C)[H])C,172395,chenodeoxycholate 7-sulfate(2-)
+154,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3([C@@H](C[C@@]2(C[C@@H](C1)OS([O-])(=O)=O)[H])O)[H])(CC[C@@]4([C@@H](CCC(NCCS(=O)(=O)[O-])=O)C)[H])[H])C)[H])C,166912,taurochenodeoxycholate 3-sulfate
+155,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3([C@@H](C[C@@]2(C[C@@H](C1)O[C@H]5[C@@H]([C@H]([C@@H]([C@H](O5)CO)O)O)O)[H])O)[H])(CC[C@@]4([C@@H](CCC([O-])=O)C)[H])[H])C)[H])C,142610,chenodeoxycholate-3-O-beta-D-glucoside(1-)
+156,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3([C@@H]([C@@H]([C@@]2(C[C@@H](C1)O)[H])O)O)[H])(CC[C@@]4([C@@H](CCC(O[C@@H]5O[C@@H]([C@H]([C@@H]([C@H]5O)O)O)C([O-])=O)=O)C)[H])[H])C)[H])C,136904,hyocholic acid 24-O-(beta-D-glucuronide)(1-)
+157,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3([C@@H]([C@@H]([C@@]2(C[C@@H](C1)O)[H])O)O)[H])(CC[C@]4([H])[C@@H](CCC([O-])=O)C)[H])C)[H])C,133661,hyocholate
+158,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3([C@@H]([C@@H]([C@@]2(C[C@@H](C1)O)[H])O[C@@H]5O[C@@H]([C@H]([C@@H]([C@H]5O)O)O)C([O-])=O)O)[H])(CC[C@@]4([C@@H](CCC(=O)[O-])C)[H])[H])C)[H])C,136906,hyocholate 6-O-(beta-D-glucuronide)(2-)
+159,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3([C@H](C[C@@]2(C[C@@H](C1)O)[H])O)[H])(CC[C@]4([H])[C@@H](CCC(NCC([O-])=O)=O)C)[H])C)[H])C,132030,glycoursodeoxycholate
+160,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3([C@H](C[C@@]2(C[C@@H](C1)O)[H])O)[H])(CC[C@]4([H])[C@@H](CCC(NCCS([O-])(=O)=O)=O)C)[H])C)[H])C,132028,tauroursodeoxycholate
+161,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]3([C@H]([C@H]([C@@]2(C[C@@H](C1)O)[H])O)O)[H])(CC[C@@]4([C@@H](CCC(NCCS([O-])(=O)=O)=O)C)[H])[H])C)[H])C,133064,tauro-beta-muricholate
+162,C1[C@@]2([C@]3(CC[C@]4([C@]([C@@]35[C@@H](C[C@]2(C[C@H](C1)O)[H])O5)(CC[C@@]4([C@@H](CCCC(C)C)C)[H])[H])C)[H])C,137063,"cholestanol 7alpha,8alpha-epoxide"
+163,C1[C@@]2([C@]3(C[C@@H]([C@]4([C@]([C@@]3(C(C[C@@]2(C[C@@H](C1)O)[H])=O)[H])(CC[C@@]4([C@@H](CCC(NCCS([O-])(=O)=O)=O)C)[H])[H])C)O)[H])C,137820,7-oxotaurodeoxycholate
+164,C1[C@@]2([C@]3(C[C@@H]([C@]4([C@]([C@@]3(C(C[C@@]2(C[C@@H](C1)O)[H])=O)[H])(CC[C@]4([H])[C@@H](CCC(NCC([O-])=O)=O)C)[H])C)O)[H])C,137824,7-oxoglycodeoxycholate
+165,C1[C@@]2([C@]3(C[C@@H]([C@]4([C@]([C@@]3(CC[C@@]2(CC(C1)=O)[H])[H])(CC[C@@]4([C@@H](CCC([O-])=O)C)[H])[H])C)O)[H])C,87734,12alpha-hydroxy-3-oxo-5beta-cholan-24-oate
+166,C1[C@@]2([C@]3(C[C@@H]([C@]4([C@]([C@@]3(CC[C@@]2(C[C@@H](C1)O)[H])[H])(CC[C@@]4([C@@H](CCC(NCC([O-])=O)=O)C)[H])[H])C)O)[H])C,82982,glycodeoxycholate
+167,C1[C@@]2([C@]3(C[C@@H]([C@]4([C@]([C@@]3(CC[C@@]2(C[C@@H](C1)O)[H])[H])(CC[C@@]4([C@@H](CCC(O[C@@H]5O[C@@H]([C@H]([C@@H]([C@H]5O)O)O)C([O-])=O)=O)C)[H])[H])C)O)[H])C,136901,deoxycholic acid 24-O-(beta-D-glucuronide)(1-)
+168,C1[C@@]2([C@]3(C[C@@H]([C@]4([C@]([C@@]3(CC[C@@]2(C[C@@H](C1)OS(=O)(=O)[O-])[H])[H])(CC[C@@]4([C@@H](CCC(NCC([O-])=O)=O)C)[H])[H])C)O)[H])C,195624,3alpha-sulfoglycodeoxycholate(2-)
+169,C1[C@@]2([C@]3(C[C@@H]([C@]4([C@]([C@@]3(CC[C@@]2(C[C@@H](C1)OS(=O)(=O)[O-])[H])[H])(CC[C@@]4([C@@H](CCC(NCCS(=O)(=O)[O-])=O)C)[H])[H])C)O)[H])C,195625,3alpha-sulfotaurodeoxycholate(2-)
+170,C1[C@@]2([C@]3(C[C@@H]([C@]4([C@]([C@@]3(CC[C@@]2(C[C@@H](C1)OS(=O)(=O)[O-])[H])[H])(CC[C@@]4([C@@H](CCC([O-])=O)C)[H])[H])C)O)[H])C,195622,3alpha-sulfodeoxycholate(2-)
+171,C1[C@@]2([C@]3(C[C@@H]([C@]4([C@]([C@@]3(CC[C@]2(C[C@@H](C1)O)[H])[H])(CC[C@]4([H])[C@@H](CCC([O-])=O)C)[H])C)O)[H])C,137662,allodeoxycholate
+172,C1[C@@]2([C@]3(C[C@@H]([C@]4([C@]([C@@]3([C@@H](C[C@@]2(CC(C1)=O)[H])O)[H])(CC[C@@]4([C@@H](CCC([O-])=O)C)[H])[H])C)O)[H])C,87736,"7alpha,12alpha-dihydroxy-3-oxo-5beta-cholan-24-oate"
+173,C1[C@@]2([C@]3(C[C@@H]([C@]4([C@]([C@@]3([C@@H](C[C@@]2(C[C@@H](C1)O)[H])O)[H])(CC[C@@]4([C@@H](CCCC(C)(C)O)C)[H])[H])C)O)[H])C,169973,"5beta-cholestane-3alpha,7alpha,12alpha,25-tetrol"
+174,C1[C@@]2([C@]3(C[C@@H]([C@]4([C@]([C@@]3([C@@H](C[C@@]2(C[C@@H](C1)O)[H])O)[H])(CC[C@]4([H])[C@@H](CC(NCCS([O-])(=O)=O)=O)C)[H])C)O)[H])C,191405,tauronorcholate(1-)
+175,C1[C@@]2([C@]3(C[C@@H]([C@]4([C@]([C@@]3([C@@H](C[C@@]2(C[C@@H](C1)O)[H])O)[H])(CC[C@]4([H])[C@@H](CCC(N[C@H](C(=O)[O-])*)=O)C)[H])C)O)[H])C,229709,N-choloyl-L-alpha-amino acid anion
+176,C1[C@@]2([C@]3(C[C@@H]([C@]4([C@]([C@@]3([C@@H](C[C@@]2(C[C@@H](C1)O)[H])O)[H])(CC[C@]4([H])[C@@H](CCC(N[C@H](C(=O)[O-])C)=O)C)[H])C)O)[H])C,229710,L-alanocholate
+177,C1[C@@]2([C@]3(C[C@@H]([C@]4([C@]([C@@]3([C@@H](C[C@@]2(C[C@@H](C1)O)[H])O)[H])(CC[C@]4([H])[C@@H](CCC(N[C@H](C(=O)[O-])CC=5C=CC=CC5)=O)C)[H])C)O)[H])C,229714,L-phenylalanocholate
+178,C1[C@@]2([C@]3(C[C@@H]([C@]4([C@]([C@@]3([C@@H](C[C@@]2(C[C@@H](C1)O)[H])O)[H])(CC[C@]4([H])[C@@H](CCC(N[C@H](C(=O)[O-])CC=5N=CNC5)=O)C)[H])C)O)[H])C,229712,L-histidocholate
+179,C1[C@@]2([C@]3(C[C@@H]([C@]4([C@]([C@@]3([C@@H](C[C@@]2(C[C@@H](C1)O)[H])O)[H])(CC[C@]4([H])[C@@H](CCC(N[C@H](C(=O)[O-])CCCNC(=[NH2+])N)=O)C)[H])C)O)[H])C,229713,L-arginocholate
+180,C1[C@@]2([C@]3(C[C@@H]([C@]4([C@]([C@@]3([C@@H](C[C@@]2(C[C@@H](C1)O)[H])O)[H])(CC[C@]4([H])[C@@H](CCC(N[C@H](C(=O)[O-])CO)=O)C)[H])C)O)[H])C,229711,L-serocholate
+181,C1[C@@]2([C@]3(C[C@@H]([C@]4([C@]([C@@]3([C@@H](C[C@@]2(C[C@@H](C1)O)[H])O)[H])(CC[C@]4([H])[C@@H](CCC(SCCNC(CCNC(=O)[C@@H](C(COP([O-])(=O)[O-])(C)C)O)=O)=O)C)[H])C)O)[H])C,132020,S-choloyl-4'-phosphopantetheine(2-)
+182,C1[C@@]2([C@]3(C[C@@H]([C@]4([C@]([C@@]3([C@@H](C[C@@]2(C[C@@H](C1)O)[H])OS([O-])(=O)=O)[H])(CC[C@]4([H])[C@@H](CCC(NCC([O-])=O)=O)C)[H])C)O)[H])C,172393,glycocholate 7-sulfate(2-)
+183,C1[C@@]2([C@]3(C[C@@H]([C@]4([C@]([C@@]3([C@@H](C[C@@]2(C[C@@H](C1)O)[H])OS([O-])(=O)=O)[H])(CC[C@]4([H])[C@@H](CCC(NCCS([O-])(=O)=O)=O)C)[H])C)O)[H])C,172394,taurocholate 7-sulfate(2-)
+184,C1[C@@]2([C@]3(C[C@@H]([C@]4([C@]([C@@]3([C@@H](C[C@@]2(C[C@@H](C1)O)[H])OS([O-])(=O)=O)[H])(CC[C@]4([H])[C@@H](CCC([O-])=O)C)[H])C)O)[H])C,172392,cholate 7-sulfate(2-)
+185,C1[C@@]2([C@]3(C[C@@H]([C@]4([C@]([C@@]3([C@@H](C[C@]2(C[C@@H](C1)O)[H])O)[H])(CC[C@]4([H])[C@@H](CCC(NCCS(=O)(=O)[O-])=O)C)[H])C)O)[H])C,191406,tauroallocholate(1-)
+186,C1[C@@]2([C@]3(C[C@@H]([C@]4([C@]([C@@]3([C@@H](C[C@]2(C[C@@H](C1)O)[H])O)[H])(CC[C@]4([H])[C@@H](CCC([O-])=O)C)[H])C)O)[H])C,137661,allocholate
+187,C1[C@@]2([C@]3(C[C@@H]([C@]4([C@]([C@@]3([C@H](C[C@@]2(C[C@@H](C1)O)[H])O)[H])(CC[C@@]4([C@@H](CCC([O-])=O)C)[H])[H])C)O)[H])C,137880,ursocholate
+188,C1[C@H](C[C@@]2([C@](C1)([C@@]3([C@@]([C@@H]([C@H]2O)O)([C@@]4([H])[C@@](CC3)(C)[C@](CC4)([C@@H](CCC([O-])=O)C)[H])[H])[H])C)[H])O,134116,alpha-muricholate
+189,C1[C@H](C[C@@]2([C@](C1)([C@@]3([C@@]([C@@H]([C@H]2O)OS([O-])(=O)=O)([C@@]4([H])[C@@](CC3)(C)[C@](CC4)([C@@H](CCC([O-])=O)C)[H])[H])[H])C)[H])O,172398,alpha-muricholate 7-sulfate(2-)
+190,C1[C@H](C[C@@]2([C@](C1)([C@@]3([C@@]([C@H]([C@H]2O)O)([C@@]4([H])[C@@](CC3)(C)[C@](CC4)([C@@H](CCC([O-])=O)C)[H])[H])[H])C)[H])O,134119,beta-muricholate
+191,C1[C@]2([C@](/C(=C/C=C/3\C(CC[C@@H](C3)OS(=O)(=O)[O-])=C)/CC1)(CC[C@@]2([C@H](C)CCCC(C)(C)O)[H])[H])C,194336,25-hydroxyvitamin D3 sulfate(1-)
+192,C1[C@]2([C@](/C(=C/C=C/3\C([C@H](C[C@@H](C3)O)O)=C)/CC1)(CC[C@@]2([C@H](C)/C=C/[C@@H](C(C)C)C)[H])[H])C,4712,doxercalciferol
+193,C1[C@]2([C@]3([C@@](C4=C(C(=C(O)C=C4)OC)CC3)(CC[C@@]2(C(=O)C1)C)[H])[H])[H],136972,4-methoxyestrone
+194,C1[C@]2([C@]3([C@@](C4=C(C(=C(O[C@H]5[C@@H]([C@H]([C@@H]([C@H](O5)C(=O)[O-])O)O)O)C=C4)O)CC3)(CC[C@@]2(C(=O)C1)C)[H])[H])[H],136969,4-hydroxyestrone 3-O-(beta-D-glucuronide)(1-)
+195,C1[C@]2([C@]3([C@@](C4=C(C(=C(O[C@H]5[C@@H]([C@H]([C@@H]([C@H](O5)C(=O)[O-])O)O)O)C=C4)OC)CC3)(CC[C@@]2(C(=O)C1)C)[H])[H])[H],136973,4-methoxyestrone 3-O-(beta-D-glucuronide)(1-)
+196,C1[C@]2([C@]3([C@@](C4=C(C(=C(O[C@H]5[C@@H]([C@H]([C@@H]([C@H](O5)C(=O)[O-])O)O)O)C=C4)OC)CC3)(CC[C@@]2([C@@H](O)C1)C)[H])[H])[H],136976,4-methoxy-17beta-estradiol 3-O-(beta-D-glucuronide)(1-)
+197,C1[C@]2([C@]3([C@@](C4=C(C=C(O)C=C4)CC3)(CC[C@@]2(C(=O)[C@@H]1O[C@@H]5O[C@@H]([C@H]([C@@H]([C@H]5O)O)O)C([O-])=O)C)[H])[H])[H],136636,16alpha-hydroxyestrone 16-O-(beta-D-glucuronide)(1-)
+198,C1[C@]2([C@]3([C@@](C4=C(C=C(O)C=C4)CC3)(CC[C@@]2([C@@H](O)[C@@H]1O[C@@H]5O[C@@H]([C@H]([C@@H]([C@H]5O)O)O)C([O-])=O)C)[H])[H])[H],136650,estriol 16-O-(beta-D-glucuronide)(1-)
+199,C1[C@]2([C@]3([C@@](C4=C(C=C(O)C=C4)CC3)(CC[C@@]2([C@@H](O)[C@@H]1O[C@@H]5O[C@@H]([C@H]([C@@H]([C@H]5O)OS([O-])(=O)=O)O)C([O-])=O)C)[H])[H])[H],178098,estriol 16-O-(3-sulfo-beta-D-glucuronide)(2-)
+200,C1[C@]2([C@]3([C@@](C4=C(C=C(O)C=C4)CC3)(CC[C@@]2([C@@H](O[C@@H]5O[C@@H]([C@H]([C@@H]([C@H]5O)O)O)C([O-])=O)[C@@H]1O)C)[H])[H])[H],178100,estriol 17-O-(beta-D-glucuronide)(1-)
+201,C1[C@]2([C@]3([C@@](C4=C(C=C(O)C=C4)CC3)(CC[C@@]2([C@@H](O[C@@H]5O[C@@H]([C@H]([C@@H]([C@H]5O)OS([O-])(=O)=O)O)C([O-])=O)[C@@H]1O)C)[H])[H])[H],178099,estriol 17-O-(3-sulfo-beta-D-glucuronide)(2-)
+202,C1[C@]2([C@]3([C@@](C4=C(C=C(O)C=C4)CC3)(CC[C@@]2([C@H](O[C@@H]5O[C@@H]([C@H]([C@@H]([C@H]5O)O)O)C([O-])=O)C1)C)[H])[H])[H],136642,17alpha-estradiol 17-O-(beta-D-glucuronide)(1-)
+203,C1[C@]2([C@]3([C@@](C4=C(C=C(OC)C(=C4)O)CC3)(CC[C@@]2(C(=O)C1)C)[H])[H])[H],136980,2-hydroxy-3-O-methyl estrone
+204,C1[C@]2([C@]3([C@@](C4=C(C=C(O[C@H]5[C@@H]([C@H]([C@@H]([C@H](O5)C(=O)[O-])O)O)O)C(=C4)O)CC3)(CC[C@@]2(C(=O)C1)C)[H])[H])[H],136967,2-hydroxyestrone 3-O-(beta-D-glucuronide)(1-)
+205,C1[C@]2([C@]3([C@@](C4=C(C=C(O[C@H]5[C@@H]([C@H]([C@@H]([C@H](O5)C(=O)[O-])O)O)O)C(=C4)O)CC3)(CC[C@@]2([C@@H](O)C1)C)[H])[H])[H],136931,2-hydroxy-17beta-estradiol 3-O-(beta-D-glucuronide)(1-)
+206,C1[C@]2([C@]3([C@@](C4=C(C=C(O[C@H]5[C@@H]([C@H]([C@@H]([C@H](O5)C(=O)[O-])O)O)O)C(=C4)OC)CC3)(CC[C@@]2(C(=O)C1)C)[H])[H])[H],136971,2-methoxyestrone 3-O-(beta-D-glucuronide)(1-)
+207,C1[C@]2([C@]3([C@@](C4=C(C=C(O[C@H]5[C@@H]([C@H]([C@@H]([C@H](O5)C(=O)[O-])O)O)O)C(=C4)OC)CC3)(CC[C@@]2([C@@H](O)C1)C)[H])[H])[H],136974,2-methoxy-17beta-estradiol 3-O-(beta-D-glucuronide)(1-)
+208,C1[C@]2([C@]3([C@@](C4=C(C=C(O[C@H]5[C@@H]([C@H]([C@@H]([C@H](O5)C(=O)[O-])O)O)O)C=C4)CC3)(CC[C@@]2(C(=O)C1)C)[H])[H])[H],136634,estrone 3-O-(beta-D-glucuronide)(1-)
+209,C1[C@]2([C@]3([C@@](C4=C(C=C(O[C@H]5[C@@H]([C@H]([C@@H]([C@H](O5)C(=O)[O-])O)O)O)C=C4)CC3)(CC[C@@]2([C@H](O)C1)C)[H])[H])[H],57529,17alpha-estradiol 3-glucosiduronate
+210,C1[C@]2([C@]3([C@@](C4=C(C=C(O[C@H]5[C@@H]([C@H]([C@@H]([C@H](O5)C(=O)[O-])O)OS([O-])(=O)=O)O)C=C4)CC3)(CC[C@@]2(C(=O)C1)C)[H])[H])[H],178101,estrone 3-O-(3-sulfo-beta-D-glucuronide)(2-)
+211,C1[C@]2([C@]3([C@@](C4=C(CC3)C=C(C=C4)O[C@@H]5O[C@@H]([C@H]([C@@H]([C@H]5O)O)O)C([O-])=O)(CC[C@@]2(C(=O)[C@@H]1O)C)[H])[H])[H],136635,16alpha-hydroxyestrone 3-O-(beta-D-glucuronide)(1-)
+212,C1[C@]2([C@]3([H])COC([C@@]4([C@@]([C@]3(CC[C@@]2([C@](C1)([C@@H]([C@H]([C@@H]([C@H](C(C)C)C)O)O)C)[H])C)[H])(CC[C@@H](C4)O)C)[H])=O)[H],188918,7-oxoteasterone
+213,C=1C=2[C@]3(CC[C@]4([C@]([C@@]3(CCC2C(=C(C1)O)OC)[H])(CC[C@@H]4O)[H])C)[H],136975,4-methoxy-17beta-estradiol
+214,CC(=O)[C@@]1(O)CC[C@H]2[C@@H]3CC=C4C[C@@H](O)CC[C@]4(C)[C@H]3CC[C@]12C,28750,17alpha-hydroxypregnenolone
+215,CC(=O)[C@H]1CC[C@H]2[C@@H]3CCC4=C[C@@H](O)CC[C@]4(C)[C@H]3CC[C@]12C,85899,4-pregnen-3beta-ol-20-one
+216,CC(C)CCC[C@@H](C)[C@H]1CC=C2C3=C(CC[C@]12C)[C@@]1(C)CC[C@H](O)C(C)(C)[C@@H]1CC3,78904,"4,4-dimethyl-8,14-cholestadien-3beta-ol"
+217,CC(C)CCC[C@@H](C)[C@H]1CC=C2C3=C(CC[C@]12C)[C@@]1(C)CC[C@H](O)C[C@@H]1CC3,86131,"5alpha-cholesta-8,14-dien-3beta-ol"
+218,CC(C)CCC[C@@H](C)[C@H]1CC[C@@]2(C=O)C3=C(CC[C@]12C)[C@@]1(C)CC[C@H](O)C(C)(C)[C@@H]1CC3,87060,3beta-hydroxylanost-8-en-32-al
+219,CC(C)CCC[C@@H](C)[C@H]1CC[C@@]2(CO)C3=C(CC[C@]12C)[C@@]1(C)CC[C@H](O)C(C)(C)[C@@H]1CC3,87057,"lanost-8-ene-3beta,30-diol"
+220,CC(C)CCC[C@@H](C)[C@H]1CC[C@H]2C3=C(CC[C@]12C)[C@@]1(C)CCC(=O)C[C@@H]1CC3,87056,5alpha-cholest-8-en-3-one
+221,CC(C)CCC[C@@H](C)[C@H]1CC[C@H]2C3=C(CC[C@]12C)[C@@]1(C)CCC(=O)[C@@H](C)[C@@H]1CC3,87050,4alpha-methyl-5alpha-cholest-8-en-3-one
+222,CC(C)CCC[C@@H](C)[C@H]1CC[C@H]2C3=C(CC[C@]12C)[C@@]1(C)CC[C@H](O)C(C)(C)[C@@H]1CC3,87044,"4,4-dimethyl-5alpha-cholest-8-en-3beta-ol"
+223,CC(C)CCC[C@@H](C)[C@H]1CC[C@H]2C3=C(CC[C@]12C)[C@@]1(C)CC[C@H](O)[C@@H](C)[C@@H]1CC3,87051,4alpha-methyl-5alpha-cholest-8-en-3beta-ol
+224,CC(C)CCC[C@@H](C)[C@H]1CC[C@H]2C3=C(CC[C@]12C)[C@@]1(C)CC[C@H](O)[C@H]([C@@H]1CC3)C([O-])=O,87055,3beta-hydroxy-5alpha-cholest-8-ene-4alpha-carboxylate
+225,CC(C)CCC[C@@H](C)[C@H]1CC[C@H]2C3=C(CC[C@]12C)[C@@]1(C)CC[C@H](O)[C@](C)([C@@H]1CC3)C([O-])=O,87047,3beta-hydroxy-4beta-methyl-5alpha-cholest-8-ene-4alpha-carboxylate
+226,CC(C)CCC[C@@H](C)[C@H]1CC[C@H]2[C@@H]3CC=C4[C@@H](O)[C@@H](O)CC[C@]4(C)[C@H]3CC[C@]12C,85778,4beta-hydroxycholesterol
+227,CC(C)CCC[C@@H](C)[C@H]1CC[C@H]2[C@@H]3CC[C@H]4C[C@@H](O)CC[C@]4(C)[C@H]3CC[C@]12C,86570,(5alpha)-cholestan-3beta-ol
+228,CC(C)CCC[C@@H](C)[C@H]1CC[C@H]2[C@@H]3[C@H](O)C=C4[C@@H](O)[C@@H](O)CC[C@]4(C)[C@H]3CC[C@]12C,85779,"4beta,7alpha-dihydroxycholesterol"
+229,CC(C)CC[C@@H](O)[C@@H](C)[C@H]1CC[C@H]2[C@@H]3[C@H](O)C=C4C[C@@H](O)CC[C@]4(C)[C@H]3CC[C@]12C,86145,"(7alpha,22R)-dihydroxycholesterol"
+230,CC(C)[C@@H](O)CC[C@@H](C)[C@H]1CC[C@H]2[C@@H]3CC=C4[C@@H](O)[C@@H](O)CC[C@]4(C)[C@H]3CC[C@]12C,86087,"4beta,24S-dihydroxycholesterol"
+231,CC(C)[C@H](C)[C@@H](O)[C@H](O)[C@@H](C)[C@H]1CC[C@H]2[C@@H]3CC(=O)[C@H]4C[C@H](O)CC[C@]4(C)[C@H]3CC[C@]12C,27173,typhasterol
+232,CC(CCC[C@@H](C)[C@H]1CC[C@H]2[C@@H]3CC=C4C[C@@H](O)CC[C@]4(C)[C@H]3CC[C@]12C)C=O,84145,3beta-hydroxycholest-5-en-26-al
+233,CC12CCC3C(CCC4CCCCC34C)[C@@]1(CCC2[*])C=O,176902,14alpha-formyl steroid
+234,CC12CCC3C(CCC4CCCCC34[*])C1CCC2=O,19168,17-oxo steroid
+235,CC12CCC3C(CCC4CCCCC34[*])C1CC[C@@H]2O,35343,17beta-hydroxy steroid
+236,CCCCCCCCCCCCCCCCCC(=O)O[C@H]1CC[C@]2(C)[C@H]3CC[C@]4(C)[C@H](CC[C@H]4[C@@H]3CC=C2C1)[C@H](C)CCCC(C)C,82750,cholesteryl stearate
+237,CCCCCC\C=C/CCCCCCCC(=O)O[C@H]1CC[C@]2(C)[C@H]3CC[C@]4(C)[C@H](CC[C@H]4[C@@H]3CC=C2C1)[C@H](C)CCCC(C)C,84323,cholesteryl palmitoleate
+238,CCCCC\C=C/C\C=C/CCCCCCCC(=O)O[C@H]1CC[C@]2(C)[C@H]3CC[C@]4(C)[C@H](CC[C@H]4[C@@H]3CC=C2C1)[C@H](C)CC[C@H](O)C(C)C,82875,(24S)-24-hydroxycholesterol 3-linoleoate
+239,CCCCC\C=C/C\C=C/C\C=C/CCCCCCC(=O)O[C@H]1CC[C@]2(C)[C@H]3CC[C@]4(C)[C@H](CC[C@H]4[C@@H]3CC=C2C1)[C@H](C)CCCC(C)C,84346,"cholesteryl all-cis-icosa-8,11,14-trienoate"
+240,CCCCC\C=C/C\C=C/C\C=C/C\C=C/CCCC(=O)O[C@H]1CC[C@]2(C)[C@H]3CC[C@]4(C)[C@H](CC[C@H]4[C@@H]3CC=C2C1)[C@H](C)CCCC(C)C,82751,cholesteryl arachidonate
+241,CC\C=C/C\C=C/C\C=C/CCCCCCCC(=O)O[C@H]1CC[C@]2(C)[C@H]3CC[C@]4(C)[C@H](CC[C@H]4[C@@H]3CC=C2C1)[C@H](C)CCCC(C)C,84341,cholesteryl linolenate
+242,CC\C=C/C\C=C/C\C=C/C\C=C/C\C=C/CCCC(=O)O[C@H]1CC[C@]2(C)[C@H]3CC[C@]4(C)[C@H](CC[C@H]4[C@@H]3CC=C2C1)[C@H](C)CCCC(C)C,84969,"cholesteryl (5Z,8Z,11Z,14Z,17Z-eicosapentaenoate)"
+243,CSCC[C@H](NC(=O)[C@H](CC(C)C)NC(=O)CNC(=O)[C@H](CC1=CC=CC=C1)NC(=O)[C@H](CC1=CC=CC=C1)NC(=O)[C@H](CCC(N)=O)NC(=O)[C@H](CCC(N)=O)NC(=O)[C@@H]1CCCN1C(=O)[C@H](CCCC[NH3+])NC(=O)[C@@H]1CCCN1C(=O)[C@@H]([NH3+])CCCNC(N)=[NH2+])C(N)=O,190692,substance P(3+)
+244,C[C@@H](CCC[C@@H](C)[C@H]1CC[C@H]2[C@@H]3CCC4=CC(=O)CC[C@]4(C)[C@H]3CC[C@]12C)C=O,83863,(25S)-3-ketocholest-4-en-26-al
+245,C[C@@H](CO)CCC[C@@H](C)[C@H]1CC[C@H]2[C@@H]3CC=C4C[C@@H](O)CC[C@]4(C)[C@H]3CC[C@]12C,76591,"(25R)-cholest-5-ene-3beta,26-diol"
+246,C[C@@H](CO)CCC[C@@H](C)[C@H]1CC[C@H]2[C@@H]3CC=C4[C@@H](O)[C@@H](O)CC[C@]4(C)[C@H]3CC[C@]12C,86113,"(25R)-4beta,26-dihydroxycholesterol"
+247,C[C@@H](CO)CCC[C@@H](C)[C@H]1CC[C@H]2[C@@H]3CCC4=CC(=O)CC[C@]4(C)[C@H]3CC[C@]12C,83861,(25R)-26-hydroxycholest-4-en-3-one
+248,C[C@@H](CO)CCC[C@@H](C)[C@H]1CC[C@H]2[C@@H]3[C@H](O)C=C4C[C@@H](O)CC[C@]4(C)[C@H]3CC[C@]12C,76592,"(25R)-7alpha,26-dihydroxycholesterol"
+249,C[C@@H](CO)[C@@H](O)CC[C@@H](C)[C@H]1CC[C@H]2[C@@H]3CC=C4C[C@@H](O)CC[C@]4(C)[C@H]3CC[C@]12C,86165,"(24S,25S)-cholest-5-en-3beta,24,26-triol"
+250,C[C@@H](O)[C@H]1CC[C@H]2[C@@H]3CC[C@H]4CC(=O)CC[C@]4(C)[C@H]3CC[C@]12C,78594,5alpha-pregan-20beta-ol-3-one
+251,C[C@@H]([C@H]1CC[C@H]2[C@@H]3CCC4=CC(=O)C=C[C@]4(C)[C@@]3(O)CC[C@]12C)C([O-])=O,85553,"9alpha-hydroxy-3-oxo-23,24-bisnorchola-1,4-dien-22-oate(1-)"
+252,C[C@@H]([C@H]1CC[C@H]2[C@@H]3CCC4=CC(=O)C=C[C@]4(C)[C@H]3CC[C@]12C)C([O-])=O,85551,"3-oxo-23,24-bisnorchola-1,4-dien-22-oate(1-)"
+253,C[C@@H]([C@H]1CC[C@H]2[C@@H]3CCC4=CC(=O)CC[C@]4(C)[C@@]3(O)CC[C@]12C)C([O-])=O,85550,"9alpha-hydroxy-3-oxo-23,24-bisnorchol-4-en-22-oate"
+254,C[C@@H]([C@H]1CC[C@H]2[C@@H]3CCC4=CC(=O)CC[C@]4(C)[C@H]3CC[C@]12C)C([O-])=O,83777,"3-oxo-23,24-bisnorchol-4-en-22-oate"
+255,C[C@H](CCC([O-])=O)[C@H]1CC[C@H]2[C@@H]3[C@@H](O)C[C@@H]4C[C@@H](O)CC[C@]4(C)[C@H]3CC[C@]12C,78602,isoursodeoxycholate
+256,C[C@H](CCC([O-])=O)[C@H]1CC[C@H]2[C@@H]3[C@@H](O)C[C@@H]4C[C@H](O)CC[C@]4(C)[C@H]3CC[C@]12C,78604,ursodeoxycholate
+257,C[C@H](CCC([O-])=O)[C@H]1CC[C@H]2[C@H]3[C@H](CC[C@]12C)[C@@]1(C)CC[C@@H](O)C[C@H]1CC3=O,78605,7-oxolithocholate
+258,C[C@H](CCC([O-])=O)[C@H]1CC[C@H]2[C@H]3[C@H](CC[C@]12C)[C@@]1(C)CC[C@H](O)C[C@H]1CC3=O,78603,3beta-hydroxy-7-oxo-5beta-cholan-24-oate
+259,C[C@H](CCCC(C)(C)O)[C@H]1CC[C@H]2[C@@H]3CC=C4C[C@H](CC[C@]4(C)[C@H]3CC[C@]12C)OC([*])=O,82869,(24S)-24-hydroxycholesterol ester
+260,C[C@H](CCCC(C)C([O-])=O)[C@H]1CC[C@H]2[C@@H]3CC=C4C[C@@H](O)CC[C@]4(C)[C@H]3CC[C@]12C,84146,3beta-hydroxycholest-5-en-26-oate
+261,C[C@H](CCCC(C)C([O-])=O)[C@H]1CC[C@H]2[C@@H]3[C@H](O)C[C@@H]4C[C@H](O)CC[C@]4(C)[C@H]3C[C@H](O)[C@]12C,85674,"3alpha,7alpha,12alpha-trihydroxy-5beta-cholestan-26-oate(1-)"
+262,C[C@H](CCC[C@@H](C)C([O-])=O)[C@H]1CC[C@H]2[C@@H]3CC=C4C[C@@H](O)CC[C@]4(C)[C@H]3CC[C@]12C,86098,(25R)-3beta-hydroxycholest-5-en-26-oate
+263,C[C@H](CCC[C@@H](C)C([O-])=O)[C@H]1CC[C@H]2[C@@H]3CC=C4[C@@H](O)[C@@H](O)CC[C@]4(C)[C@H]3CC[C@]12C,86116,"(25R)-3beta,4beta-dihydroxycholest-5-en-26-oate(1-)"
+264,C[C@H](CCC[C@@H](C)[C@H]1CC[C@H]2[C@@H]3CC=C4C[C@@H](O)CC[C@]4(C)[C@H]3CC[C@]12C)C=O,86096,(25R)-3beta-hydroxycholest-5-en-26-al
+265,C[C@H](CCC[C@@H](C)[C@H]1CC[C@H]2[C@@H]3CC=C4[C@@H](O)[C@@H](O)CC[C@]4(C)[C@H]3CC[C@]12C)C=O,86115,"(25R)-3beta,4beta-dihydroxycholest-5-en-26-al"
+266,C[C@H](CCC[C@@H](C)[C@H]1CC[C@H]2[C@@H]3CCC4=CC(=O)CC[C@]4(C)[C@H]3CC[C@]12C)C=O,83862,(25R)-3-ketocholest-4-en-26-al
+267,C[C@H](CC[C@@H]1OC1(C)C)[C@H]1CC[C@H]2[C@@H]3CC=C4C[C@@H](O)CC[C@]4(C)[C@H]3CC[C@]12C,41633,"24(S),25-epoxycholesterol"
+268,C[C@H](CC[C@@H]1OC1(C)C)[C@H]1CC[C@H]2[C@@H]3[C@H](O)C=C4C[C@@H](O)CC[C@]4(C)[C@H]3CC[C@]12C,86146,"(24S,25)-epoxy-7alpha-hydroxycholesterol"
+269,C[C@H](CC[C@H](O)C(C)(C)O)[C@H]1CC[C@H]2[C@@H]3CC=C4C[C@@H](O)CC[C@]4(C)[C@H]3CC[C@]12C,86074,"(24S,25)-dihydroxycholesterol"
+270,C[C@H](CO)CCC[C@@H](C)[C@H]1CC[C@H]2[C@@H]3CCC4=CC(=O)CC[C@]4(C)[C@H]3CC[C@]12C,83860,(25S)-26-hydroxycholest-4-en-3-one
+271,C[C@H]1[C@H]2[C@H](C[C@H]3[C@@H]4CC=C5C[C@H](CC[C@]5(C)[C@H]4CC[C@]23C)O[C@@H]2O[C@H](CO)[C@@H](O[C@@H]3O[C@H](CO)[C@@H](O)[C@H](O[C@@H]4O[C@H](CO)[C@@H](O)[C@H](O)[C@H]4O)[C@H]3O)[C@H](O)[C@H]2O[C@@H]2O[C@@H](C)[C@H](O)[C@@H](O)[C@H]2O)O[C@]11CC[C@@](C)(CO)O1,75931,26-desglucoavenacoside B
+272,C[C@]12CC(=O)[C@H]3[C@@H](CCC4=CC(=O)CC[C@]34C)[C@@H]1CC[C@@H]2C(=O)C=O,78601,"11,21-dioxoprogesterone"
+273,C[C@]12CC(=O)[C@H]3[C@@H](CCC4=CC(=O)CC[C@]34C)[C@@H]1CC[C@@H]2C(=O)CO,78600,11-dehydrocorticosterone
+274,C[C@]12CC(=O)[C@H]3[C@@H](CCC4=CC(=O)CC[C@]34C)[C@@H]1CC[C@]2(O)C(=O)C=O,78596,21-dehydrocortisone
+275,C[C@]12CCC(=O)C[C@H]1CC[C@H]1[C@@H]3CC[C@H](C(=O)CO)[C@]3(C[C@H](O)[C@H]21)C=O,86389,5beta-dihydroaldosterone
+276,C[C@]12CC[C@@]3(O)[C@@H](CCC4=CC(=O)CC[C@]34C)[C@@H]1CCC2=O,85549,"9alpha-hydroxyandrost-4-en-3,17-dione"
+277,C[C@]12CC[C@H]3[C@@H](CC=C4CC(=O)CC[C@]34C)[C@@H]1CCC2=O,83865,"androst-5-ene-3,17-dione"
+278,C[C@]12CC[C@H]3[C@@H](CCC4=CC(=O)C(O)C[C@]34C)[C@@H]1CC[C@@H]2O,86013,2-hydroxytestosterone
+279,C[C@]12CC[C@H]3[C@@H](CCC4=CC(=O)C=C[C@]34C)[C@@H]1CC[C@@H]2O,34584,boldenone
+280,C[C@]12CC[C@H]3[C@@H](CCC4=CC(=O)CC[C@]34C)[C@@H]1CC[C@H]2O,42534,epitestosterone
+281,C[C@]12CC[C@H]3[C@@H](CCC4=CC(=O)CC[C@]34C)[C@@H]1C[C@H](O)[C@@H]2O,83027,16beta-hydroxytestosterone
+282,C[C@]12CC[C@H]3[C@@H](CCC4=CC(=O)[C@H](O)C[C@]34C)[C@@H]1CC[C@@H]2O,83025,2alpha-hydroxytestosterone
+283,C[C@]12CC[C@H]3[C@@H](CCC4CC(=O)CC[C@]34C)[C@@H]1CC[C@@H]2O,85278,17beta-hydroxyandrostan-3-one
+284,C[C@]12CC[C@H]3[C@@H](CC[C@@H]4CC(=O)C=C[C@]34C)[C@@H]1CC[C@@H]2O,87331,17beta-hydroxy-5beta-androst-1-en-3-one
+285,C[C@]12CC[C@H]3[C@@H](CC[C@@H]4CC(=O)CC[C@H]34)[C@@H]1CC[C@@H]2O,87333,17beta-hydroxy-5beta-estran-3-one
+286,C[C@]12CC[C@H]3[C@@H](CC[C@@H]4CC(=O)CC[C@]34C)[C@@H]1CC[C@@H]2C(=O)CO,86384,5beta-dihydrodeoxycorticosterone
+287,C[C@]12CC[C@H]3[C@@H](CC[C@@H]4CC(=O)CC[C@]34C)[C@@H]1CC[C@H]2O,86377,5beta-dihydroepitestosterone
+288,C[C@]12CC[C@H]3[C@@H](CCc4c(O)c(O)ccc34)[C@@H]1CCC2=O,87602,4-hydroxyestrone
+289,C[C@]12CC[C@H]3[C@@H](CCc4cc(O)ccc34)[C@@H]1CC[C@@H]2O[C@@H]1O[C@@H]([C@@H](O)[C@H](O)[C@H]1O)C([O-])=O,82961,17beta-estradiol 17-glucosiduronate
+290,C[C@]12CC[C@H]3[C@@H](C[C@@H](O)C4=CC(=O)CC[C@]34C)[C@@H]1CCC2=O,87571,"6beta-hydroxyandrost-4-ene-3,17-dione"
+291,C[C@]12CC[C@H]3[C@@H](C[C@H](O)[C@H]4C[C@@H](O)CC[C@]34C)[C@@H]1CC[C@@H]2O,85809,"5alpha-androstane-3beta,6alpha,17beta-triol"
+292,C[C@]12CC[C@H]3[C@@H](C[C@H](O)c4cc(O)ccc34)[C@@H]1CCC2=O,87605,6alpha-hydroxyestrone
+293,C[C@]12CC[C@H]3[C@H]([C@@H]1CCC2=O)[C@H](O)C[C@H]1C[C@@H](O)CC[C@]31C,85816,"(3beta,5alpha,7alpha)-3,7-dihydroxyandrostan-17-one"
+294,C[C@]12CC[C@H]3[C@H]([C@@H]1CC[C@@H]2O)[C@H](O)C=C1C[C@@H](O)CC[C@]31C,85810,"androst-5-ene-3beta,7alpha,17beta-triol"
+295,C[C@]12C[C@H](O)[C@H]3[C@@H](CCC4=CC(=O)CC[C@]34C)[C@@H]1CC[C@]2(O)C(=O)C=O,78595,21-dehydrocortisol
+296,C[C@]12C[C@H](O)[C@H]3[C@@H](CC[C@@H]4CC(=O)CC[C@]34C)[C@@H]1CC[C@@H]2C(=O)CO,86381,5beta-dihydrocorticosterone
+297,Cc1ccc(O)cc1CCC1[C@@H]2CCC(O)[C@@]2(C)CCC1=O,85575,"3,17-dihydroxy-9,10-secoandrosta-1,3,5(10)-triene-9-one"
+298,NC(CNC([C@H](CCCNC(N)=[NH2+])NC([C@H]1N(CCC1)C([C@H]2NC([C@H](CC(=O)N)NC(=O)[C@H](CCC(=O)N)NC([C@H](CC3=CC=CC=C3)NC([C@H](CC4=CC=C(C=C4)O)NC(=O)[C@H](CSSC2)[NH3+])=O)=O)=O)=O)=O)=O)=O,194507,argipressin(2+)
+299,O(S([O-])(=O)=O)[C@@H]1CC=2[C@]([C@]3(CC[C@]4([C@]([C@@]3(CC2)[H])(CC[C@@]4([C@H](C)CCCC(C)C)[H])[H])C)[H])(C)CC1,136579,cholesterol sulfate(1-)
+300,O([C@@H]1CC=2[C@@](C3C(C4[C@@](C(CC4)[C@@H](CCCC(C)C)C)(CC3)C)CC2)(CC1)C)C(CCCCC/C=C\CCCCCCCCCC)=O,152049,CE 18:1(7Z)
+301,O([C@@H]1C[C@@]2([C@](CC1)([C@@]3([C@@](CC2)([C@@]4([C@]([C@@H](C3)O)([C@H](CC4)C5=CC(O[CH-]5)=O)C)O)[H])[H])C)[H])[C@@H]6O[C@@H]([C@H]([C@H](C6)O)O[C@@H]7O[C@@H]([C@H]([C@H](C7)O)O[C@@H]8O[C@@H]([C@H]([C@H](C8)O)O)C)C)C,145795,digoxin(1-)
+302,O([C@H]1[C@@H]([C@H]([C@@H]([C@H](O1)C([O-])=O)O)O)O)C2=CC3=C([C@@]4([C@]([C@]5([C@@]([C@@H](O)CC5)(CC4)C)[H])(CC3)[H])[H])C=C2,136641,17beta-estradiol 3-O-(beta-D-glucuronide)(1-)
+303,O([C@H]1[C@@H]([C@H]([C@@H]([C@H](O1)C([O-])=O)O)O)O)C2=CC3=C([C@@]4([C@]([C@]5([C@@]([C@@H](O)[C@@H](C5)O)(CC4)C)[H])(CC3)[H])[H])C=C2,136649,estriol 3-O-(beta-D-glucuronide)(1-)
+304,O([C@H]1[C@@H]([C@H]([C@@H]([C@H](O1)C([O-])=O)O)O)O)C2=CC3=C([C@@]4([C@]([C@]5([C@@]([C@@H](OS([O-])(=O)=O)CC5)(CC4)C)[H])(CC3)[H])[H])C=C2,178095,17beta-estradiol 3-O-(beta-D-glucuronide) 17-sulfate (2-)
+305,O([C@H]1[C@@H]([C@H]([C@@H]([C@H](O1)C([O-])=O)O)OS([O-])(=O)=O)O)C2=CC3=C([C@@]4([C@]([C@]5([C@@]([C@@H](O)CC5)(CC4)C)[H])(CC3)[H])[H])C=C2,178093,17beta-estradiol 3-O-(3-sulfo-beta-D-glucuronide)(2-)
+306,O([C@H]1[C@@H]([C@H]([C@@H]([C@H](O1)C([O-])=O)O)OS([O-])(=O)=O)O)C2=CC3=C([C@@]4([C@]([C@]5([C@@]([C@@H](O)[C@@H](C5)O)(CC4)C)[H])(CC3)[H])[H])C=C2,178097,estriol 3-O-(3-sulfo-beta-D-glucuronide)(2-)
+307,O([C@H]1[C@@H]([C@H]([C@@H]([C@H](O1)C([O-])=O)O)OS([O-])(=O)=O)O)C2=CC3=C([C@@]4([C@]([C@]5([C@@]([C@@H](OS([O-])(=O)=O)CC5)(CC4)C)[H])(CC3)[H])[H])C=C2,178094,17beta-estradiol 3-O-(3-sulfo-beta-D-glucuronide) 17-sulfate(3-)
+308,O1[C@@H]([C@H]([C@@H]([C@H]([C@@H]1O[C@@H]2[C@@]3([C@]([C@]4([C@](CC3)([C@@]5([C@](C[C@@H](CC5)O)(CC4)[H])C)[H])[H])(CC2)[H])C)O)O)O)C([O-])=O,133519,"5alpha-androstane-3alpha,17beta-diol 17-glucosiduronate"
+309,O1[C@H]([C@@H]([C@H]([C@H]([C@@H]1O[C@H]2C[C@H]([C@]3([C@@](C2)(CC[C@]4([C@]5(CC[C@@H]([C@]5(C[C@H]([C@]34[H])O)C)C=6[CH-]OC(C6)=O)O)[H])O)CO)O)O)O)O)C,145798,ouabain(1-)
+310,O=C([C@@H]1[C@@]2([C@]([C@]3([C@](CC2)([C@@]4(C(CC3)=CC(=O)CC4)C=O)[H])[H])(CC1)[H])C)CO,174650,19-Oxo-deoxycorticosterone
+311,O=C1[C@@]2([C@]([C@]3([C@@]([C@@]4(C(=CC3)C[C@@H](O[C@@H]5O[C@@H]([C@@H](O)[C@H](O)[C@H]5O)C(=O)[O-])CC4)C)(CC2)[H])[H])(CC1)[H])C,178105,dehydroepiandrosterone 3-O-(beta-D-glucuronide)(1-)
+312,O=C1[C@@]2([C@]([C@]3([C@@]([C@@]4(C(=CC3)C[C@@H](O[C@@H]5O[C@@H]([C@@H](O)[C@H](OS([O-])(=O)=O)[C@H]5O)C(=O)[O-])CC4)C)(CC2)[H])[H])(CC1)[H])C,178106,dehydroepiandrosterone 3-O-(3-sulfo-beta-D-glucuronide)(2-)
+313,OC1=CC2=C([C@@]3([C@]([C@]4([C@@]([C@@H](O[C@H]5[C@@H]([C@H]([C@@H]([C@H](O5)C([O-])=O)O)OS([O-])(=O)=O)O)CC4)(CC3)C)[H])(CC2)[H])[H])C=C1,178096,17beta-estradiol 17-O-(3-sulfo-beta-D-glucuronide)(2-)
+314,OC[C@]12[C@@]([C@](CC1)([C@@H](CCC=C(C)C)C)[H])(CCC=3[C@@]4([C@](C([C@@H](O)CC4)(C)C)(CCC23)[H])C)C,166806,32-Hydroxylanosterol
+315,O[C@@H]1C([C@]2([C@@](C3=C([C@]4([C@@]([C@](CC4)([C@@H](CCC=C(C)C)C)[H])(CC3)C)C=O)CC2)(CC1)C)[H])(C)C,166681,"4,4-Dimethyl-14a-formyl-5alpha-cholesta-8,24-dien-3beta-ol"
+316,O[C@@H]1[C@@]2([C@]([C@]3([C@](CC2)([C@@]4([C@](C[C@@H](CC4)O[C@H]5[C@@H]([C@H]([C@@H]([C@H](O5)C([O-])=O)O)O)O)(CC3)[H])C)[H])[H])(CC1)[H])C,191859,"5alpha-androstane-3alpha,17beta-diol 3-glucosiduronate(1-)"
+317,O[C@H]1C[C@H]([C@]2([C@@](C1)(CC[C@]3([C@]4(CC[C@@H]([C@]4(C[C@H]([C@]23[H])O)C)C5COC(C5)=O)O)[H])O)CO)O,145789,dihydroouabagenin
+318,O[C@H]1C[C@H]([C@]2([C@@](C1)(CC[C@]3([C@]4(CC[C@@H]([C@]4(C[C@H]([C@]23[H])O)C)C=5[CH-]OC(C5)=O)O)[H])O)CO)O,145799,ouabagenin(1-)
+319,S([O-])(=O)(=O)CCN(C(=O)CC[C@H]([C@@]1([C@@]2([C@]([C@]3([C@@]([C@@]4([C@]([C@@H](O)C3)(C[C@H](O)CC4)[H])C)(CC2)[H])[H])(CC1)[H])C)[H])C)[H],191407,taurohyodeoxycholate(1-)
+320,[*]SS[*],35489,organic disulfide
+321,[C@@H]1(CC(C=C2[C@]1([C@@]3([C@@](CC2)([C@]4([C@](CC3)(C(CC4)=O)C)[H])[H])[H])C)=O)O,133778,"1alpha-hydroxyandrost-4-ene-3,17-dione"
+322,[C@@H]1(CC[C@@]2([C@]3(CC[C@@]4(C(CC[C@]4([C@@]3(CC[C@@]2(C1)[H])[H])[H])=O)C)[H])C)O,89524,epietiocholanolone
+323,[C@@H]1(CC[C@@]2([C@]3(CC[C@@]4([C@H](CC[C@]4([C@@]3(CC=C2C1)[H])[H])[C@@H](CCC(=O)[O-])C)C)[H])C)O,195610,3beta-hydroxy-5-cholenoate(1-)
+324,[C@@H]1(CC[C@@]2([C@]3(CC[C@@]4([C@H](CC[C@]4([C@@]3(CC=C2C1)[H])[H])[C@@H](CCC(=O)[O-])C)C)[H])C)OS(=O)(=O)[O-],195614,3beta-sulfo-5-cholenoate(2-)
+325,[C@@H]1(N2C3=C(C(=NC=N3)N)N=C2)O[C@H](COP(OP(OCC(C)([C@H](C(NCCC(NCCSC(=O)CC[C@@](C)([C@]4(CCC5[C@@]4(CCC6[C@]7(CCC(CC7CCC56)=O)C)C)[H])[H])=O)=O)O)C)(=O)[O-])(=O)[O-])[C@H]([C@H]1O)OP([O-])([O-])=O,138843,3-oxo bile acid CoA thioester(4-)
+326,[C@@H]1(N2C3=C(C(=NC=N3)N)N=C2)O[C@H](COP(OP(OCC(C)([C@H](C(NCCC(NCCSC(=O)CC[C@@](C)([C@]4(CCC5[C@@]4(CCC6[C@]7(CC[C@H](CC7CCC56)O)C)C)[H])[H])=O)=O)O)C)(=O)[O-])(=O)[O-])[C@H]([C@H]1O)OP([O-])([O-])=O,138842,3alpha-hydroxy bile acid CoA thioester(4-)
+327,[C@@H]1(N2C3=C(C(=NC=N3)N)N=C2)O[C@H](COP(OP(OCC(C)([C@H](C(NCCC(NCCSC(=O)CC[C@@](C)([C@]4(CC[C@@]5([C@@]4(CC[C@@]6([C@]7(CCC(C[C@]7(CC[C@@]56[H])[H])=O)C)[H])C)[H])[H])[H])=O)=O)O)C)(=O)[O-])(=O)[O-])[C@H]([C@H]1O)OP([O-])([O-])=O,136703,3-oxocholan-24-oyl-CoA(4-)
+328,[C@@H]1(N2C3=C(C(=NC=N3)N)N=C2)O[C@H](COP(OP(OCC(C)([C@H](C(NCCC(NCCSC(=O)CC[C@@](C)([C@]4(CC[C@@]5([C@@]4(CC[C@@]6([C@]7(CC[C@H](C[C@]7(CC[C@@]56[H])[H])O)C)[H])C)[H])[H])[H])=O)=O)O)C)(=O)[O-])(=O)[O-])[C@H]([C@H]1O)OP([O-])([O-])=O,87438,lithocholyl-CoA(4-)
+329,[C@@H]1(N2C3=C(C(=NC=N3)N)N=C2)O[C@H](COP(OP(OCC(C)([C@H](C(NCCC(NCCSC(=O)CC[C@@](C)([C@]4(CC[C@@]5([C@@]4([C@H](C[C@@]6([C@]7(CC[C@H](C[C@@]7(CC[C@@]56[H])[H])O)C)[H])O)C)[H])[H])[H])=O)=O)O)C)(=O)[O-])(=O)[O-])[C@H]([C@H]1O)OP([O-])([O-])=O,137664,allodeoxycholoyl-CoA(4-)
+330,[C@@H]1(OS([O-])(=O)=O)[C@]2(CC[C@]3([C@]([C@@]2(CC1)[H])(CC[C@@]4([C@@]3(CCC(C4)=O)C)[H])[H])[H])C,136982,5alpha-dihydrotestosterone sulfate(1-)
+331,[C@@H]1(OS([O-])(=O)=O)[C@]2(CC[C@]3([C@]([C@@]2(CC1)[H])(CC[C@@]4([C@@]3(CC[C@@H](C4)O)C)[H])[H])[H])C,136983,"(3beta,5alpha,17beta)-3-hydroxyandrostan-17-yl sulfate(1-)"
+332,[C@@H]1([C@@]2([C@@]([C@@]3(C(C[C@@H](O)CC3)=C1)C)(CC[C@]4([C@]2(CCC4=O)[H])C)[H])[H])O,81471,7alpha-hydroxydehydroepiandrosterone
+333,[C@@]1([C@@H]([C@H]([C@@H]([C@H](C(C)C)C)O)O)C)([H])[C@]2(CC[C@]3([C@@](C[C@@H]([C@]4(CC(CC[C@@]43C)=O)[H])O)([C@@]2(CC1)[H])[H])[H])C,188496,3-dehydro-6alpha-hydroxyteasterone
+334,[C@@]1([C@@H]([C@H]([C@@H]([C@H](C(C)C)C)O)O)C)([H])[C@]2(CC[C@]3([C@@](C[C@@H]([C@]4(C[C@@H](CC[C@@]43C)O)[H])O)([C@@]2(CC1)[H])[H])[H])C,188495,6alpha-hydroxytyphasterol
+335,[C@@]1([C@@H]([C@H]([C@@H]([C@H](C(C)C)C)O)O)C)([H])[C@]2(CC[C@]3([C@@](C[C@@H]([C@]4(C[C@H](CC[C@@]43C)O)[H])O)([C@@]2(CC1)[H])[H])[H])C,188499,6alpha-hydroxyteasterone
+336,[C@@]12(C)[C@]3([C@]([C@@]4(CC[C@@H](C(C4=CC3)(C)C)O)[H])([C@@H](C[C@]2(C)[C@](CC1)([C@@H](CC[C@H](C(C)(C)O)O)C)[H])O)C)[H],138974,mogrol
+337,[C@@]12([C@@]([C@@]3(C(CC1)=CC(CC3)=O)C)(CC[C@]4(C)[C@@H](CC[C@@]24[H])O[C@@H]5O[C@@H]([C@H]([C@@H]([C@H]5O)O)O)C([O-])=O)[H])[H],136673,epitestosterone 17-O-(beta-D-glucuronide)(1-)
+338,[C@@]12([C@@]([C@@]3(C(CC1)=CC(CC3)=O)C)(CC[C@]4(C)[C@H](CC[C@@]24[H])O[C@@H]5O[C@@H]([C@H]([C@@H]([C@H]5O)O)O)C([O-])=O)[H])[H],136639,testosterone 17-O-(beta-D-glucuronide)(1-)
+339,[C@@]12([C@@]([C@@]3(C(CC1)=CC(CC3)=O)C)(CC[C@]4(C)[C@H](CC[C@@]24[H])O[C@@H]5O[C@@H]([C@H]([C@@H]([C@H]5O)OS([O-])(=O)=O)O)C([O-])=O)[H])[H],178104,testosterone 17-O-(3-sulfo-beta-D-glucuronide)(2-)
+340,[C@@]12([C@@]([C@@]3(C(C[C@@H](O[C@@H]4O[C@@H]([C@H](O)[C@@H]([C@H]4O)O)CO)CC3)=CC1)C)(CC[C@@]5(C)[C@@]2([H])CC[C@@]5([C@@H](CCCC(C)C)C)[H])[H])[H],189066,cholesteryl beta-D-galactoside
+341,[C@@]12([C@@]([C@@]3([C@@](CC(=O)CC3)(CC1)[H])C)(CC[C@]4(C)[C@H](CC[C@@]24[H])O)[H])[H],2150,5beta-dihydrotestosterone
+342,[C@@]12([C@]3([C@](CC[C@@]1([C@@]4(C(C[C@H](CC4)O)=CC2)C)[H])([C@](CC3)([C@H](C)CC[C@@H](C(C)C)OS([O-])(=O)=O)[H])C)[H])[H],136566,(24S)-hydroxycholesterol 24-sulfate(1-)
+343,[C@@]12([C@]3([C@](CC[C@@]1([C@@]4(C(C[C@H](CC4)OS([O-])(=O)=O)=CC2)C)[H])([C@](CC3)([C@H](C)CC[C@@H](C(C)C)O)[H])C)[H])[H],136567,(24S)-hydroxycholesterol 3-sulfate(1-)
+344,[C@@]12([C@]3([C@](CC[C@@]1([C@@]4(C(C[C@H](CC4)OS([O-])(=O)=O)=CC2)C)[H])([C@](CC3)([C@H](C)CC[C@@H](C(C)C)OS([O-])(=O)=O)[H])C)[H])[H],136568,"(24S)-hydroxycholesterol 3,24-disulfate(2-)"
+345,[C@H]1(C(C=C2[C@](C1)([C@@]3([C@@](CC2)([C@]4([C@](CC3)([C@H](CC4)O)C)[H])[H])[H])C)=O)O,137077,2beta-hydroxytestosterone
+346,[C@H]1([C@H]([C@@H]([C@H]([C@@H](O1)OC2=CC=3[C@@]4([C@]([C@]5([C@@]([C@@H](O)CC5)(CC4)C)[H])(CCC3C=C2O)[H])[H])O)O)O)C(=O)[O-],136933,2-hydroxy-17beta-estradiol 2-O-(beta-D-glucuronide)(1-)
+347,[C@H]1([C@H]([C@@H]([C@H]([C@@H](O1)OC=2C(=C3C([C@]4(CC[C@]5([C@]([C@@]4(CC3)[H])(CC[C@@H]5O)[H])C)[H])=CC2)O)O)O)O)C(=O)[O-],136936,4-hydroxy-17beta-estradiol 3-O-(beta-D-glucuronide)(1-)
+348,[C@H]1([C@H]([C@@H]([C@H]([C@@H](O1)OC=2C3=C([C@@]4([C@]([C@]5([C@@](C(=O)CC5)(CC4)C)[H])(CC3)[H])[H])C=CC2O)O)O)O)C(=O)[O-],136970,4-hydroxyestrone 4-O-(beta-D-glucuronide)(1-)
+349,[C@H]1([C@]2([C@]3([C@@](C4=C(C=C(O)C=C4)CC3)(CC[C@@]2(C(=O)C1)C)[H])[H])[H])O,87618,15alpha-hydroxyestrone
+350,[C@]12([C@]([C@]3([C@](CC1)([C@@]4(C(=CC(CC4)=O)C[C@H]3O)C)[H])[H])(CC[C@@]2([C@@H](CCCC(O)(C)C)C)[H])[H])C,81013,"7alpha,25-dihydroxy-4-cholesten-3-one"
+351,[C@]12([C@]([C@]3([C@](CC1)([C@@]4(C(=CC(CC4)=O)C[C@H]3O)C)[H])[H])(CC[C@@]2([C@@H](CCC[C@@H](C)CO)C)[H])[H])C,87476,"(25R)-7alpha,26-dihydroxycholest-4-en-3-one"
+352,[C@]12([C@]([C@]3([C@](CC1)([C@@]4([C@@](C[C@@H](CC4)O)(C[C@H]3O)[H])C)[H])[H])(CC[C@@]2([C@@H](CCCC(C)(C)O)C)[H])[H])C,169972,"5beta-cholestane-3alpha,7alpha,25-triol"
+353,[C@]12([C@]([C@]3([C@](CC1)([C@@]4([C@](C[C@H](CC4)O)(CC3)[H])C)[H])[H])(CC[C@@]2([C@@H]([C@H](CCC(C)C)O)C)[H])[H])C,188465,"(5alpha,22S)-22-hydroxycholestan-3beta-ol"
+354,[C@]123CCC(=O)[C@@H](C)[C@]1([H])CC[C@]4([H])[C@@]2(C3)CC[C@@]5([C@](CC[C@@]45C)([C@@H](CCC(C(C)C)=C)C)[H])C,142915,cycloeucalenone
+355,[C@]123[C@@]4([C@](C([C@@H](O)CC4)(C)C)(CC[C@]1([C@]5([C@@]([C@@]([C@@H](CCC=C(C)C)C)(CC5)[H])(CC2)C)C)[H])[H])C3,17030,cycloartenol
+356,[C@]123[C@@]4([C@](C([C@@H](O)CC4)(C)C)(CC[C@]1([C@]5([C@]([C@@]([C@@H](CCC(C(C)C)=C)C)(CC5)[H])(C)CC2)C)[H])[H])C3,1307,24-methylenecycloartanol
+357,[C@]123[C@@]4([C@]([C@]([C@@H](O)CC4)(C)C(=O)[O-])(CC[C@]1([C@]5([C@@]([C@@]([C@@H](CCC(C(C)C)=C)C)(CC5)[H])(CC2)C)C)[H])[H])C3,142916,"4alpha-carboxy-4beta,14alpha-dimethyl-9beta,19-cyclo-5alpha-ergost-24(24(1))-en-3beta-ol(1-)"
+358,[H]C(=O)[C@H](C)CCC[C@@H](C)[C@@]1([H])CC[C@@]2([H])[C@]3([H])[C@H](O)C[C@]4([H])C[C@H](O)CC[C@]4(C)[C@@]3([H])C[C@H](O)[C@]12C,48940,"(25R)-3alpha,7alpha,12alpha-trihydroxy-5beta-cholestan-26-al"
+359,[H][C@@](C)(CCC(=O)SCCNC(=O)CCNC(=O)[C@H](O)C(C)(C)COP([O-])(=O)OP([O-])(=O)OC[C@H]1O[C@H]([C@H](O)[C@@H]1OP([O-])([O-])=O)n1cnc2c(N)ncnc12)[C@@]1([H])CC[C@@]2([H])[C@]3([H])CC[C@]4([H])C[C@H](O)CC[C@]4(C)[C@@]3([H])C[C@H](O)[C@]12C,58810,deoxycholoyl-CoA(4-)
+360,[H][C@@](C)(CCCC(C)C)[C@@]1([H])CC[C@@]2([H])C3=CC[C@@]4([H])C(C)(C)[C@@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C,16455,"4,4-dimethyl-5alpha-cholest-7-en-3beta-ol"
+361,[H][C@@]1(CC=C2C3=C(CC[C@]12C)[C@@]1(C)CC[C@H](O)C(C)(C)[C@]1([H])CC3)[C@H](C)CCC=C(C)C,17813,"4,4-dimethyl-5alpha-cholesta-8,14,24-trien-3beta-ol"
+362,[H][C@@]1(CCC(=O)C(\C)=C\C=C(/O)C([O-])=O)C(=O)CC[C@]2(C)C(=O)CC[C@@]12[H],63690,"(1E,2Z)-3-hydroxy-5,9,17-trioxo-4,5:9,10-disecoandrosta-1(10),2-dien-4-oate"
+363,[H][C@@]1(CCC([O-])=O)C(=O)CC[C@]2(C)C(=O)CC[C@@]12[H],63692,"9,17-dioxo-1,2,3,4,10,19-hexanorandrostan-5-oate"
+364,[H][C@@]1(CC[C@@]2(C)C3=C(CC[C@]12C)[C@@]1(C)CC[C@H](O)C(C)(C)[C@]1([H])CC3)[C@H](C)CCC=C(C)C,16521,lanosterol
+365,[H][C@@]1(CC[C@@]2(C)C3=C(CC[C@]12C)[C@@]1(C)CC[C@H](O)C(C)(C)[C@]1([H])CC3)[C@H](C)CCCC(C)C,28113,"24,25-dihydrolanosterol"
+366,[H][C@@]1(CC[C@@]2(O)C3=CC(=O)[C@]4([H])C[C@@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)[C@H](O)CCC(C)(C)O,19566,2-deoxyecdysone
+367,[H][C@@]1(CC[C@@]2(O)C3=CC(=O)[C@]4([H])C[C@@H](O)[C@@H](O)C[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)[C@H](O)CCC(C)(C)O,16688,ecdysone
+368,[H][C@@]1(CC[C@@]2([H])C3=C(CC[C@]12C)[C@@]1(C)CC[C@H](O)[C@@](C)(C([O-])=O)[C@]1([H])CC3)[C@H](C)CCC=C(C)C,64925,4beta-methylzymosterol-4alpha-carboxylate
+369,[H][C@@]1(CC[C@@]2([H])C3=CC=C4C[C@@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)CCC(=C)C(C)C,52972,"ergosta-5,7,24(28)-trien-3beta-ol"
+370,[H][C@@]1(CC[C@@]2([H])C3=CC=C4C[C@@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)CCC=C(C)C,27910,7-dehydrodesmosterol
+371,[H][C@@]1(CC[C@@]2([H])C3=CC=C4C[C@@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)CCCC(C)C,58342,acyl-CoA(4-)
+372,[H][C@@]1(CC[C@@]2([H])C3=CC=C4C[C@@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)\C=C\C(=C)C(C)C,18249,"ergosta-5,7,22,24(28)-tetraen-3beta-ol"
+373,[H][C@@]1(CC[C@@]2([H])C3=CC=C4C[C@@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)\C=C\[C@H](C)C(C)C,16933,ergosterol
+374,[H][C@@]1(CC[C@@]2([H])C3=CC=C4C[C@H](CC[C@]4(C)[C@@]3([H])CC[C@]12C)O[C@@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O)[C@H](C)\C=C\[C@H](C)C(C)C,52973,ergosteryl 3-beta-D-glucoside
+375,[H][C@@]1(CC[C@@]2([H])C3=CC[C@@]4([H])[C@H](C)C(=O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)CCCC(C)C,16495,4alpha-methyllathosterone
+376,[H][C@@]1(CC[C@@]2([H])C3=CC[C@@]4([H])[C@H](C)[C@@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)CCCC(C)C,18378,4alpha-methyl-5alpha-cholest-7-en-3beta-ol
+377,[H][C@@]1(CC[C@@]2([H])C3=CC[C@]4([H])[C@](C)(CC[C@H](O)[C@@]4(C)C([O-])=O)[C@@]3([H])CC[C@]12C)[C@H](C)CCCC(C)C,58387,3beta-hydroxy-4beta-methyl-5alpha-cholest-7-ene-4alpha-carboxylate
+378,[H][C@@]1(CC[C@@]2([H])[C@]3([H])C(=O)C=C4C[C@@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)CCCC(C)C,64294,7-ketocholesterol
+379,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CC(=O)[C@@]4([H])CC(=O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)[C@@H](O)[C@H](O)[C@@H](C)C(C)C,20000,3-dehydroteasterone
+380,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CC(=O)[C@@]4([H])C[C@@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)CC[C@@H](C)C(C)C,20747,6-oxocampestanol
+381,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CC(=O)[C@@]4([H])C[C@@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)[C@@H](O)C[C@@H](C)C(C)C,23057,cathasterone
+382,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CC(=O)[C@@]4([H])C[C@@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)[C@@H](O)[C@H](O)CC(C)C,188988,28-norteasterone
+383,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CC(=O)[C@@]4([H])C[C@@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)[C@@H](O)[C@H](O)[C@@H](C)C(C)C,26863,teasterone
+384,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CC(=O)[C@@]4([H])C[C@H](O)[C@H](O)C[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)[C@@H](O)[C@H](O)[C@@H](C)C(C)C,23051,castasterone
+385,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CC=C4CC(=O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)CCCC(C)C,63906,cholest-5-en-3-one
+386,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CC=C4C[C@@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)CCC=C(C)C,17737,desmosterol
+387,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CC=C4C[C@@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)CCCC(C)(C)O,42977,25-hydroxycholesterol
+388,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CC=C4C[C@@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)CCCC(C)CO,17703,26-hydroxycholesterol
+389,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CC=C4C[C@@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)CCC[C@H](C)C([O-])=O,71567,(25S)-cholestenoate
+390,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CC=C4C[C@@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)CC[C@@H](C)C(C)C,28623,campesterol
+391,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CC=C4C[C@@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)CC[C@@H](CC)C(C)C,27693,sitosterol
+392,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CC=C4C[C@@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)CC[C@@H](O)C(C)C,50516,(24R)-24-hydroxycholesterol
+393,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CC=C4C[C@@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)CC[C@H](O)C(C)C,34310,(24S)-24-hydroxycholesterol
+394,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CC=C4C[C@@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)[C@@H](O)CCC(C)C,1301,(22S)-22-hydroxycholesterol
+395,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CC=C4C[C@@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)[C@@H](O)C[C@@H](C)C(C)C,72331,(22S)-22-hydroxycampesterol
+396,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CC=C4C[C@@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)[C@@H](O)C[C@@H](CC)C(C)C,187980,(22S)-hydroxysitosterol
+397,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CC=C4C[C@@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)[C@@H](O)[C@H](O)[C@@H](C)C(C)C,80401,"(22R,23R)-22,23-dihydroxycampesterol"
+398,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CC=C4C[C@@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)[C@H](O)CCC(C)C,67237,(22R)-22-hydroxycholesterol
+399,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CC=C4C[C@H](CC[C@]4(C)[C@@]3([H])CC[C@]12C)OC(=O)CCCCCCCCCCCCCCC)[C@H](C)CCCC(C)C,3663,cholesteryl palmitate
+400,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CC=C4C[C@H](CC[C@]4(C)[C@@]3([H])CC[C@]12C)OC(=O)CCCCCCCCC\C=C/CCCCCC)[C@H](C)CCCC(C)C,88768,(11Z-octadecenoyl)-cholesterol
+401,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CC=C4C[C@H](CC[C@]4(C)[C@@]3([H])CC[C@]12C)OC(=O)CCCCCCC\C=C/CCCCCCCC)[C@H](C)CCCC(C)C,46898,cholesteryl oleate
+402,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CC=C4C[C@H](CC[C@]4(C)[C@@]3([H])CC[C@]12C)OC(=O)CCCCCCC\C=C/C\C=C/CCCCC)[C@H](C)CCCC(C)C,41509,cholesteryl linoleate
+403,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CC=C4C[C@H](CC[C@]4(C)[C@@]3([H])CC[C@]12C)OC([*])=O)[C@H](C)CCCC(C)C,17002,cholesteryl ester
+404,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CC=C4C[C@H](CC[C@]4(C)[C@@]3([H])CC[C@]12C)O[C@@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O)[C@H](C)CCCC(C)C,17495,cholesteryl beta-D-glucoside
+405,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CCC4=CC(=O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)C(=O)CO,16973,11-deoxycorticosterone
+406,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CCC4=CC(=O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@@H](C)O,36729,(20R)-20-hydroxypregn-4-en-3-one
+407,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CCC4=CC(=O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)CCCC(C)C,16175,cholest-4-en-3-one
+408,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CCC4=CC(=O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)CCC[C@@H](C)C([O-])=O,71570,(25R)-Delta(4)-dafachronate
+409,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CCC4=CC(=O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)CCC[C@H](C)C([O-])=O,71541,(25S)-Delta(4)-dafachronate
+410,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CCC4=CC(=O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)CC[C@@H](C)C(C)C,18534,campest-4-en-3-one
+411,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CCC4=CC(=O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)O,28453,(20S)-20-hydroxypregn-4-en-3-one
+412,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CCC4=CC(=O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)[C@@H](O)C[C@@H](C)C(C)C,72330,(22S)-22-hydroxycampest-4-en-3-one
+413,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CCC4=CC(=O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)[C@@H](O)[C@H](O)[C@@H](C)C(C)C,80402,"(22R,23R)-22,23-dihydroxycampest-4-en-3-one"
+414,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CCC4=CC(=O)CC[C@]4(C)[C@@]3([H])[C@@H](O)C[C@]12C)C(=O)CO,16827,corticosterone
+415,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CCC4=CC(=O)CC[C@]4(C)[C@@]3([H])[C@@H](O)C[C@]12C=O)C(=O)CO,27584,aldosterone
+416,[H][C@@]1(CC[C@@]2([H])[C@]3([H])CC[C@]4([H])C[C@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)C(C)=O,1712,3alpha-hydroxy-5beta-pregnan-20-one
+417,[H][C@@]1(CC[C@@]2([H])[C@]3([H])COC(=O)[C@@]4([H])C[C@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)[C@@H](O)[C@H](O)[C@@H](C)C(C)C,185407,7-oxatyphasterol
+418,[H][C@@]1(CC[C@@]2([H])[C@]3([H])C[C@@H](O)[C@@]4(O)C[C@@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)CCCC(C)C,28082,"5alpha-cholestane-3beta,5,6beta-triol"
+419,[H][C@@]1(CC[C@@]2([H])[C@]3([H])C[C@@H](O)[C@]4([H])C[C@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)CCC([O-])=O,58876,murideoxycholate
+420,[H][C@@]1(CC[C@@]2([H])[C@]3([H])C[C@@H]4O[C@@]44C[C@@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)CCCC(C)C,49305,"5,6alpha-epoxy-5alpha-cholestan-3beta-ol"
+421,[H][C@@]1(CC[C@@]2([H])[C@]3([H])C[C@H](O)[C@@]4([H])C[C@H](O)[C@H](O)C[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)[C@@H](O)[C@H](O)[C@@H](C)C(C)C,20760,6alpha-hydroxycastasterone
+422,[H][C@@]1(CC[C@@]2([H])[C@]3([H])C[C@H](O)[C@]4([H])C[C@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)CCC([O-])=O,58875,hyodeoxycholate
+423,[H][C@@]1(CC[C@@]2([H])[C@]3([H])C[C@H]4O[C@]44C[C@@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)CCCC(C)C,28164,cholesterol beta-epoxide
+424,[H][C@@]1(CC[C@@]2([H])[C@]3([H])[C@@H](O)C=C4C[C@@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)CCCC(C)C,42989,7beta-hydroxycholesterol
+425,[H][C@@]1(CC[C@@]2([H])[C@]3([H])[C@H](O)C=C4C[C@@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)CCCC(C)(C)O,37623,"7alpha,25-dihydroxycholesterol"
+426,[H][C@@]1(CC[C@@]2([H])[C@]3([H])[C@H](O)C=C4C[C@@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)CCCC(C)C,17500,7alpha-hydroxycholesterol
+427,[H][C@@]1(CC[C@@]2([H])[C@]3([H])[C@H](O)C=C4C[C@@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)CC[C@@H](O)C(C)C,50518,"(24R)-7alpha,24-dihydroxycholesterol"
+428,[H][C@@]1(CC[C@@]2([H])[C@]3([H])[C@H](O)C=C4C[C@@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)CC[C@H](O)C(C)C,37640,"(24S)-7alpha,24-dihydroxycholesterol"
+429,[H][C@@]1(CC[C@@]2([H])[C@]3([H])[C@H](O)CC4=CC(=O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)CCCC(C)C,17899,7alpha-hydroxycholest-4-en-3-one
+430,[H][C@@]1(CC[C@@]2([H])[C@]3([H])[C@H](O)CC4=CC(=O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)CC[C@H](O)C(C)C,63838,"(24S)-7alpha,24-dihydroxycholest-4-en-3-one"
+431,[H][C@@]1(CC[C@@]2([H])[C@]3([H])[C@H](O)CC4=CC(=O)CC[C@]4(C)[C@@]3([H])C[C@H](O)[C@]12C)[C@H](C)CCCC(C)C,28477,"7alpha,12alpha-dihydroxycholest-4-en-3-one"
+432,[H][C@@]1(CC[C@@]2([H])[C@]3([H])[C@H](O)[C@H](O)[C@]4([H])C[C@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C)[C@H](C)CCC(=O)NCCS([O-])(=O)=O,58874,taurohyocholate
+433,[H][C@@]1(CC[C@]2(O)[C@]3([H])CC[C@]4(O)C[C@H](C[C@@H](O)[C@]4(CO)[C@@]3([H])[C@H](O)C[C@]12C)O[C@@H]1O[C@@H](C)[C@H](O)[C@@H](O)[C@H]1O)C1COC(=O)C1,131146,dihydroouabain
+434,[H][C@@]12CC=C3CC(=O)CC[C@]3(C)[C@@]1([H])CC[C@]1(C)[C@H](CC[C@@]21[H])C(C)=O,63837,"pregn-5-ene-3,20-dione"
+435,[H][C@@]12CC=C3C[C@@H](O)CC[C@]3(C)[C@@]1([H])CC[C@@]1(C)[C@@]2([H])CC[C@]1([H])[C@@](C)(O)[C@H](O)CCC(C)C,1294,"(20R,22R)-20,22-dihydroxycholesterol"
+436,[H][C@@]12CC=C3C[C@@H](O)CC[C@]3(C)[C@@]1([H])CC[C@]1(C)C(=O)CC[C@@]21[H],28689,dehydroepiandrosterone
+437,[H][C@@]12CC=C3C[C@@H](O)CC[C@]3(C)[C@@]1([H])CC[C@]1(C)C(=O)[C@H](O)C[C@@]21[H],27771,16alpha-hydroxydehydroepiandrosterone
+438,[H][C@@]12CC=C3C[C@@H](O)CC[C@]3(C)[C@@]1([H])CC[C@]1(C)[C@H](CC[C@@]21[H])C(C)=O,16581,pregnenolone
+439,[H][C@@]12CC=C3[C@]([H])(CC[C@]4(C)[C@]([H])(CC[C@@]34[H])[C@H](C)CCC[C@H](C)C([O-])=O)[C@@]1(C)CCC(=O)C2,71542,(25S)-Delta(7)-dafachronate
+440,[H][C@@]12CC=C3[C@]4([H])CC[C@]([H])([C@H](C)CCC(=C)C(C)C)[C@@]4(C)CC[C@]3([H])[C@@]1(C)CC[C@H](O)C2,23929,episterol
+441,[H][C@@]12CC=C3[C@]4([H])CC[C@]([H])([C@H](C)CCC=C(C)C)[C@@]4(C)CC[C@]3([H])[C@@]1(C)CC[C@H](O)C2,16290,"5alpha-cholesta-7,24-dien-3beta-ol"
+442,[H][C@@]12CC=C3[C@]4([H])CC[C@]([H])([C@H](C)CCCC(C)C)[C@@]4(C)CC[C@]3([H])[C@@]1(C)CCC(=O)C2,71550,lathosterone
+443,[H][C@@]12CC=C3[C@]4([H])CC[C@]([H])([C@H](C)CCCC(C)C)[C@@]4(C)CC[C@]3([H])[C@@]1(C)CC[C@H](O)C2,17168,5alpha-cholest-7-en-3beta-ol
+444,[H][C@@]12CCC(=O)[C@@]1(C)CC[C@@]1(O)[C@@]2([H])CCC2=CC(=O)C=C[C@]12C,63641,"9alpha-hydroxyandrosta-1,4-diene-3,17-dione"
+445,[H][C@@]12CCC(=O)[C@@]1(C)CC[C@@]1([H])[C@@]2([H])C(=O)C=C2C[C@@H](O)CC[C@]12C,183808,7-ketodehydroepiandrosterone
+446,[H][C@@]12CCC(=O)[C@@]1(C)CC[C@@]1([H])[C@@]2([H])C(=O)C[C@@]2([H])C[C@@H](O)CC[C@]12C,79834,"3beta-hydroxy-5alpha-androstane-7,17-dione"
+447,[H][C@@]12CCC(=O)[C@@]1(C)CC[C@@]1([H])[C@@]2([H])CC[C@@]2([H])C[C@H](O)CC[C@]12C,16032,androsterone
+448,[H][C@@]12CCC(=O)[C@@]1(C)CC[C@@]1([H])[C@@]2([H])[C@@H](O)C=C2C[C@@H](O)CC[C@]12C,183368,7beta-hydroxydehydroepiandrosterone
+449,[H][C@@]12CCC(=O)[C@@]1(C)CC[C@@]1([H])[C@@]2([H])[C@@H](O)C[C@@]2([H])C[C@@H](O)CC[C@]12C,183809,7beta-hydroxyepiandrosterone
+450,[H][C@@]12CCC3=C(CC[C@]3(C)[C@H](C)CC\C=C(/C)CCC=C(C)C)[C@@]1(C)CC[C@H](O)C2(C)C,52317,thalianol
+451,[H][C@@]12CCC3=C(CC[C@]4(C)[C@]([H])(CC[C@@]34[H])[C@H](C)CCC(=C)C(C)C)[C@@]1(C)CC[C@H](O)C2,17038,fecosterol
+452,[H][C@@]12CCC3=C(CC[C@]4(C)[C@]([H])(CC[C@@]34[H])[C@H](C)CCC=C(C)C)[C@@]1(C)CCC(=O)C2,52386,zymosterone
+453,[H][C@@]12CCC3=C(CC[C@]4(C)[C@]([H])(CC[C@@]34[H])[C@H](C)CCC=C(C)C)[C@@]1(C)CCC(=O)C2C,50593,3-dehydro-4-methylzymosterol
+454,[H][C@@]12CCC3=C(CC[C@]4(C)[C@]([H])(CC[C@@]34[H])[C@H](C)CCC=C(C)C)[C@@]1(C)CC[C@H](O)C2,18252,zymosterol
+455,[H][C@@]12CCC3=C(CC[C@]4(C)[C@]([H])(CC[C@@]34[H])[C@H](C)CCC=C(C)C)[C@@]1(C)CC[C@H](O)[C@H]2C,1949,4alpha-methylzymosterol
+456,[H][C@@]12CCC3=C(CC[C@]4(C)[C@]([H])(CC[C@@]34[H])[C@H](C)CCCC(C)C)[C@@]1(C)CC[C@H](O)C2,16608,5alpha-cholest-8-en-3beta-ol
+457,[H][C@@]12CCC3=CC(=O)C=C[C@]3(C)[C@@]1([H])CC[C@]1(C)C(=O)CC[C@@]21[H],40799,"androsta-1,4-diene-3,17-dione"
+458,[H][C@@]12CCC3=CC(=O)CC[C@]3(C)[C@@]1([H])C(=O)C[C@@]1(C)[C@@]2([H])CC[C@]1(O)C(=O)CO,16962,cortisone
+459,[H][C@@]12CCC3=CC(=O)CC[C@]3(C)[C@@]1([H])CC[C@@]1(C)[C@@]2([H])CC[C@]1(O)C(=O)CO,28324,11-deoxycortisol
+460,[H][C@@]12CCC3=CC(=O)CC[C@]3(C)[C@@]1([H])CC[C@@]1(C)[C@@]2([H])CC[C@]1(O)[C@H](C)O,16418,"(20S)-17,20-dihydroxypregn-4-en-3-one"
+461,[H][C@@]12CCC3=CC(=O)CC[C@]3(C)[C@@]1([H])CC[C@@]1(C)[C@@]2([H])C[C@@H](O)[C@]1(O)C(C)=O,763,algestone
+462,[H][C@@]12CCC3=CC(=O)CC[C@]3(C)[C@@]1([H])CC[C@]1(C)C(=O)CC[C@@]21[H],16422,"androst-4-ene-3,17-dione"
+463,[H][C@@]12CCC3=CC(=O)CC[C@]3(C)[C@@]1([H])CC[C@]1(C)C(=O)[C@H](O)C[C@@]21[H],27582,"16alpha-hydroxyandrost-4-ene-3,17-dione"
+464,[H][C@@]12CCC3=CC(=O)CC[C@]3(C)[C@@]1([H])CC[C@]1(C)[C@@H](O)CC[C@@]21[H],57783,NADPH(4-)
+465,[H][C@@]12CCC3=CC(=O)CC[C@]3(C)[C@@]1([H])CC[C@]1(C)[C@H](CC[C@@]21[H])C(C)=O,17026,progesterone
+466,[H][C@@]12CCC3=CC(=O)CC[C@]3(C)[C@@]1([H])CC[C@]1(C)[C@H](C[C@@H](O)[C@@]21[H])C(C)=O,59418,15beta-hydroxyprogesterone
+467,[H][C@@]12CCC3=CC(=O)CC[C@]3(C)[C@@]1([H])CC[C@]1(C)[C@H]([C@H](O)C[C@@]21[H])C(C)=O,15826,16alpha-hydroxyprogesterone
+468,[H][C@@]12CCC3=CC(=O)CC[C@]3(C)[C@@]1([H])[C@@H](O)C[C@@]1(C)[C@@]2([H])CC[C@]1(O)C(=O)CO,17650,cortisol
+469,[H][C@@]12CCC3=CC(=O)CC[C@]3(C)[C@@]1([H])[C@@H](O)C[C@]1(C)C(=O)CC[C@@]21[H],27967,"11beta-hydroxyandrost-4-ene-3,17-dione"
+470,[H][C@@]12CCC3=CC(=O)CC[C@]3(C)[C@@]1([H])[C@@H](O)C[C@]1(CO)[C@H](CC[C@@]21[H])C(=O)CO,16485,18-hydroxycorticosterone
+471,[H][C@@]12CCC3=CC(=O)CC[C@]3(C=O)[C@@]1([H])CC[C@]1(C)C(=O)CC[C@@]21[H],799,"3,17-dioxoandrost-4-en-19-al"
+472,[H][C@@]12CCC3=CC(=O)CC[C@]3(CO)[C@@]1([H])CC[C@]1(C)C(=O)CC[C@@]21[H],27576,"19-hydroxyandrost-4-ene-3,17-dione"
+473,[H][C@@]12CCC3C[C@H](O)CC[C@]3(C)[C@@]1([H])CC[C@]1(C)[C@@H](O)CC[C@@]21[H],18011,"androstane-3alpha,17beta-diol"
+474,[H][C@@]12CC[C@@]3([H])[C@@]4(C)CC[C@H](O)C(C)(C)[C@]4([H])CC[C@]3(C)[C@@]1(C)CC\C2=C(/C)CCC=C(C)C,62457,"(17Z)-protosta-17(20),24-dien-3beta-ol"
+475,[H][C@@]12CC[C@@]3([H])[C@]4([H])CCC(=O)[C@@]4(C)CC[C@]3([H])[C@@]1(C)CC[C@H](O)C2,541975,epiandrosterone
+476,[H][C@@]12CC[C@@]3([H])[C@]4([H])CC[C@H](C(C)=O)[C@@]4(C)CC[C@]3([H])[C@@]1(C)CCC(=O)C2,28952,"5alpha-pregnane-3,20-dione"
+477,[H][C@@]12CC[C@@]3([H])[C@]4([H])CC[C@H](O)[C@@]4(C)CC[C@]3([H])[C@@]1(C)CCC(=O)C2,16330,17beta-hydroxy-5alpha-androstan-3-one
+478,[H][C@@]12CC[C@@]3([H])[C@]4([H])CC[C@H](O)[C@@]4(C)CC[C@]3([H])[C@@]1(C)CC[C@@H](O)C2,36713,"5alpha-androstane-3alpha,17beta-diol"
+479,[H][C@@]12CC[C@@]3([H])[C@]4([H])CC[C@H](O)[C@@]4(C)CC[C@]3([H])[C@@]1(C)CC[C@H](O)C2,18329,"5alpha-androstane-3beta,17beta-diol"
+480,[H][C@@]12CC[C@@]3([H])[C@]4([H])CC[C@]([H])(C(C)=O)[C@@]4(C)CC[C@]3([H])[C@@]1(C)CC[C@@H](O)C2,50169,brexanolone
+481,[H][C@@]12CC[C@@]3([H])[C@]4([H])CC[C@]([H])(C(C)=O)[C@@]4(C)CC[C@]3([H])[C@@]1(C)CC[C@H](O)C2,11909,3beta-hydroxy-5alpha-pregnan-20-one
+482,[H][C@@]12CC[C@@]3([H])[C@]4([H])CC[C@]([H])([C@H](C)[C@@H](O)C[C@@H](C)C(C)C)[C@@]4(C)CC[C@]3([H])[C@@]1(C)CCC(=O)C2,59411,"(5alpha,22S,24R)-22-hydroxyergostan-3-one"
+483,[H][C@@]12CC[C@@]3([H])[C@]4([H])CC[C@]([H])([C@H](C)[C@@H](O)C[C@@H](C)C(C)C)[C@@]4(C)CC[C@]3([H])[C@@]1(C)CC[C@@H](O)C2,59410,3-epi-6-deoxocathasterone
+484,[H][C@@]12CC[C@@]3([H])[C@]4([H])CC[C@]([H])([C@H](C)[C@@H](O)C[C@@H](C)C(C)C)[C@@]4(C)CC[C@]3([H])[C@@]1(C)CC[C@H](O)C2,20714,6-deoxycathasterone
+485,[H][C@@]12CC[C@@]3([H])[C@]4([H])CC[C@]([H])([C@H](C)[C@@H](O)[C@H](O)[C@@H](C)C(C)C)[C@@]4(C)CC[C@]3([H])[C@@]1(C)C[C@@H](O)[C@@H](O)C2,20712,6-deoxocastasterone
+486,[H][C@@]12CC[C@H](C(C)=O)[C@@]1(C)CC[C@@]1([H])[C@@]2([H])C(=O)C=C2C[C@@H](O)CC[C@]12C,183807,7-ketopregnenolone
+487,[H][C@@]12CC[C@H](C(C)=O)[C@@]1(C)CC[C@@]1([H])[C@@]2([H])[C@@H](O)C=C2C[C@@H](O)CC[C@]12C,183806,7beta-hydroxypregnenolone
+488,[H][C@@]12CC[C@H](O)[C@@]1(C)CC[C@@]1([H])[C@@]2([H])CC=C2C[C@@H](O)CC[C@]12C,2710,"androst-5-ene-3beta,17beta-diol"
+489,[H][C@@]12CC[C@H](OS([O-])(=O)=O)[C@@]1(C)CC[C@@]1([H])[C@@]2([H])CCC2=CC(=O)CC[C@]12C,190489,testosterone sulfate(1-)
+490,[H][C@@]12CC[C@H](OS([O-])(=O)=O)[C@@]1(C)CC[C@]1([H])C3=CC=C(O)C=C3CC[C@@]21[H],190469,17beta-estradiol 17-sulfate(1-)
+491,[H][C@@]12CC[C@](O)(C(=O)CO)[C@@]1(CO)C[C@H](O)[C@@]1([H])[C@@]2([H])CCC2=CC(=O)CC[C@]12C,89455,18-hydroxycortisol
+492,[H][C@@]12CC[C@](O)(C(=O)CO)[C@]1(C[C@H](O)[C@@]1([H])[C@@]2([H])CCC2=CC(=O)CC[C@]12C)C=O,89213,18-oxocortisol
+493,[H][C@@]12CC[C@](O)(C(C)=O)[C@@]1(C)CC[C@@]1([H])[C@@]2([H])CCC2=CC(=O)CC[C@]12C,17252,17alpha-hydroxyprogesterone
+494,[H][C@@]12CC[C@]3([H])[C@]([H])(CC[C@]4(C)[C@]([H])(CC[C@@]34[H])[C@H](C)CC[C@@H](C)C(C)C)[C@@]1(C)CCC(=O)C2,18533,5alpha-campestan-3-one
+495,[H][C@@]12CC[C@]3([H])[C@]([H])(CC[C@]4(C)[C@]([H])(CC[C@@]34[H])[C@H](C)CC[C@@H](C)C(C)C)[C@@]1(C)CC[C@H](O)C2,36799,campestanol
+496,[H][C@@]12CC[C@]3([H])[C@]([H])(CC[C@]4(C)[C@]([H])(CC[C@@]34[H])[C@H](C)[C@@H](O)[C@H](O)[C@@H](C)C(C)C)[C@@]1(C)CCC(=O)C2,20710,3-dehydro-6-deoxoteasterone
+497,[H][C@@]12CC[C@]3([H])[C@]([H])(CC[C@]4(C)[C@]([H])(CC[C@@]34[H])[C@H](C)[C@@H](O)[C@H](O)[C@@H](C)C(C)C)[C@@]1(C)CC[C@@H](O)C2,20717,6-deoxotyphasterol
+498,[H][C@@]12CC[C@]3([H])[C@]([H])(CC[C@]4(C)[C@]([H])(CC[C@@]34[H])[C@H](C)[C@@H](O)[C@H](O)[C@@H](C)C(C)C)[C@@]1(C)CC[C@H](O)C2,20716,6-deoxoteasterone
+499,[H][C@@]12C[C@@H](O)C(=O)[C@@]1(C)CC[C@]1([H])C3=C(CC[C@@]21[H])C=C(O)C=C3,776,16alpha-hydroxyestrone
+500,[H][C@@]12C[C@@H](O)C3=CC(=O)CC[C@]3(C)[C@@]1([H])CC[C@]1(C)[C@@H](O)CC[C@@]21[H],34477,6beta-hydroxytestosterone
+501,[H][C@@]12C[C@@H](O)C3=CC(=O)CC[C@]3(C)[C@@]1([H])CC[C@]1(C)[C@H](CC[C@@]21[H])C(C)=O,62117,6beta-hydroxyprogesterone
+502,[H][C@@]12C[C@H](O)CC[C@]1(C)[C@@]1([H])CC(=O)[C@]3(C)[C@]([H])(CC[C@@]3([H])[C@]1([H])[C@H](O)C2)[C@H](C)CCC([O-])=O,11901,"3alpha,7alpha-dihydroxy-12-oxo-5beta-cholanate"
+503,[H][C@@]12C[C@H](O)CC[C@]1(C)[C@@]1([H])CC[C@]3(C)[C@]([H])(CC[C@@]3([H])[C@]1([H])[C@@H](C2)OS([O-])(=O)=O)[C@H](C)CCC(=O)NCC([O-])=O,58877,glycochenodeoxycholate 7-sulfate(2-)
+504,[H][C@@]12C[C@H](O)CC[C@]1(C)[C@@]1([H])CC[C@]3(C)[C@]([H])(CC[C@@]3([H])[C@]1([H])[C@H](O)C2)[C@H](C)CCC(=O)NCC([O-])=O,36252,glycochenodeoxycholate
+505,[H][C@@]12C[C@H](O)CC[C@]1(C)[C@@]1([H])CC[C@]3(C)[C@]([H])(CC[C@@]3([H])[C@]1([H])[C@H](O)C2)[C@H](C)CCC(=O)NCCS([O-])(=O)=O,9407,taurochenodeoxycholate
+506,[H][C@@]12C[C@H](O)CC[C@]1(C)[C@@]1([H])CC[C@]3(C)[C@]([H])(CC[C@@]3([H])[C@]1([H])[C@H](O)C2)[C@H](C)CCC([O-])=O,36234,chenodeoxycholate
+507,[H][C@@]12C[C@H](O)CC[C@]1(C)[C@@]1([H])CC[C@]3(C)[C@]([H])(CC[C@@]3([H])[C@]1([H])[C@H](O)C2)[C@H](C)CCCC(C)C,28047,"5beta-cholestane-3alpha,7alpha-diol"
+508,[H][C@@]12C[C@H](O)CC[C@]1(C)[C@@]1([H])C[C@H](O)[C@]3(C)[C@]([H])(CC[C@@]3([H])[C@]1([H])C(=O)C2)[C@H](C)CCC([O-])=O,11893,"3alpha,12alpha-dihydroxy-7-oxo-5beta-cholanate"
+509,[H][C@@]12C[C@H](O)CC[C@]1(C)[C@@]1([H])C[C@H](O)[C@]3(C)[C@]([H])(CC[C@@]3([H])[C@]1([H])[C@H](O)C2)[C@H](C)CCC(=O)NCC([O-])=O,29746,glycocholate
+510,[H][C@@]12C[C@H](O)CC[C@]1(C)[C@@]1([H])C[C@H](O)[C@]3(C)[C@]([H])(CC[C@@]3([H])[C@]1([H])[C@H](O)C2)[C@H](C)CCC(=O)NCCS([O-])(=O)=O,36257,taurocholate
+511,[H][C@@]12C[C@H](O)CC[C@]1(C)[C@@]1([H])C[C@H](O)[C@]3(C)[C@]([H])(CC[C@@]3([H])[C@]1([H])[C@H](O)C2)[C@H](C)CCC([O-])=O,29747,cholate
+512,[H][C@@]12C[C@H](O)CC[C@]1(C)[C@@]1([H])C[C@H](O)[C@]3(C)[C@]([H])(CC[C@@]3([H])[C@]1([H])[C@H](O)C2)[C@H](C)CCCC(C)C,16496,"5beta-cholestane-3alpha,7alpha,12alpha-triol"
+513,[H][C@@]12C[C@H](O)CC[C@]1(C)[C@@]1([H])C[C@H](O)[C@]3(C)[C@]([H])(CC[C@@]3([H])[C@]1([H])[C@H](O)C2)[C@H](C)CCC[C@@H](C)C([O-])=O,58734,"(25R)-3alpha,7alpha,12alpha-trihydroxy-5beta-cholestan-26-oate"
+514,[H][C@@]12C[C@H](O)CC[C@]1(C)[C@@]1([H])C[C@H](O)[C@]3(C)[C@]([H])(CC[C@@]3([H])[C@]1([H])[C@H](O)C2)[C@H](C)CCC[C@@H](C)CO,48939,"(25R)-5beta-cholestane-3alpha,7alpha,12alpha,26-tetrol"
+515,[H][C@]1(COC(=O)C1)[C@@]1([H])CC[C@]2(O)[C@]3([H])CC[C@]4([H])C[C@@H](O)CC[C@]4(C)[C@@]3([H])C[C@@H](O)[C@]12C,71004,"20,22-dihydrodigoxigenin"
+516,[H][C@]1(COC(=O)C1)[C@@]1([H])CC[C@]2(O)[C@]3([H])CC[C@]4([H])C[C@H](CC[C@]4(C)[C@@]3([H])CC[C@]12C)O[C@H]1C[C@H](O)[C@H](O[C@H]2C[C@H](O)[C@H](O[C@H]3C[C@H](O)[C@H](O)[C@@H](C)O3)[C@@H](C)O2)[C@@H](C)O1,282234,dihydrodigitoxin
+517,[H][C@]1([C@H](C)[C@@H](O)CCC(C)C)[C@@H](O)C[C@@]2([H])[C@]3([H])CC=C4C[C@@H](O)CC[C@]4(C)[C@@]3([H])CC[C@]12C,191938,"(16S,22S)-dihydroxycholesterol"
+518,[H][C@]12CCC(=O)C=C1CC[C@]1([H])[C@]2([H])CC[C@]2(C)[C@@H](O)CC[C@@]12[H],7466,nandrolone
+519,[H][C@]12CC[C@@]3([H])[C@]4([H])CC[C@H](C(C)=O)[C@@]4(C)CC[C@]3([H])[C@@]1(C)CCC(=O)C2,30154,"5beta-pregnane-3,20-dione"
+520,[H][C@]12CC[C@@]3([H])[C@]4([H])CC[C@H](O)[C@@]4(C)CC[C@]3([H])[C@@]1(C)CC[C@@H](O)C2,36714,"5beta-androstane-3alpha,17beta-diol"
+521,[H][C@]12CC[C@@]3([H])[C@]4([H])CC[C@H](O)[C@@]4(C)CC[C@]3([H])[C@@]1(C)CC[C@H](O)C2,36715,"5beta-androstane-3beta,17beta-diol"
+522,[H][C@]12CC[C@@]3([H])[C@]4([H])CC[C@](O)(C(=O)CO)[C@@]4(C)CC(=O)[C@]3([H])[C@@]1(C)CCC(=O)C2,18093,"17,21-dihydroxy-5beta-pregnane-3,11,20-trione"
+523,[H][C@]12CC[C@@]3([H])[C@]4([H])CC[C@]([H])(C(C)=O)[C@@]4(C)CC[C@]3([H])[C@@]1(C)CC[C@H](O)C2,16229,3beta-hydroxy-5beta-pregnan-20-one
+524,[H][C@]12CC[C@@]3([H])[C@]4([H])CC[C@]([H])([C@H](C)CCC(=O)NCC([O-])=O)[C@@]4(C)CC[C@]3([H])[C@@]1(C)CC[C@@H](O)C2,60008,glycolithocholate
+525,[H][C@]12CC[C@@]3([H])[C@]4([H])CC[C@]([H])([C@H](C)CCC(=O)NCC([O-])=O)[C@@]4(C)CC[C@]3([H])[C@@]1(C)CC[C@H](C2)OS([O-])(=O)=O,60007,sulfoglycolithocholate(2-)
+526,[H][C@]12CC[C@@]3([H])[C@]4([H])CC[C@]([H])([C@H](C)CCC(=O)NCCS([O-])(=O)=O)[C@@]4(C)CC[C@]3([H])[C@@]1(C)CC[C@@H](O)C2,17179,taurolithocholate
+527,[H][C@]12CC[C@@]3([H])[C@]4([H])CC[C@]([H])([C@H](C)CCC(=O)NCCS([O-])(=O)=O)[C@@]4(C)CC[C@]3([H])[C@@]1(C)CC[C@H](C2)OS([O-])(=O)=O,58301,taurolithocholic acid sulfate(2-)
+528,[H][C@]12CC[C@@]3([H])[C@]4([H])CC[C@]([H])([C@H](C)CCC(=O)NCCS([O-])(=O)=O)[C@@]4(C)[C@@H](O)C[C@]3([H])[C@@]1(C)CC[C@@H](O)C2,36261,taurodeoxycholate
+529,[H][C@]12CC[C@@]3([H])[C@]4([H])CC[C@]([H])([C@H](C)CCC([O-])=O)[C@@]4(C)[C@@H](O)C[C@]3([H])[C@@]1(C)CC[C@@H](O)C2,23614,deoxycholate
+530,[H][C@]12CC[C@]3(C)C(=O)CC[C@@]3([H])[C@]1([H])CCc1cc(O)c(O)cc21,1156,2-hydroxyestrone
+531,[H][C@]12CC[C@]3(C)C(=O)CC[C@@]3([H])[C@]1([H])CCc1cc(O)c(OC)cc21,1189,2-methoxyestrone
+532,[H][C@]12CC[C@]3(C)C(=O)CC[C@@]3([H])[C@]1([H])CCc1cc(O)ccc21,17263,estrone
+533,[H][C@]12CC[C@]3(C)C(=O)CC[C@@]3([H])[C@]1([H])CCc1cc(OS([O-])(=O)=O)ccc21,60050,estrone 3-sulfate(1-)
+534,[H][C@]12CC[C@]3(C)[C@@H](O)CC[C@@]3([H])[C@]1([H])CCc1c(O)c(O)ccc21,62845,4-hydroxy-17beta-estradiol
+535,[H][C@]12CC[C@]3(C)[C@@H](O)CC[C@@]3([H])[C@]1([H])CCc1cc(O)c(O)cc21,28744,2-hydroxy-17beta-estradiol
+536,[H][C@]12CC[C@]3(C)[C@@H](O)CC[C@@]3([H])[C@]1([H])CCc1cc(O)c(OC)cc21,28955,2-methoxy-17beta-estradiol
+537,[H][C@]12CC[C@]3(C)[C@@H](O)CC[C@@]3([H])[C@]1([H])CCc1cc(O)ccc21,16469,17beta-estradiol
+538,[H][C@]12CC[C@]3(C)[C@@H](O)CC[C@@]3([H])[C@]1([H])C[C@@H](O)c1cc(O)ccc21,16784,6beta-hydroxy-17beta-estradiol
+539,[H][C@]12CC[C@]3(C)[C@@H](O)CC[C@@]3([H])[C@]1([H])C[C@H](O)c1cc(O)ccc21,62847,6alpha-hydroxy-17beta-estradiol
+540,[H][C@]12CC[C@]3(C)[C@@H](O)[C@H](O)C[C@@]3([H])[C@]1([H])CCc1cc(O)ccc21,27974,estriol
+541,[H][C@]12CC[C@]3(C)[C@H](O)CC[C@@]3([H])[C@]1([H])CCc1cc(O)ccc21,17160,17alpha-estradiol
+542,[H][C@]12CC[C@]3(C)[C@]([H])(CC[C@@]3(O)C1=CC(=O)[C@]1([H])C[C@@H](O)[C@@H](O)C[C@]21C)[C@@](C)(O)[C@H](O)CCC(C)(C)O,16587,20-hydroxyecdysone
+543,[H][C@]12CC[C@]3([H])[C@]([H])(CC[C@]4(C)[C@]([H])(CC[C@@]34[H])[C@H](C)CCC([O-])=O)[C@@]1(C)CCC(=O)C2,11867,3-oxo-5beta-cholanate
+544,[H][C@]12CC[C@]3([H])[C@]([H])(CC[C@]4(C)[C@]([H])(CC[C@@]34[H])[C@H](C)CCC([O-])=O)[C@@]1(C)CC[C@@H](O)C2,15378,hydron
+545,[H][C@]12CC[C@]3([H])[C@]([H])(CC[C@]4(C)[C@]([H])(CC[C@@]34[H])[C@H](C)CCCC(C)C)[C@@]1(C)CCC(=O)C2,16074,5beta-cholestan-3-one
+546,[H][C@]12CC[C@]3([H])[C@]([H])(C[C@@H](O)[C@]4(C)[C@]([H])(CC[C@]34O)C3COC(=O)C3)[C@@]1(C)CC[C@@H](C2)O[C@H]1C[C@H](O)[C@H](O[C@H]2C[C@H](O)[C@H](O[C@H]3C[C@H](O)[C@H](O)[C@@H](C)O3)[C@@H](C)O2)[C@@H](C)O1,71002,"20,22-dihydrodigoxin"
+547,[H][C@]12C[C@@H](O)[C@@]3([H])[C@]4([H])CC[C@]([H])([C@H](C)CCCC(C)C)[C@@]4(C)[C@@H](O)C[C@]3([H])[C@@]1(C)CCC(=O)C2,2288,"7alpha,12alpha-dihydroxy-5beta-cholestan-3-one"
+548,[H][C@]12C[C@@H](O)[C@]3([H])[C@]([H])(CC[C@]4(C)[C@]([H])(CC[C@@]34[H])[C@H](C)CCCC(C)C)[C@@]1(C)CCC(=O)C2,2290,7alpha-hydroxy-5beta-cholestan-3-one
+549,[H][C@]12C[C@@]3([H])[C@]4([H])CC=C5C[C@H](CC[C@]5(C)[C@@]4([H])CC[C@]3(C)[C@@]1([H])[C@H](C)[C@@]1(CC[C@@](C)(CO[C@@H]3O[C@H](CO)[C@@H](O)[C@H](O)[C@H]3O)O1)O2)O[C@@H]1O[C@H](CO)[C@@H](O[C@@H]2O[C@H](CO)[C@@H](O)[C@H](O[C@@H]3O[C@H](CO)[C@@H](O)[C@H](O)[C@H]3O)[C@H]2O)[C@H](O)[C@H]1O[C@@H]1O[C@@H](C)[C@H](O)[C@@H](O)[C@H]1O,2938,avenacoside B
+550,[S-][H],29919,hydrosulfide
