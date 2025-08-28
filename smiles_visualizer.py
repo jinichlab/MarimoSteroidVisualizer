@@ -19,6 +19,7 @@ def simple_ui():
     # For LLM summarization and secure API usage
     from dotenv import load_dotenv
     import os
+
     import openai
     import instructor
     from anthropic import Anthropic
@@ -32,12 +33,17 @@ def simple_ui():
     from io import BytesIO
 
     import ast
+
+    import json
+    import numpy as np
+    import faiss
+    import datetime
+
     return (
         AllChem,
         BaseModel,
         BytesIO,
         Chem,
-        Client,
         Draw,
         HTML,
         KMeans,
@@ -45,8 +51,14 @@ def simple_ui():
         alt,
         ast,
         base64,
+        datetime,
         display,
+        faiss,
+        json,
+        load_dotenv,
         mo,
+        np,
+        os,
         pd,
         py3Dmol,
         rdmolfiles,
@@ -611,19 +623,92 @@ def _():
 
 
 @app.cell
-def _(Client):
-    # 🔑 Together AI API key (placeholder — replace with your real one)
-    TOGETHER_API_KEY = "tgp_v1_irSn3D0Td5-2O8C85Nr81ylpwR40llvgk6_38K6ko2I"
+def _(load_dotenv, os):
+    load_dotenv(dotenv_path=".env")
+    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+    if not OPENAI_API_KEY:
+        raise ValueError("❌ OPENAI_API_KEY not found in .env file")
 
-    # Create the Together client
-    client = Client(api_key=TOGETHER_API_KEY, base_url="https://api.together.xyz/v1")
+    # Create OpenAI client
+    from openai import OpenAI
+    client = OpenAI(api_key=OPENAI_API_KEY)
 
     return (client,)
 
 
 @app.cell
-def _(client):
+def _():
+    # retriever.py — load index & catalog once; simple top-k search
+    import os, json, numpy as np, faiss
+    from openai import OpenAI
+
+    STORE = "rag_store"
+    _index = faiss.read_index(os.path.join(STORE, "index.faiss"))
+    _catalog = [json.loads(l) for l in open(os.path.join(STORE, "catalog.jsonl"), "r", encoding="utf-8")]
+
+    _client = OpenAI()
+
+    def _embed(texts):
+        resp = _client.embeddings.create(model="text-embedding-3-large", input=texts)
+        arr = np.array([d.embedding for d in resp.data], dtype="float32")
+        arr /= (np.linalg.norm(arr, axis=1, keepdims=True) + 1e-12)
+        return arr
+
+    def retrieve(query: str, k=6):
+        qv = _embed([query])
+        scores, idxs = _index.search(qv, k)
+        hits = []
+        for sc, ix in zip(scores[0], idxs[0]):
+            if ix == -1: continue
+            row = _catalog[ix].copy()
+            row["score"] = float(sc)
+            hits.append(row)
+        return hits
+
+    return faiss, json, np, os, retrieve
+
+
+@app.cell
+def _(client, faiss, json, np, os):
+    STORE = "rag_store"
+    INDEX_PATH = os.path.join(STORE, "index.faiss")
+    CATALOG_PATH = os.path.join(STORE, "catalog.jsonl")
+
+    # Load FAISS index once
+    index = faiss.read_index(INDEX_PATH)
+
+    # Load catalog (maps vector IDs → text/metadata)
+    with open(CATALOG_PATH, "r", encoding="utf-8") as f:
+        catalog = [json.loads(line) for line in f]
+
+    def embed_query(query: str) -> np.ndarray:
+        """Turn query into normalized vector"""
+        resp = client.embeddings.create(
+            model="text-embedding-3-large",
+            input=[query]
+        )
+        v = np.array(resp.data[0].embedding, dtype="float32")
+        return v / (np.linalg.norm(v) + 1e-12)
+
+    def retrieve(query: str, k: int = 6):
+        """Search index for top-k chunks matching query"""
+        qv = embed_query(query).reshape(1, -1)
+        scores, idxs = index.search(qv, k)
+        hits = []
+        for score, idx in zip(scores[0], idxs[0]):
+            if idx == -1:
+                continue
+            row = catalog[idx]
+            row["score"] = float(score)
+            hits.append(row)
+        return hits
+    return (retrieve,)
+
+
+@app.cell
+def _(client, datetime, retrieve):
     def my_model(messages):
+        # Keep history like before
         history = []
         last_role = None
         for m in messages:
@@ -632,15 +717,42 @@ def _(client):
                 continue
             history.append({"role": role, "content": m.content})
             last_role = role
-
         if not history:
             history = [{"role": "user", "content": "Hello!"}]
 
-        resp = client.chat.completions.create(
-            model="mistralai/Mixtral-8x7B-Instruct-v0.1",
-            messages=history,
-            temperature=0.7,
+        # Get the latest user query
+        user_q = next((m["content"] for m in reversed(history) if m["role"]=="user"), "Hello!")
+
+        # RAG part (Retrieval):
+        hits = retrieve(user_q, k=6)
+        context_blocks = []
+        for i, h in enumerate(hits, 1):
+            header = f"[{i}] {h['paper']} — {h.get('section') or '(no section)'} — page {h.get('page')}"
+            preview = h["text"]
+            context_blocks.append(f"{header}\n{preview}")
+        context = "\n\n".join(context_blocks) if context_blocks else "(no relevant context found)"
+
+        # System prompt to keep answers grounded
+        today = datetime.date.today().strftime("%B %d, %Y")
+        system_msg = (
+            f"You are a precise assistant. If the context contains relevant information, "
+            "always use it as your primary source and cite it with [1], [2], etc. "
+            "If the context is empty or irrelevant, you may answer from your own knowledge. "
+            "If you use outside knowledge, keep it very brief and give a disclaimer mention"
+            "If asked for reference/cite/citation respond with name of last used file"
         )
+
+
+        # Call the chat completion
+        resp = client.chat.completions.create(
+            model="gpt-4o-mini",  # or gpt-4.1-mini if you want
+            messages=[
+                {"role": "system", "content": system_msg},
+                {"role": "user", "content": f"Context:\n{context}\n\nQuestion: {user_q}"}
+            ],
+            temperature=0.2,
+        )
+
         return resp.choices[0].message.content
 
     return (my_model,)
@@ -652,8 +764,8 @@ def _(mo, my_model):
         my_model,
         prompts=[
             "Summarize this chat app in one sentence.",
-            "Give me three ideas for improving this UI.",
-            "Write a friendly greeting."
+            "Give me uses of the proteins selected",
+            "Tell me about steroid-enzyme interaction in general"
         ],
     )
 
