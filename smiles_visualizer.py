@@ -38,6 +38,8 @@ def simple_ui():
     import numpy as np
     import faiss
     import datetime
+    from openai import OpenAI
+    import os, json, numpy as np, faiss
 
     return (
         AllChem,
@@ -48,6 +50,7 @@ def simple_ui():
         HTML,
         KMeans,
         List,
+        OpenAI,
         alt,
         ast,
         base64,
@@ -623,29 +626,26 @@ def _():
 
 
 @app.cell
-def _(load_dotenv, os):
+def _(OpenAI, load_dotenv, os):
     load_dotenv(dotenv_path=".env")
     OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
     if not OPENAI_API_KEY:
         raise ValueError("❌ OPENAI_API_KEY not found in .env file")
 
     # Create OpenAI client
-    from openai import OpenAI
+
     client = OpenAI(api_key=OPENAI_API_KEY)
 
     return (client,)
 
 
 @app.cell
-def _():
+def _(OpenAI, faiss, json, np, os):
     # retriever.py — load index & catalog once; simple top-k search
-    import os, json, numpy as np, faiss
-    from openai import OpenAI
 
     STORE = "rag_store"
     _index = faiss.read_index(os.path.join(STORE, "index.faiss"))
     _catalog = [json.loads(l) for l in open(os.path.join(STORE, "catalog.jsonl"), "r", encoding="utf-8")]
-
     _client = OpenAI()
 
     def _embed(texts):
@@ -653,24 +653,11 @@ def _():
         arr = np.array([d.embedding for d in resp.data], dtype="float32")
         arr /= (np.linalg.norm(arr, axis=1, keepdims=True) + 1e-12)
         return arr
-
-    def retrieve(query: str, k=6):
-        qv = _embed([query])
-        scores, idxs = _index.search(qv, k)
-        hits = []
-        for sc, ix in zip(scores[0], idxs[0]):
-            if ix == -1: continue
-            row = _catalog[ix].copy()
-            row["score"] = float(sc)
-            hits.append(row)
-        return hits
-
-    return faiss, json, np, os, retrieve
+    return (STORE,)
 
 
 @app.cell
-def _(client, faiss, json, np, os):
-    STORE = "rag_store"
+def _(STORE, client, faiss, json, np, os):
     INDEX_PATH = os.path.join(STORE, "index.faiss")
     CATALOG_PATH = os.path.join(STORE, "catalog.jsonl")
 
