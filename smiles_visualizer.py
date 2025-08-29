@@ -54,13 +54,8 @@ def simple_ui():
         alt,
         ast,
         base64,
-        datetime,
         display,
-        faiss,
-        json,
         mo,
-        np,
-        os,
         pd,
         py3Dmol,
         rdmolfiles,
@@ -625,7 +620,14 @@ def _():
 
 
 @app.cell
-def _(OPENAI_API_KEY, OpenAI):
+def _(OPENAI_API_KEY, OpenAI, display):
+    client = OpenAI(api_key=OPENAI_API_KEY)
+    display(client)
+    return
+
+
+@app.cell
+def _():
     # load_dotenv(dotenv_path=".env")
     # OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
     # if not OPENAI_API_KEY:
@@ -635,148 +637,148 @@ def _(OPENAI_API_KEY, OpenAI):
 
     # client = OpenAI(api_key=OPENAI_API_KEY)
 
-    client = OpenAI(api_key=OPENAI_API_KEY)
+    # client = OpenAI(api_key=OPENAI_API_KEY)
 
-    return (client,)
-
-
-@app.cell
-def _(OpenAI, faiss, json, np, os):
-    # retriever.py — load index & catalog once; simple top-k search
-
-    STORE = "rag_store"
-    _index = faiss.read_index(os.path.join(STORE, "index.faiss"))
-    _catalog = [json.loads(l) for l in open(os.path.join(STORE, "catalog.jsonl"), "r", encoding="utf-8")]
-    _client = OpenAI()
-
-    def _embed(texts):
-        resp = _client.embeddings.create(model="text-embedding-3-large", input=texts)
-        arr = np.array([d.embedding for d in resp.data], dtype="float32")
-        arr /= (np.linalg.norm(arr, axis=1, keepdims=True) + 1e-12)
-        return arr
-    return (STORE,)
+    return
 
 
 @app.cell
-def _(STORE, client, faiss, json, np, os):
-    INDEX_PATH = os.path.join(STORE, "index.faiss")
-    CATALOG_PATH = os.path.join(STORE, "catalog.jsonl")
+def _():
+    # # retriever.py — load index & catalog once; simple top-k search
 
-    # Load FAISS index once
-    index = faiss.read_index(INDEX_PATH)
+    # STORE = "rag_store"
+    # _index = faiss.read_index(os.path.join(STORE, "index.faiss"))
+    # _catalog = [json.loads(l) for l in open(os.path.join(STORE, "catalog.jsonl"), "r", encoding="utf-8")]
+    # _client = OpenAI()
 
-    # Load catalog (maps vector IDs → text/metadata)
-    with open(CATALOG_PATH, "r", encoding="utf-8") as f:
-        catalog = [json.loads(line) for line in f]
-
-    def embed_query(query: str) -> np.ndarray:
-        """Turn query into normalized vector"""
-        resp = client.embeddings.create(
-            model="text-embedding-3-large",
-            input=[query]
-        )
-        v = np.array(resp.data[0].embedding, dtype="float32")
-        return v / (np.linalg.norm(v) + 1e-12)
-
-    def retrieve(query: str, k: int = 6):
-        """Search index for top-k chunks matching query"""
-        qv = embed_query(query).reshape(1, -1)
-        scores, idxs = index.search(qv, k)
-        hits = []
-        for score, idx in zip(scores[0], idxs[0]):
-            if idx == -1:
-                continue
-            row = catalog[idx]
-            row["score"] = float(score)
-            hits.append(row)
-        return hits
-    return (retrieve,)
+    # def _embed(texts):
+    #     resp = _client.embeddings.create(model="text-embedding-3-large", input=texts)
+    #     arr = np.array([d.embedding for d in resp.data], dtype="float32")
+    #     arr /= (np.linalg.norm(arr, axis=1, keepdims=True) + 1e-12)
+    #     return arr
+    return
 
 
 @app.cell
-def _(client, datetime, retrieve):
-    def my_model(messages):
-        # Keep history like before
-        history = []
-        last_role = None
-        for m in messages:
-            role = "assistant" if m.role == "assistant" else "user"
-            if role == last_role:
-                continue
-            history.append({"role": role, "content": m.content})
-            last_role = role
-        if not history:
-            history = [{"role": "user", "content": "Hello!"}]
+def _():
+    # INDEX_PATH = os.path.join(STORE, "index.faiss")
+    # CATALOG_PATH = os.path.join(STORE, "catalog.jsonl")
 
-        # Get the latest user query
-        user_q = next((m["content"] for m in reversed(history) if m["role"]=="user"), "Hello!")
+    # # Load FAISS index once
+    # index = faiss.read_index(INDEX_PATH)
 
-        # RAG part (Retrieval):
-        hits = retrieve(user_q, k=6)
-        context_blocks = []
-        for i, h in enumerate(hits, 1):
-            header = f"[{i}] {h['paper']} — {h.get('section') or '(no section)'} — page {h.get('page')}"
-            preview = h["text"]
-            context_blocks.append(f"{header}\n{preview}")
-        context = "\n\n".join(context_blocks) if context_blocks else "(no relevant context found)"
+    # # Load catalog (maps vector IDs → text/metadata)
+    # with open(CATALOG_PATH, "r", encoding="utf-8") as f:
+    #     catalog = [json.loads(line) for line in f]
 
-        # System prompt to keep answers grounded
-        today = datetime.date.today().strftime("%B %d, %Y")
-        system_msg = (
-            f"You are a precise assistant. If the context contains relevant information, "
-            "always use it as your primary source and cite it with [1], [2], etc. "
-            "If the context is empty or irrelevant, you may answer from your own knowledge. "
-            "If you use outside knowledge, keep it very brief and give a disclaimer mention"
-            "If asked for reference/cite/citation respond with name of last used file"
-            "if asked about stuff in general/brief/short respond in 2-3 general but accurate sentences that are simple to understand and paraphrase what you know. Keep it open asking if the user has more questions"
-        )
+    # def embed_query(query: str) -> np.ndarray:
+    #     """Turn query into normalized vector"""
+    #     resp = client.embeddings.create(
+    #         model="text-embedding-3-large",
+    #         input=[query]
+    #     )
+    #     v = np.array(resp.data[0].embedding, dtype="float32")
+    #     return v / (np.linalg.norm(v) + 1e-12)
 
-
-        # Call the chat completion
-        resp = client.chat.completions.create(
-            model="gpt-4o-mini",  # or gpt-4.1-mini if you want
-            messages=[
-                {"role": "system", "content": system_msg},
-                {"role": "user", "content": f"Context:\n{context}\n\nQuestion: {user_q}"}
-            ],
-            temperature=0.2,
-        )
-
-        return resp.choices[0].message.content
-
-    return (my_model,)
+    # def retrieve(query: str, k: int = 6):
+    #     """Search index for top-k chunks matching query"""
+    #     qv = embed_query(query).reshape(1, -1)
+    #     scores, idxs = index.search(qv, k)
+    #     hits = []
+    #     for score, idx in zip(scores[0], idxs[0]):
+    #         if idx == -1:
+    #             continue
+    #         row = catalog[idx]
+    #         row["score"] = float(score)
+    #         hits.append(row)
+    #     return hits
+    return
 
 
 @app.cell
-def _(mo, my_model):
-    chat_ui = mo.ui.chat(
-        my_model,
-        prompts=[
-            "Summarize this chat app in one sentence.",
-            "Give me uses of the proteins selected",
-            "Tell me about steroid-enzyme interaction in general"
-        ],
-    )
-    # Only the messages area scrolls
-    chat_ui.style({
-        "height": "400px",
-        "overflow-y": "auto",
-    })
+def _():
+    # def my_model(messages):
+    #     # Keep history like before
+    #     history = []
+    #     last_role = None
+    #     for m in messages:
+    #         role = "assistant" if m.role == "assistant" else "user"
+    #         if role == last_role:
+    #             continue
+    #         history.append({"role": role, "content": m.content})
+    #         last_role = role
+    #     if not history:
+    #         history = [{"role": "user", "content": "Hello!"}]
 
-    mo.Html(
-        f"""
-        <div id="chat-container" style="height:400px; overflow-y:auto; border:1px solid #ccc; border-radius:8px; padding:8px;">
-            {chat_ui}
-        </div>
-        <script>
-        const container = document.getElementById("chat-container");
-        const observer = new MutationObserver(() => {{
-            container.scrollTop = container.scrollHeight;
-        }});
-        observer.observe(container, {{ childList: true, subtree: true }});
-        </script>
-        """
-    )
+    #     # Get the latest user query
+    #     user_q = next((m["content"] for m in reversed(history) if m["role"]=="user"), "Hello!")
+
+    #     # RAG part (Retrieval):
+    #     hits = retrieve(user_q, k=6)
+    #     context_blocks = []
+    #     for i, h in enumerate(hits, 1):
+    #         header = f"[{i}] {h['paper']} — {h.get('section') or '(no section)'} — page {h.get('page')}"
+    #         preview = h["text"]
+    #         context_blocks.append(f"{header}\n{preview}")
+    #     context = "\n\n".join(context_blocks) if context_blocks else "(no relevant context found)"
+
+    #     # System prompt to keep answers grounded
+    #     today = datetime.date.today().strftime("%B %d, %Y")
+    #     system_msg = (
+    #         f"You are a precise assistant. If the context contains relevant information, "
+    #         "always use it as your primary source and cite it with [1], [2], etc. "
+    #         "If the context is empty or irrelevant, you may answer from your own knowledge. "
+    #         "If you use outside knowledge, keep it very brief and give a disclaimer mention"
+    #         "If asked for reference/cite/citation respond with name of last used file"
+    #         "if asked about stuff in general/brief/short respond in 2-3 general but accurate sentences that are simple to understand and paraphrase what you know. Keep it open asking if the user has more questions"
+    #     )
+
+
+    #     # Call the chat completion
+    #     resp = client.chat.completions.create(
+    #         model="gpt-4o-mini",  # or gpt-4.1-mini if you want
+    #         messages=[
+    #             {"role": "system", "content": system_msg},
+    #             {"role": "user", "content": f"Context:\n{context}\n\nQuestion: {user_q}"}
+    #         ],
+    #         temperature=0.2,
+    #     )
+
+    #     return resp.choices[0].message.content
+
+    return
+
+
+@app.cell
+def _():
+    # chat_ui = mo.ui.chat(
+    #     my_model,
+    #     prompts=[
+    #         "Summarize this chat app in one sentence.",
+    #         "Give me uses of the proteins selected",
+    #         "Tell me about steroid-enzyme interaction in general"
+    #     ],
+    # )
+    # # Only the messages area scrolls
+    # chat_ui.style({
+    #     "height": "400px",
+    #     "overflow-y": "auto",
+    # })
+
+    # mo.Html(
+    #     f"""
+    #     <div id="chat-container" style="height:400px; overflow-y:auto; border:1px solid #ccc; border-radius:8px; padding:8px;">
+    #         {chat_ui}
+    #     </div>
+    #     <script>
+    #     const container = document.getElementById("chat-container");
+    #     const observer = new MutationObserver(() => {{
+    #         container.scrollTop = container.scrollHeight;
+    #     }});
+    #     observer.observe(container, {{ childList: true, subtree: true }});
+    #     </script>
+    #     """
+    # )
 
 
     return
