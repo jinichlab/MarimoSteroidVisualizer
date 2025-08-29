@@ -13,3 +13,4 @@ pydantic
 instructor
 anthropic
 pyarrow
+faiss-cpu
