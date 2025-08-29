@@ -606,7 +606,7 @@ def _(CATALOG_PATH, client, index, json, np):
 
 
 @app.cell
-def _(client, datetime, np, retrieve, table):
+def _(client, datetime, dropdown, np, retrieve, table):
     #Actual model with system message. Also finds similarity with RAG data
 
     def my_model(messages):
@@ -641,12 +641,21 @@ def _(client, datetime, np, retrieve, table):
             "When context is available, always prioritize it. "
             "If no context is relevant, answer briefly (2–3 simple sentences) from your own knowledge and note that it is general information. "
             "When asked for a citation, reply with the name of the last file used. "
-            f"If the user asks anything about the selected proteins (e.g., uses, purpose, function, or description), "
-            f"use this list as the basis of your answer: {np.array(table.value['Protein names'])}. "
-            f"If the user asks anything about the selected small molecules (e.g., uses, purpose, function, or description), "
-            f"use this list as the basis of your answer: {np.array(table.value['Compound'])}."
-        )
-
+            f"If the user asks anything about the selected proteins (e.g., uses, purpose, function, or description), ")
+        
+        if dropdown.value != None:
+            if len(np.array(table.value)) == 0:
+                system_msg = "If prompted to tell you about proteins selected respond requesting to select values from table first"
+            elif dropdown.value == "small molecule centric":
+                system_msg += (f"use this list as the basis of your answer: {np.array(table.value['Compound'])}. "
+            f"If the user asks anything about the selected small molecules/values (e.g., uses, purpose, function, or description).")
+            
+            elif dropdown.value == "protein centric":
+                system_msg += (f"use this list as the basis of your answer: {np.array(table.value['Protein names'])}. "
+            f"If the user asks anything about the selected proteins/values (e.g., uses, purpose, function, or description).")
+        else:
+            system_msg = "If prompted to tell you about proteins selected respond requesting to select type of graph first"
+            
         # Call the chat completion
         resp = client.chat.completions.create(
             model="gpt-4o-mini",  # or gpt-4.1-mini if you want
@@ -668,7 +677,7 @@ def _(mo, my_model):
         my_model,
         prompts=[
             "Summarize this chat app in one sentence.",
-            "Tell me about the proteins selected",
+            "Tell me about the values selected",
             "Tell me about steroid-enzyme interaction in general"
         ],
     )
