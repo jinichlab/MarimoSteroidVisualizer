@@ -369,7 +369,6 @@ def _(
 
 @app.cell
 def _(HTML, ast, display, display_compound_with_scroll, dropdown, pd, table):
-
     if dropdown.value != None:
         # Loop through each row in your table
         for _, row in table.value.iterrows():
@@ -497,6 +496,8 @@ def _(
 
 @app.cell
 def _(dropdown, mo, mol3d_download_link):
+    #3D Small molecule download
+
     if dropdown.value != None:
         mo.md(mol3d_download_link)
     return
@@ -525,11 +526,6 @@ def _(chebi_df, data_df, dropdown):
     return
 
 
-@app.cell
-def _():
-    return
-
-
 @app.cell(hide_code=True)
 def _(BaseModel, List):
     class OutputFormat(BaseModel):
@@ -539,95 +535,10 @@ def _(BaseModel, List):
     return
 
 
-@app.cell(hide_code=True)
-def _():
-    # text_input = mo.ui.text(label="Enter Prompt Here:")
-
-    # mo.md(f"""
-    # AI generated information:
-
-    # {text_input} 
-
-    # """).batch(text_input=text_input).form()
-    return
-
-
-@app.cell(hide_code=True)
-def _():
-    # env_path = os.path.join(os.path.dirname(__file__), ".env")
-    # load_dotenv(dotenv_path=env_path)
-    # 'TOGETHER_API_KEY' in str(os.environ)
-    # TOGETHER_KEY = os.getenv("TOGETHER_API_KEY")
-    return
-
-
-@app.cell(hide_code=True)
-def _():
-    # client = openai.OpenAI(
-    #     # api_key=TOGETHER_KEY,
-    #     api_key = 'tgp_v1_irSn3D0Td5-2O8C85Nr81ylpwR40llvgk6_38K6ko2I',
-    #     base_url="https://api.together.xyz/v1"
-    # )
-
-    # if text_input.value.strip():
-    #     with mo.status.spinner("Generating information..."):
-    #         response = client.chat.completions.create(
-    #             model="mistralai/Mixtral-8x7B-Instruct-v0.1",
-    #             messages=[
-    #                 {
-    #                     "role": "user",
-    #                     "content": f"""Answer the prompt below.
-
-    # Your answer must begin with 'TL;DR:' on a new line followed by a one-sentence summary. Then provide 3–5 bullet point highlights.
-
-    # Prompt:
-    # {text_input.value}
-    # """
-    #                 }
-    #             ],
-    #             max_tokens=1000
-    #         )
-
-    #         output_text = response.choices[0].message.content
-    #         rendered = f"""## Response from Mixtral\n{output_text}"""
-    # else:
-    #     output_text = ""
-    #     rendered = "⚠️ No input provided."
-
-    # # output_text  # ← Add this so the next cell can access it
-    return
-
-
-@app.cell(hide_code=True)
-def _():
-    # match = re.search(
-    #     r"^TL;DR[:：]?\s*(.+?)(?:\n{2,}|\n(?=[\d\-•]))",  # captures TLDR before list
-    #     output_text.strip(),
-    #     re.DOTALL | re.IGNORECASE
-    # )
-
-    # if match:
-    #     summary = match.group(1).strip()
-    #     main_content = output_text[match.end():].strip()
-    # else:
-    #     summary = ""
-    #     main_content = output_text.strip()
-
-    # # Only render if there is content
-    # formatted_output = f"""
-    # ## TL;DR
-    # {summary}
-
-    # ## Key Highlights
-    # {main_content}
-    # """ if len(main_content) + len(summary) > 0 else ""
-
-    # mo.md(formatted_output)
-    return
-
-
 @app.cell
 def _(load_dotenv, openai, os):
+    #Create openai instance, load API key
+
     load_dotenv(dotenv_path=".env")
     OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
     if not OPENAI_API_KEY:
@@ -636,34 +547,35 @@ def _(load_dotenv, openai, os):
     # Create OpenAI client
 
     client = openai.Client(api_key=OPENAI_API_KEY)
-
     return (client,)
 
 
 @app.cell
 def _(OpenAI, faiss, json, np, os):
+    #Load RAG data and embed texts
+
     # retriever.py — load index & catalog once; simple top-k search
 
     STORE = "rag_store"
     _index = faiss.read_index(os.path.join(STORE, "index.faiss"))
     _catalog = [json.loads(l) for l in open(os.path.join(STORE, "catalog.jsonl"), "r", encoding="utf-8")]
     _client = OpenAI()
+    INDEX_PATH = os.path.join(STORE, "index.faiss")
+    CATALOG_PATH = os.path.join(STORE, "catalog.jsonl")
+    # Load FAISS index once
+    index = faiss.read_index(INDEX_PATH)
 
     def _embed(texts):
         resp = _client.embeddings.create(model="text-embedding-3-large", input=texts)
         arr = np.array([d.embedding for d in resp.data], dtype="float32")
         arr /= (np.linalg.norm(arr, axis=1, keepdims=True) + 1e-12)
         return arr
-    return (STORE,)
+    return CATALOG_PATH, index
 
 
 @app.cell
-def _(STORE, client, faiss, json, np, os):
-    INDEX_PATH = os.path.join(STORE, "index.faiss")
-    CATALOG_PATH = os.path.join(STORE, "catalog.jsonl")
-
-    # Load FAISS index once
-    index = faiss.read_index(INDEX_PATH)
+def _(CATALOG_PATH, client, index, json, np):
+    #Find closest chunks and embed query in vector space
 
     # Load catalog (maps vector IDs → text/metadata)
     with open(CATALOG_PATH, "r", encoding="utf-8") as f:
@@ -694,7 +606,9 @@ def _(STORE, client, faiss, json, np, os):
 
 
 @app.cell
-def _(client, datetime, retrieve):
+def _(client, datetime, np, retrieve, table):
+    #Actual model with system message. Also finds similarity with RAG data
+
     def my_model(messages):
         # Keep history like before
         history = []
@@ -723,14 +637,15 @@ def _(client, datetime, retrieve):
         # System prompt to keep answers grounded
         today = datetime.date.today().strftime("%B %d, %Y")
         system_msg = (
-            f"You are a precise assistant. If the context contains relevant information, "
-            "always use it as your primary source and cite it with [1], [2], etc. "
-            "If the context is empty or irrelevant, you may answer from your own knowledge. "
-            "If you use outside knowledge, keep it very brief and give a disclaimer mention"
-            "If asked for reference/cite/citation respond with name of last used file"
-            "if asked about stuff in general/brief/short respond in 2-3 general but accurate sentences that are simple to understand and paraphrase what you know. Keep it open asking if the user has more questions"
+            "You are a precise assistant. "
+            "When context is available, always prioritize it. "
+            "If no context is relevant, answer briefly (2–3 simple sentences) from your own knowledge and note that it is general information. "
+            "When asked for a citation, reply with the name of the last file used. "
+            f"If the user asks anything about the selected proteins (e.g., uses, purpose, function, or description), "
+            f"use this list as the basis of your answer: {np.array(table.value['Protein names'])}. "
+            f"If the user asks anything about the selected small molecules (e.g., uses, purpose, function, or description), "
+            f"use this list as the basis of your answer: {np.array(table.value['Compound'])}."
         )
-
 
         # Call the chat completion
         resp = client.chat.completions.create(
@@ -753,7 +668,7 @@ def _(mo, my_model):
         my_model,
         prompts=[
             "Summarize this chat app in one sentence.",
-            "Give me uses of the proteins selected",
+            "Tell me about the proteins selected",
             "Tell me about steroid-enzyme interaction in general"
         ],
     )
@@ -784,7 +699,7 @@ def _(mo, my_model):
 
 @app.cell
 def _(mo):
-    mo.md("""<span style='font-size:16px'><em>Hint: Unsure what to ask? Click the button next to the chatbar for ideas<em></span>""")
+    mo.md("""<span style='font-size:16px'><em>Hint: Unsure what to ask? Click the prompt icon next to the input bar for ideas<em></span>""")
     return
 
 
