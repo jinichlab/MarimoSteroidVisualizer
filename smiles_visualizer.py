@@ -58,7 +58,6 @@ def simple_ui():
         display,
         faiss,
         json,
-        load_dotenv,
         mo,
         np,
         os,
@@ -626,13 +625,15 @@ def _():
 
 
 @app.cell
-def _(OpenAI, load_dotenv, os):
-    load_dotenv(dotenv_path=".env")
-    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-    if not OPENAI_API_KEY:
-        raise ValueError("❌ OPENAI_API_KEY not found in .env file")
+def _(OPENAI_API_KEY, OpenAI):
+    # load_dotenv(dotenv_path=".env")
+    # OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+    # if not OPENAI_API_KEY:
+    #     raise ValueError("❌ OPENAI_API_KEY not found in .env file")
 
-    # Create OpenAI client
+    # # Create OpenAI client
+
+    # client = OpenAI(api_key=OPENAI_API_KEY)
 
     client = OpenAI(api_key=OPENAI_API_KEY)
 
@@ -727,6 +728,7 @@ def _(client, datetime, retrieve):
             "If the context is empty or irrelevant, you may answer from your own knowledge. "
             "If you use outside knowledge, keep it very brief and give a disclaimer mention"
             "If asked for reference/cite/citation respond with name of last used file"
+            "if asked about stuff in general/brief/short respond in 2-3 general but accurate sentences that are simple to understand and paraphrase what you know. Keep it open asking if the user has more questions"
         )
 
 
@@ -755,7 +757,6 @@ def _(mo, my_model):
             "Tell me about steroid-enzyme interaction in general"
         ],
     )
-
     # Only the messages area scrolls
     chat_ui.style({
         "height": "400px",
@@ -778,6 +779,12 @@ def _(mo, my_model):
     )
 
 
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md("""<span style='font-size:16px'><em>Hint: Unsure what to ask? Click the button next to the chatbar for ideas<em></span>""")
     return
 
 
