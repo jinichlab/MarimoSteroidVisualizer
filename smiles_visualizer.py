@@ -1,7 +1,7 @@
 import marimo
 
-__generated_with = "0.14.12"
-app = marimo.App(width="medium")
+__generated_with = "0.13.6"
+app = marimo.App(width="medium", app_title="Steroid Visualizer")
 
 
 @app.cell
@@ -18,26 +18,11 @@ def simple_ui():
 
     # For LLM summarization and secure API usage
     from dotenv import load_dotenv
-    import os
-
     import openai
-    import instructor
-    from anthropic import Anthropic
     from pydantic import BaseModel
     from typing import List
-    from jinja2 import Template
-    import re
-    import pyarrow
-    from openai import Client
-
     from io import BytesIO
-
     import ast
-
-    import json
-    import numpy as np
-    import faiss
-    import datetime
     from openai import OpenAI
     import os, json, numpy as np, faiss
 
@@ -54,7 +39,6 @@ def simple_ui():
         alt,
         ast,
         base64,
-        datetime,
         display,
         faiss,
         json,
@@ -109,7 +93,7 @@ def _(display):
 
 @app.cell
 def _(mo):
-    dropdown = mo.ui.dropdown(["small molecule centric", "protein centric"])
+    dropdown = mo.ui.dropdown(["protein centric", "small molecule centric"])
     dropdown
     return (dropdown,)
 
@@ -167,18 +151,6 @@ def _(ast, dropdown, pd, protein_embedding_df, small_molecule_df):
     elif dropdown.value == "protein centric":
         data_df = protein_embedding_df.copy()
     return chebi_df, data_df
-
-
-@app.class_definition
-class SkipCell(Exception):
-    pass
-
-
-@app.cell
-def _():
-    # if dropdown.value != None:
-    #     display(data_df)
-    return
 
 
 @app.cell
@@ -606,7 +578,7 @@ def _(CATALOG_PATH, client, index, json, np):
 
 
 @app.cell
-def _(client, datetime, dropdown, np, retrieve, table):
+def _(client, dropdown, np, retrieve, table):
     #Actual model with system message. Also finds similarity with RAG data
 
     def my_model(messages):
@@ -622,8 +594,38 @@ def _(client, datetime, dropdown, np, retrieve, table):
         if not history:
             history = [{"role": "user", "content": "Hello!"}]
 
+
+
+
+        selection_keywords = (
+            "select", "selected", "selection",
+            "selected values", "values selected",
+            "the selected", "from the table", "from the list",
+            "highlighted", "chosen", "picked"
+        )
         # Get the latest user query
         user_q = next((m["content"] for m in reversed(history) if m["role"]=="user"), "Hello!")
+        selected = any(kw in user_q.lower() for kw in selection_keywords)
+
+        system_msg = (
+            "You are a precise assistant. "
+            "When context is available, always prioritize it. "
+            "If no context is relevant, answer briefly (2–3 simple sentences) from your own knowledge and note that it is general information. "
+            "Always mention what document is being referenced. If no document is referenced mention using general information.")
+
+        if dropdown.value != None:
+            if selected:
+                if len(np.array(table.value)) == 0:
+                    system_msg = "If asked about selected proteins, respond by requesting the user to first select values from the table."
+                elif dropdown.value == "small molecule centric":
+                    user_q = f"{user_q}: {np.array(table.value['Compound'])}. "
+
+                elif dropdown.value == "protein centric":
+                    user_q = f"{user_q}: {np.array(table.value['Protein names'])}. "
+        else:
+            system_msg = "If asked about selected proteins, respond by requesting the user to first select type of graph from the dropdown."
+
+
 
         # RAG part (Retrieval):
         hits = retrieve(user_q, k=6)
@@ -634,28 +636,6 @@ def _(client, datetime, dropdown, np, retrieve, table):
             context_blocks.append(f"{header}\n{preview}")
         context = "\n\n".join(context_blocks) if context_blocks else "(no relevant context found)"
 
-        # System prompt to keep answers grounded
-        today = datetime.date.today().strftime("%B %d, %Y")
-        system_msg = (
-            "You are a precise assistant. "
-            "When context is available, always prioritize it. "
-            "If no context is relevant, answer briefly (2–3 simple sentences) from your own knowledge and note that it is general information. "
-            "When asked for a citation, reply with the name of the last file used. "
-            f"If the user asks anything about the selected proteins (e.g., uses, purpose, function, or description), ")
-        
-        if dropdown.value != None:
-            if len(np.array(table.value)) == 0:
-                system_msg = "If prompted to tell you about proteins selected respond requesting to select values from table first"
-            elif dropdown.value == "small molecule centric":
-                system_msg += (f"use this list as the basis of your answer: {np.array(table.value['Compound'])}. "
-            f"If the user asks anything about the selected small molecules/values (e.g., uses, purpose, function, or description).")
-            
-            elif dropdown.value == "protein centric":
-                system_msg += (f"use this list as the basis of your answer: {np.array(table.value['Protein names'])}. "
-            f"If the user asks anything about the selected proteins/values (e.g., uses, purpose, function, or description).")
-        else:
-            system_msg = "If prompted to tell you about proteins selected respond requesting to select type of graph first"
-            
         # Call the chat completion
         resp = client.chat.completions.create(
             model="gpt-4o-mini",  # or gpt-4.1-mini if you want
