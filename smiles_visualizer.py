@@ -81,7 +81,7 @@ def _(pd):
 def _(pd):
     # protein_embedding_df = pd.read_csv("protein_embeddings.csv")
     protein_embedding_df = pd.read_csv("sequence_embeddings.csv")
-    protein_embedding_df.drop('embedding', axis=1, inplace=True)
+    # protein_embedding_df.drop('embedding', axis=1, inplace=True)
     return (protein_embedding_df,)
 
 
@@ -149,15 +149,21 @@ def _(ast, dropdown, pd, protein_embedding_df, small_molecule_df):
         data_df = raw_data_df.merge(chebi_df, left_on="ChEBI ID", right_on="ID", how="left")
         data_df = data_df.rename(columns={"NAME": "Compound"}).drop(columns=["ID"])
     elif dropdown.value == "protein centric":
-        data_df = protein_embedding_df.copy()
+        data_df = protein_embedding_df
     return chebi_df, data_df
+
+
+@app.cell
+def _(data_df):
+    data_df
+    return
 
 
 @app.cell
 def _(KMeans, data_df, dropdown):
     #Clustering - Number of clusters
     if dropdown.value !=None:
-        kmeans = KMeans(n_clusters=5, random_state=42)
+        kmeans = KMeans(n_clusters=9, random_state=42)
         clusters = kmeans.fit_predict(data_df[['UMAP_1', 'UMAP_2']])
         data_df['clusters'] = clusters
     return
@@ -231,7 +237,7 @@ def rdkittohtml(BytesIO, Draw, base64, chebi_df):
         img.save(buffer, format="PNG")
         b64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
         return f'<img src="data:image/png;base64,{b64}" />'
-    return chebi_lookup, max_scroll_height, mols_to_base64_html
+    return max_scroll_height, mols_to_base64_html
 
 
 @app.function(hide_code=True)
@@ -248,94 +254,78 @@ def counter(protein_list):
 
 
 @app.cell(hide_code=True)
-def _(
-    Chem,
-    HTML,
-    ast,
-    chebi_lookup,
-    display,
-    dropdown,
-    max_scroll_height,
-    mols_to_base64_html,
-):
-    def display_compound_with_scroll(smile_val, chebi_val, proteins, entries):
-        """
-        Render one SMILES entry as:
-         • An RDKit-drawn grid of molecule images (with legends from ChEBI)
-         • A fixed-height, scrollable box listing the associated proteins with Entries
-        """
-        # 1) Normalize & dedupe proteins + entries
+def _(Chem, HTML, display, max_scroll_height, mols_to_base64_html):
+    def display_compound_with_scroll(smile_val, compound_name_val, proteins, entries):
+        """Show stacked (Name → SMILES image) pairs on the left and a scrollable protein list on the right."""
+
+        # Proteins / entries: split if they came as single semicolon-joined strings, then dedupe pairs
         if len(proteins) == 1 and isinstance(proteins[0], str) and ";" in proteins[0]:
             proteins = [p.strip() for p in proteins[0].split(";")]
         if len(entries) == 1 and isinstance(entries[0], str) and ";" in entries[0]:
             entries = [e.strip() for e in entries[0].split(";")]
 
-        # Deduplicate by (protein, entry) pair
-        seen = set()
-        paired = []
+        seen, paired = set(), []
         for prot, entry in zip(proteins, entries):
             key = (prot.strip(), entry.strip())
             if key not in seen:
                 seen.add(key)
                 paired.append(key)
 
-        # 2) Prepare molecule images
-        smile_parts = [s.strip() for s in str(smile_val).split(";")]
+        # Parse SMILES / names and align lengths
+        smile_parts = [s.strip() for s in str(smile_val).split(";") if s and str(s).strip()]
+        name_parts  = [n.strip() for n in str(compound_name_val).split(";") if n and str(n).strip()]
         mols = [Chem.MolFromSmiles(s) for s in smile_parts]
-        chebi_ids = [c.strip() for c in str(chebi_val).split(";")]
-        legends = [chebi_lookup.get(cid, f"[Unknown:{cid}]") for cid in chebi_ids]
-        img_html = mols_to_base64_html(mols, legends)
 
-        # 3) Build the numbered <ul>
-        if dropdown.value == 'small molecule centric' and isinstance(paired[0][0], str):
-            paired = [ast.literal_eval(p) if isinstance(p, str) else p for p in paired]
+        if len(name_parts) < len(mols):
+            name_parts += ["[Name missing]"] * (len(mols) - len(name_parts))
+        else:
+            name_parts = name_parts[:len(mols)]
 
-        protein_items = ""
-        for i, (prot, entry) in enumerate(paired, 1):
-            protein_items += f"""
-            <li style="margin-bottom: 12px;">
-                <strong>{i}.</strong> <strong>Entry:</strong> {entry}<br> <strong>Name:</strong> {prot} <br><a href="https://alphafold.ebi.ac.uk/entry/{entry}"
-               target="_blank"
-               style="color: #1a73e8; text-decoration: underline;">
-               AlphaFold Structure
-            </a>
+        # Build Name : Image blocks 
+        pair_blocks = []
+        for nm, m in zip(name_parts, mols):
+            img_html = (
+                '<div style="font-size:12px;color:#999;">[Invalid SMILES]</div>'
+                if m is None else mols_to_base64_html([m], [""])
+            )
+            pair_blocks.append(
+                f"""
+                <div style="margin-bottom:14px;">
+                  <div style="font-size:15px; margin-bottom:6px;"><strong>Compound Name:</strong> {nm.title()}</div>
+                  <div>{img_html}</div>
+                </div>
+                """
+            )
+        small_molecule_html = "".join(pair_blocks)
+
+        # Protein list (numbered, scrollable)
+        protein_items = "".join(
+            f"""
+            <li style="margin-bottom:10px;">
+              <strong>{i}.</strong> <strong>Entry:</strong> {e}<br>
+              <strong>Name:</strong> {p}<br>
+              <a href="https://alphafold.ebi.ac.uk/entry/{e}" target="_blank" style="text-decoration:underline; color:#1a73e8;">
+                AlphaFold Structure
+              </a>
+            </li>
             """
-        protein_list_html = f"<ul>{protein_items}</ul>"
-
-        # 4) Wrap in a scroll box
-        scroll_box = f"""
-          <div style="
-             max-height: {max_scroll_height}px;
-             overflow-y: auto;
-             border: 1px solid #ccc;
-             padding: 8px;
-             width: 350px;
-             background: #fafafa;
-             word-wrap: break-word;
-          ">
-            {protein_list_html}
+            for i, (p, e) in enumerate(paired, 1)
+        )
+        protein_box_html = f"""
+          <div style="font-size:16px; margin-bottom:6px;"><strong>Proteins</strong></div>
+          <div style="max-height:{max_scroll_height}px; overflow-y:auto; border:1px solid #e0e0e0; padding:8px; background:#fafafa;">
+            <ul style="margin:0; padding-left:18px;">{protein_items}</ul>
           </div>
         """
 
-        # 5) Compose the final layout
+        # Layout
         html = f"""
-        <div style="
-          display: flex;
-          gap: 20px;
-          align-items: flex-start;
-          margin-bottom: 24px;
-        ">
-          <div>{img_html}</div>
-          <div>
-            <div style="font-size:16px; margin-bottom:4px;">
-              <strong>Proteins:</strong> (scroll)
-            </div>
-            {scroll_box}
-          </div>
+        <div style="display:grid; grid-template-columns:1fr 360px; gap:20px; align-items:start; margin-bottom:24px;">
+          <div>{small_molecule_html}</div>
+          <div>{protein_box_html}</div>
         </div>
         """
         display(HTML(html))
-
     return (display_compound_with_scroll,)
 
 
@@ -345,7 +335,7 @@ def _(HTML, ast, display, display_compound_with_scroll, dropdown, pd, table):
         # Loop through each row in your table
         for _, row in table.value.iterrows():
             smile_val = row["SMILES"]
-            chebi_val = row["ChEBI ID"]
+            compound_name = row["Compound Name"]
 
             proteins = row.get("Protein names", [])
             entries = row.get("Entry", [])
@@ -362,10 +352,10 @@ def _(HTML, ast, display, display_compound_with_scroll, dropdown, pd, table):
                 if isinstance(entries, str):
                     entries = [e.strip() for e in entries.split(";")]
 
-            if pd.isna(smile_val) or pd.isna(chebi_val):
+            if pd.isna(smile_val) or pd.isna(compound_name):
                 continue
 
-            display_compound_with_scroll(smile_val, chebi_val, proteins, entries)
+            display_compound_with_scroll(smile_val, compound_name, proteins, entries)
             display(HTML('<hr style="border:1px solid #ccc; margin:16px 0;">'))
 
     return
