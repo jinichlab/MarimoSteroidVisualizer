@@ -62,11 +62,6 @@ def _():
         if response.status_code != 200:
             raise Exception("Failed to fetch UniProt data")
         return response.json()
-
-    # Example usage
-    ent = get_uniprot_entry("P12345")
-    print(ent["organism"]["scientificName"])
-    print(ent["sequence"]["value"])
     return
 
 
@@ -151,12 +146,6 @@ def _(ast, dropdown, pd, protein_embedding_df, small_molecule_df):
     elif dropdown.value == "protein centric":
         data_df = protein_embedding_df
     return chebi_df, data_df
-
-
-@app.cell
-def _(data_df):
-    data_df
-    return
 
 
 @app.cell
