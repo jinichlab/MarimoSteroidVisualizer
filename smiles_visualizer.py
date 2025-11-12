@@ -76,6 +76,7 @@ def _(pd):
 def _(pd):
     # protein_embedding_df = pd.read_csv("protein_embeddings.csv")
     protein_embedding_df = pd.read_csv("sequence_embeddings.csv")
+    protein_embedding_df = protein_embedding_df.drop(columns = ['Unnamed: 0'])
     # protein_embedding_df.drop('embedding', axis=1, inplace=True)
     return (protein_embedding_df,)
 
@@ -142,7 +143,7 @@ def _(ast, dropdown, pd, protein_embedding_df, small_molecule_df):
         raw_data_df = small_molecule_df.copy()
         raw_data_df['ChEBI ID'] = raw_data_df['ChEBI ID'].apply(lambda x: int(ast.literal_eval(x)[0]))
         data_df = raw_data_df.merge(chebi_df, left_on="ChEBI ID", right_on="ID", how="left")
-        data_df = data_df.rename(columns={"NAME": "Compound"}).drop(columns=["ID"])
+        data_df = data_df.rename(columns={"NAME": "Compound Name"}).drop(columns=["ID"])
     elif dropdown.value == "protein centric":
         data_df = protein_embedding_df
     return chebi_df, data_df
