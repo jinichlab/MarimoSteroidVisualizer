@@ -75,7 +75,7 @@ def _(pd):
 @app.cell
 def _(pd):
     # protein_embedding_df = pd.read_csv("protein_embeddings.csv")
-    protein_embedding_df = pd.read_csv("sequence_embeddings.csv")
+    protein_embedding_df = pd.read_csv("protein_sequence_embedding.csv")
     protein_embedding_df = protein_embedding_df.drop(columns = ['Unnamed: 0'])
     # protein_embedding_df.drop('embedding', axis=1, inplace=True)
     return (protein_embedding_df,)
@@ -200,7 +200,7 @@ def _(display, enter_button, mo):
 
 @app.cell
 def _(pd):
-    full_chebi_df = pd.read_csv("compounds.tsv", sep="\t", encoding="ISO-8859-1", usecols=["ID", "NAME"])
+    full_chebi_df = pd.read_csv("Names ref/chebi_compound_names.tsv", sep="\t", encoding="ISO-8859-1", usecols=["ID", "NAME"])
     return (full_chebi_df,)
 
 
@@ -239,7 +239,7 @@ def _(merged_df):
 @app.cell
 def _(ast, dropdown, pd, protein_embedding_df, small_molecule_df):
     # chebi_df = pd.read_csv("compounds.tsv", sep="\t", encoding="ISO-8859-1", usecols=["ID", "NAME"])
-    chebi_df = pd.read_csv("chebi_lookup_minimal.csv")
+    chebi_df = pd.read_csv("Names ref/chebi_lookup_minimal.csv")
     chebi_df["ID"] = chebi_df["ID"].astype(int)
 
     raw_data_df = pd.DataFrame()
@@ -613,7 +613,7 @@ def _(OpenAI, faiss, json, np, os):
 
     # retriever.py — load index & catalog once; simple top-k search
 
-    STORE = "rag_store"
+    STORE = "RAG Training/rag_store"
     _index = faiss.read_index(os.path.join(STORE, "index.faiss"))
     _catalog = [json.loads(l) for l in open(os.path.join(STORE, "catalog.jsonl"), "r", encoding="utf-8")]
     _client = OpenAI()
@@ -737,7 +737,7 @@ def _(client, dropdown, np, retrieve, table):
 
 
 @app.cell
-def _(display, enter_button, mo, my_model):
+def _(display, dropdown, mo, my_model):
     chat_ui = mo.ui.chat(
         my_model,
         prompts=[
@@ -751,7 +751,7 @@ def _(display, enter_button, mo, my_model):
         "height": "400px",
         "overflow-y": "auto",
     })
-    if enter_button.value:
+    if dropdown.value !=None:
         display(mo.Html(
             f"""
             <div id="chat-container" style="height:400px; overflow-y:auto; border:1px solid #ccc; border-radius:8px; padding:8px;">
@@ -772,11 +772,11 @@ def _(display, enter_button, mo, my_model):
 
 
 @app.cell
-def _(display, enter_button, mo):
-    if enter_button.value:
+def _(display, dropdown, mo):
+    if dropdown.value !=None:
         display(mo.md(
             """
-    
+
         <span style='font-size:16px'><em>Hint: Unsure what to ask? Click the prompt icon next to the input bar for ideas<em></span>
         """
         ))
