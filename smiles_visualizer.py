@@ -82,15 +82,119 @@ def _(pd):
 
 
 @app.cell
-def _(display):
-    display('Select the type of graph')
+def _(mo):
+    enter_button = mo.ui.run_button(label = "Enter App", full_width=True)
+    return (enter_button,)
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    intro_text = """
+    # 🧭 Welcome to the Steroid–Protein Navigator
+
+    This portal lets you explore Nature’s steroids and the proteins and enzymes they interact with—all through an interactive interface.
+
+    ## Views available
+
+    **• Steroid-centric view →** Explore the chemical space of steroids.  
+    Each point represents a steroid molecule; clicking one highlights the interacting proteins.
+
+    **• Protein-centric view →** Explore the protein landscape.  
+    Each point represents a steroid-binding protein; selecting one reveals the steroids or sterol-like molecules it associates with.
+
+    ## How to use it
+
+    You can navigate either view by selecting clusters or individual entries.  
+    When you click on a point, a detailed table allowing you to select values and view structures, names, and alphafold structures.
+
+    A built-in language model companion (trained on 100+ DeepResearch reports)
+    helps explain the biology, biochemistry, and known steroid–protein interactions
+    associated with each cluster.
+
+    Use the Navigator to uncover patterns, explore relationships, and generate new ideas.
+
+    <span style="font-size: 0.9em; font-style: italic; color: #555;">
+    Tip: To search for specific values, choose a view and select all clusters. Then use the table’s search bar to look up specific entries.
+    </span>
+    """
+    intro_screen = mo.md(intro_text)
+    intro_screen = mo.vstack([intro_screen], align="center")
+
+    return (intro_screen,)
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    loading_spinner = mo.Html("""
+    <div id="spinner-wrapper" style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 200px;
+        gap: 12px;
+    ">
+
+      <!-- Circle Loader -->
+      <div style="
+          width: 48px;
+          height: 48px;
+          border: 6px solid #e0e0e0;
+          border-top-color: #0077ff;
+          border-radius: 50%;
+          animation: spin 0.8s linear infinite;
+      "></div>
+
+      <div style="font-size: 16px; color: #444;">
+        Loading…
+      </div>
+
+    </div>
+
+    <style>
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    </style>
+
+    <script>
+    setTimeout(() => {
+        const el = document.getElementById("spinner-wrapper");
+        if (el) el.style.display = "none";
+    }, 2000);   // <-- X seconds (2000 ms)
+    </script>
+    """)
+
+    return
+
+
+@app.cell
+def _(display, enter_button, intro_screen):
+    if not enter_button.value:
+        display(intro_screen)
+        display(enter_button)
+    else:
+        None
+
     return
 
 
 @app.cell
 def _(mo):
+    temp = mo.ui.run_button(label="Enter App")
+
+
+    temp = temp
+
+    return
+
+
+@app.cell
+def _(display, enter_button, mo):
     dropdown = mo.ui.dropdown(["protein centric", "small molecule centric"])
-    dropdown
+    if enter_button.value:
+        display('Select the type of graph')
+        display(dropdown)  
     return (dropdown,)
 
 
@@ -189,8 +293,9 @@ def _(checkbox, data_df, display, dropdown, mo, scatter):
 
 
 @app.cell
-def _(checkbox):
-    checkbox
+def _(checkbox, enter_button):
+    if enter_button.value:
+        checkbox
     return
 
 
@@ -632,7 +737,7 @@ def _(client, dropdown, np, retrieve, table):
 
 
 @app.cell
-def _(mo, my_model):
+def _(display, enter_button, mo, my_model):
     chat_ui = mo.ui.chat(
         my_model,
         prompts=[
@@ -646,29 +751,35 @@ def _(mo, my_model):
         "height": "400px",
         "overflow-y": "auto",
     })
-
-    mo.Html(
-        f"""
-        <div id="chat-container" style="height:400px; overflow-y:auto; border:1px solid #ccc; border-radius:8px; padding:8px;">
-            {chat_ui}
-        </div>
-        <script>
-        const container = document.getElementById("chat-container");
-        const observer = new MutationObserver(() => {{
-            container.scrollTop = container.scrollHeight;
-        }});
-        observer.observe(container, {{ childList: true, subtree: true }});
-        </script>
-        """
-    )
+    if enter_button.value:
+        display(mo.Html(
+            f"""
+            <div id="chat-container" style="height:400px; overflow-y:auto; border:1px solid #ccc; border-radius:8px; padding:8px;">
+                {chat_ui}
+            </div>
+            <script>
+            const container = document.getElementById("chat-container");
+            const observer = new MutationObserver(() => {{
+                container.scrollTop = container.scrollHeight;
+            }});
+            observer.observe(container, {{ childList: true, subtree: true }});
+            </script>
+            """
+        ))
 
 
     return
 
 
 @app.cell
-def _(mo):
-    mo.md("""<span style='font-size:16px'><em>Hint: Unsure what to ask? Click the prompt icon next to the input bar for ideas<em></span>""")
+def _(display, enter_button, mo):
+    if enter_button.value:
+        display(mo.md(
+            """
+    
+        <span style='font-size:16px'><em>Hint: Unsure what to ask? Click the prompt icon next to the input bar for ideas<em></span>
+        """
+        ))
     return
 
 
