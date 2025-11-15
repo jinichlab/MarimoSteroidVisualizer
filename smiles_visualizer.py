@@ -114,18 +114,12 @@ def _(mo):
 
     <h3 style="margin-top:12px;">How to Use It</h3>
 
-    <div style="text-align:left; max-width:650px; margin:10px auto; font-size:15px;">
-    • Select clusters or individual points to explore relationships.<br>
-    • Clicking a point shows structures, names, IDs, and AlphaFold models.<br>
-    • A built-in language model companion explains biology and known interactions.
-    </div>
-
-    <p style="margin-top:10px; font-size:15px;">
-    Use the Navigator to uncover patterns, explore relationships, and generate new ideas.
-    </p>
-
-    <p style="font-size:13px; opacity:0.7;">
-    Tip: To search for specific values, choose a view and select all clusters. Then use the table’s search bar to look up specific entries.
+    <p style="text-align:left; max-width:650px; margin:10px auto; font-size:15px;">
+    You can navigate either view by selecting clusters or clicking on individual points to explore the underlying steroids or proteins. 
+    When you select a point, a detailed table appears where you can then select specific rows to examine structures, compound or protein names, associated identifiers 
+    (such as UniProt, ChEBI, or Rhea IDs), and AlphaFold protein models. A built-in language model companion—trained on more than 130 
+    DeepResearch reports-helps explain the biology, biochemistry, and known steroid–protein interactions connected to the selected entries. 
+    Use the Navigator to uncover patterns, investigate molecular relationships, and generate new ideas as you explore.
     </p>
 
     </div>
@@ -133,59 +127,19 @@ def _(mo):
 
     intro_screen = mo.vstack([intro_text], align="center")
 
-    return (intro_screen,)
+    tip = mo.Html("""<p style="font-size:13px; opacity:0.7;">
+    Tip: To search for specific values, choose a view and select all clusters. Then use the table’s search bar to look up specific entries.
+    </p>""")
 
-
-@app.cell(hide_code=True)
-def _(mo):
-    loading_spinner = mo.Html("""
-    <div id="spinner-wrapper" style="
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 200px;
-        gap: 12px;
-    ">
-
-      <!-- Circle Loader -->
-      <div style="
-          width: 48px;
-          height: 48px;
-          border: 6px solid #e0e0e0;
-          border-top-color: #0077ff;
-          border-radius: 50%;
-          animation: spin 0.8s linear infinite;
-      "></div>
-
-      <div style="font-size: 16px; color: #444;">
-        Loading…
-      </div>
-
-    </div>
-
-    <style>
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-    </style>
-
-    <script>
-    setTimeout(() => {
-        const el = document.getElementById("spinner-wrapper");
-        if (el) el.style.display = "none";
-    }, 2000);   // <-- X seconds (2000 ms)
-    </script>
-    """)
-
-    return
+    return intro_screen, tip
 
 
 @app.cell
-def _(display, enter_button, intro_screen):
+def _(display, enter_button, intro_screen, tip):
     if not enter_button.value:
         display(intro_screen)
         display(enter_button)
+        display(tip)
     else:
         None
 
