@@ -67,7 +67,7 @@ def _():
 
 @app.cell
 def _(pd):
-    small_molecule_df = pd.read_csv("small_molecule.csv")
+    small_molecule_df = pd.read_csv("Small Molecule UMAP Gen/small_molecule.csv")
     # raw_data_df
     return (small_molecule_df,)
 
@@ -89,36 +89,49 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    intro_text = """
-    # 🧭 Welcome to the Steroid–Protein Navigator
+    intro_text = mo.Html("""
+    <div style="text-align:center; margin-top:10px;">
 
-    This portal lets you explore Nature’s steroids and the proteins and enzymes they interact with—all through an interactive interface.
-
-    ## Views available
-
-    **• Steroid-centric view →** Explore the chemical space of steroids.  
-    Each point represents a steroid molecule; clicking one highlights the interacting proteins.
-
-    **• Protein-centric view →** Explore the protein landscape.  
-    Each point represents a steroid-binding protein; selecting one reveals the steroids or sterol-like molecules it associates with.
-
-    ## How to use it
-
-    You can navigate either view by selecting clusters or individual entries.  
-    When you click on a point, a detailed table allowing you to select values and view structures, names, and alphafold structures.
-
-    A built-in language model companion (trained on 100+ DeepResearch reports)
-    helps explain the biology, biochemistry, and known steroid–protein interactions
-    associated with each cluster.
-
-    Use the Navigator to uncover patterns, explore relationships, and generate new ideas.
-
-    <span style="font-size: 0.9em; font-style: italic; color: #555;">
-    Tip: To search for specific values, choose a view and select all clusters. Then use the table’s search bar to look up specific entries.
+    <span style="font-size:34px; font-weight:600;">
+    🧭 Welcome to the Steroid–Protein Navigator
     </span>
-    """
-    intro_screen = mo.md(intro_text)
-    intro_screen = mo.vstack([intro_screen], align="center")
+
+    <p style="max-width:750px; margin:12px auto 0; font-size:15px;">
+    Explore Nature’s steroids and the proteins they interact with — all through an interactive, unified interface.
+    </p>
+
+    <hr style="width:60%; margin:16px auto;">
+
+    <h3 style="margin:0;">Views Available</h3>
+
+    <div style="text-align:left; max-width:650px; margin:10px auto; font-size:15px;">
+    <b>• Steroid-centric view →</b> Explore the chemical space of steroids.<br>
+    <span style="margin-left:18px;">Each point represents a steroid molecule; clicking one highlights interacting proteins.</span>
+    <br><br>
+    <b>• Protein-centric view →</b> Explore the protein landscape.<br>
+    <span style="margin-left:18px;">Each point represents a steroid-binding protein; selecting one reveals associated steroids.</span>
+    </div>
+
+    <h3 style="margin-top:12px;">How to Use It</h3>
+
+    <div style="text-align:left; max-width:650px; margin:10px auto; font-size:15px;">
+    • Select clusters or individual points to explore relationships.<br>
+    • Clicking a point shows structures, names, IDs, and AlphaFold models.<br>
+    • A built-in language model companion explains biology and known interactions.
+    </div>
+
+    <p style="margin-top:10px; font-size:15px;">
+    Use the Navigator to uncover patterns, explore relationships, and generate new ideas.
+    </p>
+
+    <p style="font-size:13px; opacity:0.7;">
+    Tip: To search for specific values, choose a view and select all clusters. Then use the table’s search bar to look up specific entries.
+    </p>
+
+    </div>
+    """)
+
+    intro_screen = mo.vstack([intro_text], align="center")
 
     return (intro_screen,)
 
