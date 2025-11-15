@@ -424,8 +424,8 @@ def _(HTML, ast, display, display_compound_with_scroll, dropdown, pd, table):
 
 
 @app.cell
-def _(display, dropdown, mo):
-    if dropdown.value != None:
+def _(display, dropdown, mo, table):
+    if dropdown.value != None and len(table.value)>0:
         if len(dropdown.value)>0:
             button = mo.ui.run_button(label = "Generate Small molecule 3D Structures")
         display(button)
@@ -445,7 +445,7 @@ def _(
     rdmolfiles,
     table,
 ):
-    if dropdown.value != None:
+    if dropdown.value != None and len(table.value):
     # 1. Build ChEBI ID → Name dictionary (safe var name)
         chebi_name_lookup = dict(zip(chebi_df["ID"].astype(str).str.strip(), chebi_df["NAME"]))
 
@@ -514,16 +514,16 @@ def _(
             </html>
             """
             mol3d_b64_html = base64.b64encode(mol3d_html_code.encode()).decode()
-            mol3d_download_link = f'<a download="3D_rhea_compounds.html" href="data:text/html;base64,{mol3d_b64_html}">Download 3D Viewer HTML</a>'
+            mol3d_download_link = f'<a download="3D_rhea_compounds.html" href="data:text/html;base64,{mol3d_b64_html}">Link to Download 3D Viewer HTML</a>'
     return (mol3d_download_link,)
 
 
 @app.cell
-def _(dropdown, mo, mol3d_download_link):
+def _(display, dropdown, mo, mol3d_download_link, table):
     #3D Small molecule download
 
-    if dropdown.value != None:
-        mo.md(mol3d_download_link)
+    if dropdown.value != None and len(table.value):
+        display(mo.md(mol3d_download_link))
     return
 
 
