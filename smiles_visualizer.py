@@ -93,7 +93,7 @@ def _(mo):
     <div style="text-align:center; margin-top:10px;">
 
     <span style="font-size:34px; font-weight:600;">
-    🧭 Welcome to the Steroid–Protein Navigator
+    🧭 Welcome to Nature's Steroid Atlas
     </span>
 
     <p style="max-width:750px; margin:12px auto 0; font-size:15px;">
