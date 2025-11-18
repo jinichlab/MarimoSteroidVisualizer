@@ -84,7 +84,15 @@ def _(pd):
 @app.cell
 def _(mo):
     enter_button = mo.ui.run_button(label = "Enter App", full_width=True)
-    return (enter_button,)
+    help_button = mo.ui.run_button(label = "Help")
+    return enter_button, help_button
+
+
+@app.cell
+def _(mo):
+    b1 = mo.ui.run_button(label = 'b1')
+    b2 = mo.ui.run_button(label = 'b2')
+    return
 
 
 @app.cell(hide_code=True)
@@ -110,7 +118,16 @@ def _(mo):
     <br><br>
     <b>• Protein-centric view →</b> Explore the protein landscape.<br>
     <span style="margin-left:18px;">Each point represents a steroid-binding protein; selecting one reveals associated steroids.</span>
-    </div>
+    <br><br>
+    <b>• Natural and Synthetic steroid view →</b> Explore known natural steroids and synthetic steroids
+    <br>
+    <span style="margin-left:18px;">
+    Each point represents a steroid; selecting one reveals associated proteins when available. 
+    <br>
+    <span style="margin-left:18px;">
+    Use this view to explore synthetic steroids by comparing them to known natural steroids.  
+    </span>
+
 
     <h3 style="margin-top:12px;">How to Use It</h3>
 
@@ -131,35 +148,24 @@ def _(mo):
     Tip: To search for specific values, choose a view and select all clusters. Then use the table’s search bar to look up specific entries.
     </p>""")
 
-    return intro_screen, tip
+    return (intro_screen,)
 
 
 @app.cell
-def _(display, enter_button, intro_screen, tip):
-    if not enter_button.value:
+def _(display, enter_button, help_button, intro_screen):
+    if (not enter_button.value) or help_button.value:
         display(intro_screen)
         display(enter_button)
-        display(tip)
     else:
         None
-
     return
 
 
 @app.cell
-def _(mo):
-    temp = mo.ui.run_button(label="Enter App")
-
-
-    temp = temp
-
-    return
-
-
-@app.cell
-def _(display, enter_button, mo):
-    dropdown = mo.ui.dropdown(["protein centric", "small molecule centric"])
+def _(display, enter_button, help_button, mo):
+    dropdown = mo.ui.dropdown(["protein centric", "small molecule centric", "Natural and Synthetic steroids"])
     if enter_button.value:
+        display(help_button)
         display('Select the type of graph')
         display(dropdown)  
     return (dropdown,)
@@ -198,13 +204,39 @@ def _(ast, full_chebi_df, small_molecule_df):
 
 
 @app.cell
+def _(ast, pd):
+    combined_df = pd.read_csv("natural_synthetic_steroids.csv")
+    combined_df = combined_df.rename(columns = {'type': 'clusters', 'Name':'Compound Name'})
+    combined_df = combined_df.drop(columns=['Unnamed: 0'])
+    list_cols = ["Protein names", "Entry", "Entry Name", "Gene Names", "ChEBI ID"]
+
+    def fix_list_cell(x):
+        if pd.isna(x):
+            return []                   # NaN → empty list
+        if isinstance(x, list):
+            return x                    # already good
+        if isinstance(x, str):
+            try:
+                return ast.literal_eval(x)  # "['A','B']" → ['A','B']
+            except:
+                return [x]              # fallback: wrap single string
+        return [x]                      # fallback for anything else
+
+    for col in list_cols:
+        if col in combined_df.columns:
+            combined_df[col] = combined_df[col].apply(fix_list_cell)
+
+    return (combined_df,)
+
+
+@app.cell
 def _(merged_df):
     merged_df[['SMILES', 'ChEBI ID', 'NAME']].to_csv('small_molecules_names.csv')
     return
 
 
 @app.cell
-def _(ast, dropdown, pd, protein_embedding_df, small_molecule_df):
+def _(ast, combined_df, dropdown, pd, protein_embedding_df, small_molecule_df):
     # chebi_df = pd.read_csv("compounds.tsv", sep="\t", encoding="ISO-8859-1", usecols=["ID", "NAME"])
     chebi_df = pd.read_csv("Names ref/chebi_lookup_minimal.csv")
     chebi_df["ID"] = chebi_df["ID"].astype(int)
@@ -217,16 +249,19 @@ def _(ast, dropdown, pd, protein_embedding_df, small_molecule_df):
         data_df = data_df.rename(columns={"NAME": "Compound Name"}).drop(columns=["ID"])
     elif dropdown.value == "protein centric":
         data_df = protein_embedding_df
+    elif dropdown.value == "Natural and Synthetic steroids":
+        data_df = combined_df
     return chebi_df, data_df
 
 
 @app.cell
 def _(KMeans, data_df, dropdown):
     #Clustering - Number of clusters
-    if dropdown.value !=None:
-        kmeans = KMeans(n_clusters=9, random_state=42)
-        clusters = kmeans.fit_predict(data_df[['UMAP_1', 'UMAP_2']])
-        data_df['clusters'] = clusters
+    if dropdown.value!=None:
+        if dropdown.value != "Natural and Synthetic steroids":
+            kmeans = KMeans(n_clusters=9, random_state=42)
+            clusters = kmeans.fit_predict(data_df[['UMAP_1', 'UMAP_2']])
+            data_df['clusters'] = clusters
     return
 
 
@@ -255,6 +290,7 @@ def _(mo):
 def _(checkbox, data_df, display, dropdown, mo, scatter):
     if dropdown.value != None:
         chart = mo.ui.altair_chart(scatter(data_df, checkbox.value))
+        display("Drag and select clusters to explore them")
         display(chart)
     return (chart,)
 
@@ -270,6 +306,7 @@ def _(checkbox, enter_button):
 def _(chart, display, dropdown, mo):
     if dropdown.value != None:
         table = mo.ui.table(chart.value)
+        display("Select values from the table to explore interacting proteins, and the structures")
         display(table)
     return (table,)
 
@@ -316,8 +353,8 @@ def counter(protein_list):
 
 
 @app.cell(hide_code=True)
-def _(Chem, HTML, display, max_scroll_height, mols_to_base64_html):
-    def display_compound_with_scroll(smile_val, compound_name_val, proteins, entries):
+def _(Chem, HTML, display, dropdown, max_scroll_height, mols_to_base64_html):
+    def display_compound_with_scroll(smile_val, compound_name_val, proteins, entries, clusters):
         """Show stacked (Name → SMILES image) pairs on the left and a scrollable protein list on the right."""
 
         # Proteins / entries: split if they came as single semicolon-joined strings, then dedupe pairs
@@ -379,9 +416,18 @@ def _(Chem, HTML, display, max_scroll_height, mols_to_base64_html):
             <ul style="margin:0; padding-left:18px;">{protein_items}</ul>
           </div>
         """
+        if dropdown.value == "Natural and Synthetic steroids" and clusters:
+            cluster_html = f"""
+            <div style="font-size:18px; font-weight:bold; margin-bottom:10px;">
+              Type: {clusters.title()}
+            </div>
+            """
+        else:
+            cluster_html = ""
 
         # Layout
         html = f"""
+        {cluster_html}
         <div style="display:grid; grid-template-columns:1fr 360px; gap:20px; align-items:start; margin-bottom:24px;">
           <div>{small_molecule_html}</div>
           <div>{protein_box_html}</div>
@@ -401,23 +447,25 @@ def _(HTML, ast, display, display_compound_with_scroll, dropdown, pd, table):
 
             proteins = row.get("Protein names", [])
             entries = row.get("Entry", [])
+            cluster = row.get("clusters", [])  # 👈 get cluster here
 
             # Handle semicolon-delimited or stringified lists
-            if dropdown.value == "small molecule centric":
-                if isinstance(proteins, str):
-                    proteins = ast.literal_eval(proteins)
-                if isinstance(entries, str):
-                    entries = ast.literal_eval(entries)
-            else:
+            if dropdown.value == "protein centric":
                 if isinstance(proteins, str):
                     proteins = [p.strip() for p in proteins.split(";")]
                 if isinstance(entries, str):
                     entries = [e.strip() for e in entries.split(";")]
+            else:
+                if isinstance(proteins, str):
+                    proteins = ast.literal_eval(proteins)
+                if isinstance(entries, str):
+                    entries = ast.literal_eval(entries)
+
 
             if pd.isna(smile_val) or pd.isna(compound_name):
                 continue
 
-            display_compound_with_scroll(smile_val, compound_name, proteins, entries)
+            display_compound_with_scroll(smile_val, compound_name, proteins, entries, cluster)
             display(HTML('<hr style="border:1px solid #ccc; margin:16px 0;">'))
 
     return
@@ -425,7 +473,7 @@ def _(HTML, ast, display, display_compound_with_scroll, dropdown, pd, table):
 
 @app.cell
 def _(display, dropdown, mo, table):
-    if dropdown.value != None and len(table.value)>0:
+    if dropdown.value != None and len(table.value)>0 and dropdown.value!="Natural and Synthetic steroids":
         if len(dropdown.value)>0:
             button = mo.ui.run_button(label = "Generate Small molecule 3D Structures")
         display(button)
@@ -445,7 +493,7 @@ def _(
     rdmolfiles,
     table,
 ):
-    if dropdown.value != None and len(table.value):
+    if dropdown.value != None and len(table.value) and dropdown.value!="Natural and Synthetic steroids":
     # 1. Build ChEBI ID → Name dictionary (safe var name)
         chebi_name_lookup = dict(zip(chebi_df["ID"].astype(str).str.strip(), chebi_df["NAME"]))
 
@@ -522,7 +570,7 @@ def _(
 def _(display, dropdown, mo, mol3d_download_link, table):
     #3D Small molecule download
 
-    if dropdown.value != None and len(table.value):
+    if dropdown.value != None and len(table.value) and dropdown.value!="Natural and Synthetic steroids":
         display(mo.md(mol3d_download_link))
     return
 
