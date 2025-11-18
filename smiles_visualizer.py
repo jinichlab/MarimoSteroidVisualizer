@@ -69,7 +69,7 @@ def _():
 def _(pd):
     small_molecule_df = pd.read_csv("Small Molecule UMAP Gen/small_molecule.csv")
     # raw_data_df
-    return (small_molecule_df,)
+    return
 
 
 @app.cell
@@ -78,7 +78,7 @@ def _(pd):
     protein_embedding_df = pd.read_csv("protein_sequence_embedding.csv")
     protein_embedding_df = protein_embedding_df.drop(columns = ['Unnamed: 0'])
     # protein_embedding_df.drop('embedding', axis=1, inplace=True)
-    return (protein_embedding_df,)
+    return
 
 
 @app.cell
@@ -172,86 +172,80 @@ def _(display, enter_button, help_button, mo):
 
 
 @app.cell
-def _(pd):
-    full_chebi_df = pd.read_csv("Names ref/chebi_compound_names.tsv", sep="\t", encoding="ISO-8859-1", usecols=["ID", "NAME"])
-    return (full_chebi_df,)
+def _():
+    #Names
 
-
-@app.cell
-def _(full_chebi_df):
-    full_chebi_df['ID'] = full_chebi_df['ID'].apply(lambda x: int(x))
+    # full_chebi_df = pd.read_csv("Names ref/chebi_compound_names.tsv", sep="\t", encoding="ISO-8859-1", usecols=["ID", "NAME"])
+    # full_chebi_df['ID'] = full_chebi_df['ID'].apply(lambda x: int(x))
     return
 
 
 @app.cell
-def _(ast, full_chebi_df, small_molecule_df):
-    # Select relevant columns
-    small_molecule_names = small_molecule_df[['SMILES', 'ChEBI ID']].copy()
+def _():
+    # Cleaning small molecule + Names
 
-    # Safely extract the number from the string list
-    small_molecule_names['ChEBI ID'] = small_molecule_names['ChEBI ID'].apply(
-        lambda x: int(ast.literal_eval(x)[0])
-    )
+    # # Select relevant columns
+    # small_molecule_names = small_molecule_df[['SMILES', 'ChEBI ID']].copy()
 
-    # Now merge with full_chebi_df
-    merged_df = small_molecule_names.merge(
-        full_chebi_df,
-        left_on='ChEBI ID',
-        right_on='ID',
-        how='left'
-    )
-    return (merged_df,)
+    # # Safely extract the number from the string list
+    # small_molecule_names['ChEBI ID'] = small_molecule_names['ChEBI ID'].apply(
+    #     lambda x: int(ast.literal_eval(x)[0])
+    # )
 
+    # # Now merge with full_chebi_df
+    # merged_df = small_molecule_names.merge(
+    #     full_chebi_df,
+    #     left_on='ChEBI ID',
+    #     right_on='ID',
+    #     how='left'
+    # )
 
-@app.cell
-def _(ast, pd):
-    combined_df = pd.read_csv("natural_synthetic_steroids.csv")
-    combined_df = combined_df.rename(columns = {'type': 'clusters', 'Name':'Compound Name'})
-    combined_df = combined_df.drop(columns=['Unnamed: 0'])
-    list_cols = ["Protein names", "Entry", "Entry Name", "Gene Names", "ChEBI ID"]
-
-    def fix_list_cell(x):
-        if pd.isna(x):
-            return []                   # NaN → empty list
-        if isinstance(x, list):
-            return x                    # already good
-        if isinstance(x, str):
-            try:
-                return ast.literal_eval(x)  # "['A','B']" → ['A','B']
-            except:
-                return [x]              # fallback: wrap single string
-        return [x]                      # fallback for anything else
-
-    for col in list_cols:
-        if col in combined_df.columns:
-            combined_df[col] = combined_df[col].apply(fix_list_cell)
-
-    return (combined_df,)
-
-
-@app.cell
-def _(merged_df):
-    merged_df[['SMILES', 'ChEBI ID', 'NAME']].to_csv('small_molecules_names.csv')
+    # merged_df[['SMILES', 'ChEBI ID', 'NAME']].to_csv('small_molecules_names.csv')
     return
 
 
 @app.cell
-def _(ast, combined_df, dropdown, pd, protein_embedding_df, small_molecule_df):
+def _():
+    # Combined df cleanup
+
+    # combined_df = pd.read_csv("natural_synthetic_steroids.csv")
+    # combined_df = combined_df.rename(columns = {'type': 'clusters', 'Name':'Compound Name'})
+    # combined_df = combined_df.drop(columns=['Unnamed: 0'])
+    # list_cols = ["Protein names", "Entry", "Entry Name", "Gene Names", "ChEBI ID"]
+
+    # def fix_list_cell(x):
+    #     if pd.isna(x):
+    #         return []                   # NaN → empty list
+    #     if isinstance(x, list):
+    #         return x                    # already good
+    #     if isinstance(x, str):
+    #         try:
+    #             return ast.literal_eval(x)  # "['A','B']" → ['A','B']
+    #         except:
+    #             return [x]              # fallback: wrap single string
+    #     return [x]                      # fallback for anything else
+
+    # for col in list_cols:
+    #     if col in combined_df.columns:
+    #         combined_df[col] = combined_df[col].apply(fix_list_cell)
+
+    return
+
+
+@app.cell
+def _(dropdown, pd):
     # chebi_df = pd.read_csv("compounds.tsv", sep="\t", encoding="ISO-8859-1", usecols=["ID", "NAME"])
-    chebi_df = pd.read_csv("Names ref/chebi_lookup_minimal.csv")
-    chebi_df["ID"] = chebi_df["ID"].astype(int)
+    # chebi_df = pd.read_csv("Names ref/chebi_lookup_minimal.csv")
+    # chebi_df["ID"] = chebi_df["ID"].astype(int)
 
     raw_data_df = pd.DataFrame()
     if dropdown.value == "small molecule centric":
-        raw_data_df = small_molecule_df.copy()
-        raw_data_df['ChEBI ID'] = raw_data_df['ChEBI ID'].apply(lambda x: int(ast.literal_eval(x)[0]))
-        data_df = raw_data_df.merge(chebi_df, left_on="ChEBI ID", right_on="ID", how="left")
-        data_df = data_df.rename(columns={"NAME": "Compound Name"}).drop(columns=["ID"])
+        data_df = pd.read_csv('small_molecule_centric.csv')
     elif dropdown.value == "protein centric":
-        data_df = protein_embedding_df
+        data_df = pd.read_csv('protein_centric.csv')
     elif dropdown.value == "Natural and Synthetic steroids":
-        data_df = combined_df
-    return chebi_df, data_df
+        data_df = pd.read_csv('natural_synthetic_steroids.csv')
+    return (data_df,)
 
 
 @app.cell
