@@ -235,8 +235,8 @@ def _():
 @app.cell
 def _(dropdown, pd):
     # chebi_df = pd.read_csv("compounds.tsv", sep="\t", encoding="ISO-8859-1", usecols=["ID", "NAME"])
-    # chebi_df = pd.read_csv("Names ref/chebi_lookup_minimal.csv")
-    # chebi_df["ID"] = chebi_df["ID"].astype(int)
+    chebi_df = pd.read_csv("Names ref/chebi_lookup_minimal.csv")
+    chebi_df["ID"] = chebi_df["ID"].astype(int)
 
     raw_data_df = pd.DataFrame()
     if dropdown.value == "small molecule centric":
@@ -245,7 +245,7 @@ def _(dropdown, pd):
         data_df = pd.read_csv('protein_centric.csv')
     elif dropdown.value == "Natural and Synthetic steroids":
         data_df = pd.read_csv('natural_synthetic_steroids.csv')
-    return (data_df,)
+    return chebi_df, data_df
 
 
 @app.cell
