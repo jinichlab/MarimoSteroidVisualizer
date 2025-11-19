@@ -712,7 +712,7 @@ def _(client, dropdown, np, retrieve, table):
                 if len(np.array(table.value)) == 0:
                     system_msg = "If asked about selected proteins, respond by requesting the user to first select values from the table."
                 elif dropdown.value == "small molecule centric":
-                    user_q = f"{user_q}: {np.array(table.value['Compound'])}. "
+                    user_q = f"{user_q}: {np.array(table.value['Compound Name'])}. "
 
                 elif dropdown.value == "protein centric":
                     user_q = f"{user_q}: {np.array(table.value['Protein names'])}. "
