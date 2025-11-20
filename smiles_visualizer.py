@@ -69,7 +69,7 @@ def _():
 def _(pd):
     small_molecule_df = pd.read_csv("Small Molecule UMAP Gen/small_molecule.csv")
     # raw_data_df
-    return
+    return (small_molecule_df,)
 
 
 @app.cell
@@ -78,7 +78,7 @@ def _(pd):
     protein_embedding_df = pd.read_csv("protein_sequence_embedding.csv")
     protein_embedding_df = protein_embedding_df.drop(columns = ['Unnamed: 0'])
     # protein_embedding_df.drop('embedding', axis=1, inplace=True)
-    return
+    return (protein_embedding_df,)
 
 
 @app.cell
@@ -233,16 +233,16 @@ def _():
 
 
 @app.cell
-def _(dropdown, pd):
+def _(dropdown, pd, protein_embedding_df, small_molecule_df):
     # chebi_df = pd.read_csv("compounds.tsv", sep="\t", encoding="ISO-8859-1", usecols=["ID", "NAME"])
     chebi_df = pd.read_csv("Names ref/chebi_lookup_minimal.csv")
     chebi_df["ID"] = chebi_df["ID"].astype(int)
 
     raw_data_df = pd.DataFrame()
     if dropdown.value == "small molecule centric":
-        data_df = pd.read_csv('small_molecule_centric.csv')
+        data_df = small_molecule_df
     elif dropdown.value == "protein centric":
-        data_df = pd.read_csv('protein_centric.csv')
+        data_df = protein_embedding_df
     elif dropdown.value == "Natural and Synthetic steroids":
         data_df = pd.read_csv('natural_synthetic_steroids.csv')
     return chebi_df, data_df
