@@ -67,7 +67,7 @@ def _():
 
 @app.cell
 def _(pd):
-    small_molecule_df = pd.read_csv("Small Molecule UMAP Gen/small_molecule.csv")
+    small_molecule_df = pd.read_csv("small_molecule_centric.csv")
     # raw_data_df
     return (small_molecule_df,)
 
@@ -246,6 +246,16 @@ def _(dropdown, pd, protein_embedding_df, small_molecule_df):
     elif dropdown.value == "Natural and Synthetic steroids":
         data_df = pd.read_csv('natural_synthetic_steroids.csv')
     return chebi_df, data_df
+
+
+@app.cell
+def _(data_df, small_molecule_df):
+    # keep only ChEBI ID + Compound Name from data_df
+    compound_info = data_df[["ChEBI ID", "Compound Name"]]
+
+    # left merge
+    merged = small_molecule_df.merge(compound_info, on="ChEBI ID", how="left")
+    return
 
 
 @app.cell
