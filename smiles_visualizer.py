@@ -25,7 +25,7 @@ def simple_ui():
     import ast
     from openai import OpenAI
     import os, json, numpy as np, faiss
-
+    import difflib
     return (
         AllChem,
         BaseModel,
@@ -39,6 +39,7 @@ def simple_ui():
         alt,
         ast,
         base64,
+        difflib,
         display,
         faiss,
         json,
@@ -68,6 +69,10 @@ def _():
 @app.cell
 def _(pd):
     small_molecule_df = pd.read_csv("small_molecule_centric.csv")
+    cols = small_molecule_df.columns.tolist()
+    cols = ["Compound Name"] + [c for c in cols if c != "Compound Name"]
+    small_molecule_df = small_molecule_df[cols]
+    # small_molecule_df.drop(columns="Unnamed: 0")
     # raw_data_df
     return (small_molecule_df,)
 
@@ -172,6 +177,54 @@ def _(display, enter_button, help_button, mo):
 
 
 @app.cell
+def _(display, dropdown, mo, steroids):
+    #Search Specific <protein/small molecule>
+    if dropdown.value!=None:
+        if dropdown.value == "protein centric":
+            val = "proteins"
+        elif dropdown.value == "small molecule centric":
+            val = "small molecules"
+        else:
+            val = steroids
+        query = mo.ui.text(placeholder=f"enter {val}")
+        display(query)
+    return (query,)
+
+
+@app.cell
+def _(data_df, difflib, display, dropdown, query):
+    if dropdown.value!=None and len(query.value)>0:
+        if dropdown.value == 'protein centric':
+            col = "Protein names"
+        else:
+            col = "Compound Name"
+
+        query_str = query.value.strip().lower()
+    
+        # 1. Exact/substring match first
+        exact_matches = data_df[
+            data_df[col].astype(str).str.lower().str.contains(query_str, na=False)
+        ]
+    
+        if len(exact_matches) > 0:
+            # If exact matches exist → use them
+            filtered_df = exact_matches
+    
+        else:
+            # 2. Otherwise, run fuzzy search fallback
+            choices = data_df[col].astype(str).unique()
+            nearest = difflib.get_close_matches(query.value, choices, n=5, cutoff=0.3)
+    
+            if len(nearest) > 0:
+                filtered_df = data_df[data_df[col].astype(str).isin(nearest)]
+            else:
+                filtered_df = data_df.iloc[0:0]   # empty df
+        display("Closest matches to entry:")
+        display(filtered_df[[col, 'clusters']])
+    return
+
+
+@app.cell
 def _():
     #Names
 
@@ -241,21 +294,12 @@ def _(dropdown, pd, protein_embedding_df, small_molecule_df):
     raw_data_df = pd.DataFrame()
     if dropdown.value == "small molecule centric":
         data_df = small_molecule_df
+        data_df = data_df.drop(columns="Unnamed: 0")
     elif dropdown.value == "protein centric":
         data_df = protein_embedding_df
     elif dropdown.value == "Natural and Synthetic steroids":
         data_df = pd.read_csv('natural_synthetic_steroids.csv')
     return chebi_df, data_df
-
-
-@app.cell
-def _(data_df, small_molecule_df):
-    # keep only ChEBI ID + Compound Name from data_df
-    compound_info = data_df[["ChEBI ID", "Compound Name"]]
-
-    # left merge
-    merged = small_molecule_df.merge(compound_info, on="ChEBI ID", how="left")
-    return
 
 
 @app.cell
@@ -442,7 +486,121 @@ def _(Chem, HTML, display, dropdown, max_scroll_height, mols_to_base64_html):
 
 
 @app.cell
-def _(HTML, ast, display, display_compound_with_scroll, dropdown, pd, table):
+def _(Chem, HTML, display, mols_to_base64_html):
+    def protein_view(row):
+        """
+        Protein-centric display for one row.
+        Shows protein metadata + interacting small molecules (2 per row).
+        """
+
+        # ---------- Extract basic fields ----------
+        proteins = row.get("Protein names", [])
+        entries = row.get("Entry", [])
+        smiles = row.get("SMILES", "")
+        compound_names = row.get("Compound Name", "")
+        organism = row.get("Organism", "[Unknown organism]")
+
+        # handle semicolon-separated or list values
+        if isinstance(proteins, str):
+            proteins = [p.strip() for p in proteins.split(";")]
+        if isinstance(entries, str):
+            entries = [e.strip() for e in entries.split(";")]
+
+        # exactly one per row in protein-centric
+        protein_name = proteins[0] if proteins else "[Unknown protein]"
+        entry = entries[0] if entries else "[Unknown entry]"
+        alphafold_link = f"https://alphafold.ebi.ac.uk/entry/{entry}"
+
+        # ---------- Parse molecules ----------
+        smile_parts = [s.strip() for s in str(smiles).split(";") if s.strip()]
+        name_parts = [n.strip() for n in str(compound_names).split(";") if n.strip()]
+        mols = [Chem.MolFromSmiles(s) for s in smile_parts]
+
+        if len(name_parts) < len(mols):
+            name_parts += ["[Name missing]"] * (len(mols) - len(name_parts))
+        else:
+            name_parts = name_parts[:len(mols)]
+
+        # ---------- Build 2-per-row Molecule Cards ----------
+        molecule_cards = []
+        for nm, m in zip(name_parts, mols):
+
+            if m is None:
+                img_html = '<div style="font-size:12px;color:#999;">[Invalid SMILES]</div>'
+            else:
+                # smaller image
+                img_html = mols_to_base64_html([m], [""], mols_per_row=1).replace("400", "250")
+
+            molecule_cards.append(f"""
+            <div style="width:48%; margin-bottom:16px; border:1px solid #ddd; padding:6px; border-radius:6px;">
+                <div style="font-size:14px; font-weight:600; margin-bottom:4px;">
+                    {nm.title()}
+                </div>
+                {img_html}
+            </div>
+            """)
+
+        molecule_grid = f"""
+        <div style="
+            display:flex;
+            flex-wrap:wrap;
+            gap:10px;
+            justify-content:space-between;
+            margin-top:8px;">
+            {''.join(molecule_cards)}
+        </div>
+        """
+
+        # ---------- Final Layout ----------
+        html = f"""
+        <div style="padding:12px;">
+
+            <div style="font-size:16px; margin-bottom:6px;">
+                <strong>ENTRY:</strong> {entry}
+            </div>
+
+            <div style="font-size:16px; margin-bottom:6px;">
+                <strong>Name:</strong> {protein_name}
+            </div>
+
+            <div style="font-size:16px; margin-bottom:6px;">
+                <strong>Organism:</strong> {organism}
+            </div>
+
+            <div style="font-size:16px; margin-bottom:20px;">
+                <strong>AlphaFold Structure:</strong>
+                <a href="{alphafold_link}" target="_blank" style="color:#1a73e8; text-decoration:underline;">
+                    {alphafold_link}
+                </a>
+            </div>
+
+            <div style="font-size:18px; font-weight:bold; margin-bottom:10px;">
+                Interacting Small Molecules:
+            </div>
+
+            {molecule_grid}
+
+        </div>
+        """
+
+        display(HTML(html))
+
+    return (protein_view,)
+
+
+@app.cell
+def _(
+    HTML,
+    ast,
+    display,
+    display_compound_with_scroll,
+    dropdown,
+    pd,
+    protein_view,
+    table,
+):
+
+
     if dropdown.value != None:
         # Loop through each row in your table
         for _, row in table.value.iterrows():
@@ -469,7 +627,13 @@ def _(HTML, ast, display, display_compound_with_scroll, dropdown, pd, table):
             if pd.isna(smile_val) or pd.isna(compound_name):
                 continue
 
-            display_compound_with_scroll(smile_val, compound_name, proteins, entries, cluster)
+            if dropdown.value == "protein centric":
+                protein_view(row)   # 👈 new function
+            else:
+                display_compound_with_scroll(
+                    smile_val, compound_name, proteins, entries, cluster
+                )
+
             display(HTML('<hr style="border:1px solid #ccc; margin:16px 0;">'))
 
     return
