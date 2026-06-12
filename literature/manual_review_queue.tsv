@@ -1,0 +1,34 @@
+doi	year	journal	verdict	enzyme_keyword_hits	title
+10.1021/acs.analchem.5c05677	2026	Anal Chem	ENZYME_LIKELY	amine-conjugated(4);bile salt hydrolase(3);sulfations(1);cytochrome p450(1);acyltransferase(1)	MS/MS Mass Spectrometry Filtering Tree for Bile Acid Regio- and Stereoisomer Annotation
+10.64898/2026.05.13.724743	2026	bioRxiv (preprint)	ENZYME_LIKELY	reductase(3);sulfation(1);dehydrogenase(1)	Alkamines reveal a hidden layer of steroid and drug metabolism
+10.64898/2026.02.06.704496	2026	bioRxiv (preprint)	ENZYME_LIKELY	sulfation(2);oxidoreductase(1);sulfate(1)	Navigating the conjugated metabolome
+10.64898/2026.03.27.714844	2026	bioRxiv (preprint)	ENZYME_LIKELY	sulfated(9);sulfate(8);sulfation(1)	Pan-Metabolomics Repository Mapping of the Carnitine Landscape
+10.1021/acs.analchem.5c06769	2026	Anal Chem	ENZYME_LIKELY	cyp3a4(1);transferase(1);lyase(1)	Quantitative Food Compounds Enable Dietary Ontology Referencing across 500 Foods and Human Plasma
+10.64898/2026.03.29.715122	2026	bioRxiv (preprint)	ENZYME_LIKELY	bile salt hydrolase(2);acyltransferase(1);amine-conjugated(1)	Serum metabolic signatures of cognitive resilience in a longitudinal aging cohort
+10.1101/2025.03.04.641505	2025	bioRxiv (preprint)	ENZYME_LIKELY	amine-conjugated(1);sulfate(1);bile salt hydrolase(1)	MS/MS Mass Spectrometry Filtering Tree for Bile Acid Isomer Annotation
+10.1038/s41467-025-66619-6	2025	Nat Commun	ENZYME_LIKELY	acyltransferase(5);bile salt hydrolase(3);kinase(3);deconjugation(2);amine-conjugated(1)	Microbiome-derived bile acid signatures in early life and their association with islet autoimmunity
+10.1101/2025.02.18.25322275	2025	medRxiv (preprint)	ENZYME_LIKELY	acyltransferase(5);bile salt hydrolase(3);kinase(3);deconjugation(2);amine-conjugated(1)	Trajectories of microbiome-derived bile acids in early life — insights into the progression to islet autoimmunity
+10.1080/19490976.2025.2474142	2025	Gut Microbes	ENZYME_LIKELY	sulfate(2);deconjugation(1)	Gut microbiota and derived metabolites mediate obstructive sleep apnea induced atherosclerosis
+10.1016/j.cell.2025.05.015	2025	Cell	ENZYME_LIKELY	hydrolase(3);methyltransferase(1)	The microbiome diversifies long- to short-chain fatty acid-derived N-acyl lipids
+10.1038/s41522-025-00899-0	2025	NPJ Biofilms Microbiomes	ENZYME_LIKELY	bile salt hydrolase(4);acyltransferase(1);amine-conjugated(1)	Fecal microbial and metabolic signatures in children with very early onset inflammatory bowel disease
+10.64898/2025.12.08.692990	2025	bioRxiv (preprint)	ENZYME_LIKELY	amine-conjugated(3);bile salt hydrolase(1);acyltransferase(1)	Effect of Perinatal Ampicillin or Amoxicillin/Clavulanate Exposure on Maternal and Infant Gut Microbiome, Metabolome, and Infant Responses to the 20-valent Pneumococcal Conjugate Vaccine
+10.1101/2025.04.18.25326056	2025	medRxiv (preprint)	ENZYME_LIKELY	bile salt hydrolase(2);deconjugation(1);deconjugated(1);deconjugating(1)	Profiling the human luminal small intestinal microbiome using a novel ingestible medical device
+10.1093/ismeco/ycaf224	2025	ISME Commun	ENZYME_LIKELY	bile salt hydrolase(2);deconjugate(1);deconjugated(1);deconjugating(1)	Exploring the human small intestinal luminal microbiome via a newly developed ingestible sampling device
+10.21203/rs.3.rs-6321321/v1	2025	Res Sq (preprint)	ENZYME_LIKELY	deconjugation(11);sulfate(7);deconjugate(2);deconjugating(1);cyp2e1(1);sulfated(1)	Glucuronidation Metabolomic Fingerprinting to Map Host-Microbe Metabolism (preprint)
+10.1021/acsomega.5c01983	2025	ACS Omega	ENZYME_LIKELY	sulfated(4);sulfate(4)	Ex Vivo Interaction Between Human Gut Microbiota and Artemisinin: A Multi-Omics Perspective
+10.1038/s43856-024-00682-w	2025	Commun Med (Lond)	ENZYME_LIKELY	sulfatides(1);sulfatide(1)	Consuming a modified Mediterranean ketogenic diet reverses the peripheral lipid signature of Alzheimer's disease in humans
+10.1016/j.cell.2024.02.019	2024	Cell	ENZYME_LIKELY	bile salt hydrolase(4);deconjugation(2);sulfation(2);sulfates(2);deconjugated(1);sulfated(1)	The underappreciated diversity of bile acid modifications
+10.1038/s41586-023-06906-8	2024	Nature	ENZYME_LIKELY	cyp3a11(4);sulfate(1)	Reverse metabolomics for the discovery of chemical structures from humans
+10.1101/2024.10.31.621412	2024	bioRxiv (preprint)	ENZYME_LIKELY	hydrolase(3);methyltransferase(1)	The microbiome diversifies N-acyl lipid pools — including short-chain fatty acid-derived compounds
+10.1093/mtomcs/mfae033	2024	Metallomics	ENZYME_LIKELY	sulfate(3);reductase(3);lyase(1);cyp7a1(1);bile salt hydrolase(1);amine-conjugated(1)	Dietary iron intake has long-term effects on the fecal metabolome and microbiome
+10.3390/nu16111790	2024	Nutrients	ENZYME_LIKELY	sulfate(6);sulfated(1)	A Prebiotic Diet Containing Galactooligosaccharides and Polydextrose Produces Dynamic and Reproducible Changes in the Gut Microbial Ecosystem in Male Rats
+10.1021/jacsau.5c01063		JACS Au (2025)	ENZYME_LIKELY	cytochrome p450(1);dehydrogenase(1)	A Perspective on Unintentional Fragments and Their Impact on the Dark Metabolome
+10.1038/s41598-024-70499-z		Sci Rep (2024)	ENZYME_LIKELY	reductase(1);dehydrogenase(1)	Spatial chemistry of citrus reveals molecules bactericidal to Candidatus Liberibacter asiaticus
+10.1021/jacs.4c05399		JACS (2024)	ENZYME_LIKELY	cyp450(3);transferase(2);methyltransferase(2);cytochrome p450(1);epimerase(1);sulfate(1)	Leptochelins A-C, Cytotoxic Metallophores Produced by Geographically Dispersed Leptothoe Strains of Marine Cyanobacteria
+10.1038/s41429-025-00876-x		J Antibiot (2026)	ENZYME_LIKELY	kinase(1);transferase(1)	The undiscovered natural product potential of Actinomycetes
+10.1101/2024.06.05.597641		bioRxiv (2025)	ENZYME_LIKELY	bile salt hydrolase(7);deconjugation(2);sulfate(2);deconjugating(1);hydrolase(1);deconjugate(1)	Early life gut microbial and metabolic shifts reflected in stool consistency — a gut transit time proxy
+10.64898/2026.05.13.724743	2026	bioRxiv (preprint)	catalog_unknown		Alkamines reveal a hidden layer of steroid and drug metabolism
+unknown	2026	bioRxiv (preprint)	catalog_unknown		Pan-repository analysis reveals a drug-activating function of microbial bile acid conjugation
+10.64898/2026.02.06.704496	2026	bioRxiv (preprint)	catalog_unknown		Navigating the conjugated metabolome
+10.64898/2026.01.07.698252	2026	bioRxiv (preprint)	catalog_unknown		Synthesis-driven reverse metabolomics reveals 3-hydroxy N-acyl amides as gut microbial molecules
+10.1101/2024.06.19.599758	2024	bioRxiv (preprint)	catalog_unknown		Pathogenic Bacteroides fragilis strains can emerge from gut-resident commensals

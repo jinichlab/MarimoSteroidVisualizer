@@ -80,8 +80,15 @@ def _(pd):
 @app.cell
 def _(pd):
     # protein_embedding_df = pd.read_csv("protein_embeddings.csv")
-    protein_embedding_df = pd.read_csv("protein_sequence_embedding.csv")
+    protein_embedding_df = pd.read_csv(
+        "protein_sequence_embedding.csv",
+        dtype={"ChEBI ID": str, "Rhea ID": str, "SMILES": str},
+    )
     protein_embedding_df = protein_embedding_df.drop(columns = ['Unnamed: 0'])
+    # NaN -> "" for ID/SMILES columns so .split() and dict lookups behave
+    for _c in ("ChEBI ID", "Rhea ID", "SMILES"):
+        if _c in protein_embedding_df.columns:
+            protein_embedding_df[_c] = protein_embedding_df[_c].fillna("")
     # protein_embedding_df.drop('embedding', axis=1, inplace=True)
     return (protein_embedding_df,)
 
@@ -178,15 +185,18 @@ def _(display, enter_button, help_button, mo):
 
 @app.cell
 def _(display, dropdown, mo, steroids):
-    #Search Specific <protein/small molecule>
+    #Search Specific <protein/small molecule> — by name OR UniProt entry
+    # Default so downstream cells can always read query.value without
+    # NameError on the landing page (before any dropdown selection).
+    query = mo.ui.text(placeholder="")
     if dropdown.value!=None:
         if dropdown.value == "protein centric":
-            val = "proteins"
+            placeholder = "enter protein name, gene, or UniProt entry (e.g. P12345)"
         elif dropdown.value == "small molecule centric":
-            val = "small molecules"
+            placeholder = "enter compound name or UniProt entry of a binding protein"
         else:
-            val = steroids
-        query = mo.ui.text(placeholder=f"enter {val}")
+            placeholder = f"enter {steroids} or UniProt entry of a binding protein"
+        query = mo.ui.text(placeholder=placeholder)
         display(query)
     return (query,)
 
@@ -194,33 +204,47 @@ def _(display, dropdown, mo, steroids):
 @app.cell
 def _(data_df, difflib, display, dropdown, query):
     if dropdown.value!=None and len(query.value)>0:
+        # Search across name + UniProt-accession columns. For molecule views
+        # the Entry column is a list-repr string like "['P12345','Q67890']";
+        # substring match still picks up the accession inside.
         if dropdown.value == 'protein centric':
-            col = "Protein names"
+            primary_col = "Protein names"
+            search_cols = ["Protein names", "Entry", "Entry Name", "Gene Names"]
         else:
-            col = "Compound Name"
+            primary_col = "Compound Name"
+            search_cols = ["Compound Name", "Entry"]
+        search_cols = [c for c in search_cols if c in data_df.columns]
 
         query_str = query.value.strip().lower()
-    
-        # 1. Exact/substring match first
-        exact_matches = data_df[
-            data_df[col].astype(str).str.lower().str.contains(query_str, na=False)
-        ]
-    
+
+        # 1. substring match across every search column (OR), case-insensitive
+        mask = data_df[search_cols[0]].astype(str).str.lower().str.contains(
+            query_str, na=False)
+        for _c in search_cols[1:]:
+            mask = mask | data_df[_c].astype(str).str.lower().str.contains(
+                query_str, na=False)
+        exact_matches = data_df[mask]
+
         if len(exact_matches) > 0:
-            # If exact matches exist → use them
             filtered_df = exact_matches
-    
         else:
-            # 2. Otherwise, run fuzzy search fallback
-            choices = data_df[col].astype(str).unique()
-            nearest = difflib.get_close_matches(query.value, choices, n=5, cutoff=0.3)
-    
+            # 2. fuzzy fallback on the primary NAME column only — accessions
+            #    shouldn't be fuzzy-matched (P12345 vs P12346 is nonsense).
+            choices = data_df[primary_col].astype(str).unique()
+            nearest = difflib.get_close_matches(query.value, choices,
+                                                n=5, cutoff=0.3)
             if len(nearest) > 0:
-                filtered_df = data_df[data_df[col].astype(str).isin(nearest)]
+                filtered_df = data_df[data_df[primary_col].astype(str).isin(nearest)]
             else:
-                filtered_df = data_df.iloc[0:0]   # empty df
+                filtered_df = data_df.iloc[0:0]
+
         display("Closest matches to entry:")
-        display(filtered_df[[col, 'clusters']])
+        # Show name + Entry side-by-side so the user can confirm what matched.
+        # Surface is_new so a hit on a newly-recruited protein is obvious.
+        _show_cols = [c for c in [primary_col, "Entry", "Gene Names",
+                                   "clusters", "is_new"]
+                      if c in filtered_df.columns]
+        display(filtered_df[_show_cols])
     return
 
 
@@ -292,6 +316,10 @@ def _(dropdown, pd, protein_embedding_df, small_molecule_df):
     chebi_df["ID"] = chebi_df["ID"].astype(int)
 
     raw_data_df = pd.DataFrame()
+    # Default so downstream cells never see NameError on the landing page
+    # (before any dropdown selection). All downstream cells already gate
+    # rendering on `dropdown.value != None`, so an empty frame is safe.
+    data_df = pd.DataFrame()
     if dropdown.value == "small molecule centric":
         data_df = small_molecule_df
         data_df = data_df.drop(columns="Unnamed: 0")
@@ -304,27 +332,163 @@ def _(dropdown, pd, protein_embedding_df, small_molecule_df):
 
 @app.cell
 def _(KMeans, data_df, dropdown):
-    #Clustering - Number of clusters
-    if dropdown.value!=None:
-        if dropdown.value != "Natural and Synthetic steroids":
-            kmeans = KMeans(n_clusters=9, random_state=42)
-            clusters = kmeans.fit_predict(data_df[['UMAP_1', 'UMAP_2']])
-            data_df['clusters'] = clusters
+    # Clusters are precomputed in the build scripts: KMeans on the 2D UMAP
+    # coords with k chosen automatically by silhouette score (not a fixed 9).
+    # Natural/Synthetic keeps its class label in `clusters`, so skip it.
+    if dropdown.value not in (None, "Natural and Synthetic steroids"):
+        if "clusters" not in data_df.columns or data_df["clusters"].isna().all():
+            # defensive fallback only if the precomputed column is missing
+            data_df["clusters"] = KMeans(
+                n_clusters=9, random_state=42
+            ).fit_predict(data_df[["UMAP_1", "UMAP_2"]])
     return
 
 
 @app.cell
 def _(alt):
-    def scatter(df, pan = False):
+    import colorsys
+
+    def _build_palette(n):
+        """Generate n maximally-spread distinct hex colours.
+
+        Strategy: golden-ratio hue stepping (avoids the clumping you get
+        from a regular hue sweep) combined with 3 alternating lightness
+        levels, so adjacent indices vary in BOTH hue and lightness.
+        Gives ~25-30 perceptually distinct colours; beyond that some
+        pairs will still look similar — that is a perceptual limit of
+        the human eye, not a palette problem.
+        """
+        phi_inv = 0.6180339887498949   # golden-ratio conjugate
+        lightnesses = [0.55, 0.40, 0.72]
+        sat = 0.70
+        out = []
+        for i in range(max(n, 1)):
+            h = (i * phi_inv) % 1.0
+            l = lightnesses[i % len(lightnesses)]
+            r, g, b = colorsys.hls_to_rgb(h, l, sat)
+            out.append(f"#{int(r*255):02x}{int(g*255):02x}{int(b*255):02x}")
+        return out
+
+    def scatter(df, pan=False):
         selection = alt.selection_interval(bind='scales', translate=pan, zoom=True)
-        return (alt.Chart(df)
-            .mark_circle()
-            .encode(
-                x=alt.X("UMAP_1:Q"),
-                y=alt.Y("UMAP_2:Q"),
-                color=alt.Color("clusters:N")
+
+        # Use Altair's qualitative scheme for small k (looks cleaner with
+        # familiar Tableau colours), and an explicit hand-built palette
+        # for many clusters so every category gets a UNIQUE hex code.
+        try:
+            n = int(df["clusters"].nunique())
+        except Exception:
+            n = 10
+        if n <= 10:
+            scale = alt.Scale(scheme="tableau10")
+        elif n <= 20:
+            scale = alt.Scale(scheme="tableau20")
+        else:
+            domain = sorted(df["clusters"].unique().tolist(), key=lambda x: str(x))
+            scale = alt.Scale(domain=domain, range=_build_palette(len(domain)))
+
+        # Always show the legend. For many clusters, lay it out in multiple
+        # short columns with a small symbol so it fits next to the plot.
+        if n <= 20:
+            legend = alt.Legend(title="cluster")
+        else:
+            legend = alt.Legend(
+                title="cluster",
+                columns=2,
+                symbolLimit=200,
+                labelFontSize=9,
+                titleFontSize=10,
+                symbolSize=60,
             )
-            ).add_params(selection).properties(width = 800, height = 600)
+        tooltip = [c for c in ("Entry", "Protein names", "Compound Name",
+                               "Gene Names", "Annotation", "Paper", "clusters")
+                   if c in df.columns]
+
+        # 5-pointed star SVG path for newly-recruited proteins so they
+        # visually pop against the dense circle background.
+        STAR = ("M0,-1 L0.22,-0.31 L0.95,-0.31 L0.36,0.12 L0.59,0.81 "
+                "L0,0.4 L-0.59,0.81 L-0.36,0.12 L-0.95,-0.31 L-0.22,-0.31 Z")
+
+        has_new = "is_new" in df.columns and (df["is_new"] == 1).any()
+
+        # If `is_match` column is present and some rows are 0, render the
+        # search highlight using *conditional encoding inside a single
+        # chart* (rather than layering two charts). marimo's altair_chart
+        # wrapper injects its own selection signal at a fixed name and
+        # that signal does not resolve on a layered spec.
+        search_active = ("is_match" in df.columns
+                         and (df["is_match"] == 0).any())
+
+        new_pred = "datum.is_new == 1"
+
+        if not search_active:
+            # Base case: every point colored by cluster.
+            # New proteins drawn as larger black-edged stars, ordered last.
+            if has_new:
+                shape_enc = alt.condition(new_pred, alt.value(STAR), alt.value("circle"))
+                size_enc  = alt.condition(new_pred, alt.value(220), alt.value(18))
+                stroke_enc = alt.condition(new_pred, alt.value("black"), alt.value("white"))
+                stroke_w_enc = alt.condition(new_pred, alt.value(1.2), alt.value(0.15))
+                order_enc = alt.Order("is_new:Q", sort="ascending")
+            else:
+                shape_enc = alt.value("circle")
+                size_enc = alt.value(18)
+                stroke_enc = alt.value("white")
+                stroke_w_enc = alt.value(0.15)
+                order_enc = alt.Undefined
+
+            return (
+                alt.Chart(df)
+                .mark_point(filled=True, opacity=0.85)
+                .encode(
+                    x=alt.X("UMAP_1:Q"), y=alt.Y("UMAP_2:Q"),
+                    color=alt.Color("clusters:N", scale=scale, legend=legend),
+                    shape=shape_enc,
+                    size=size_enc,
+                    stroke=stroke_enc,
+                    strokeWidth=stroke_w_enc,
+                    order=order_enc,
+                    tooltip=tooltip,
+                )
+                .add_params(selection)
+                .properties(width=800, height=600)
+            )
+
+        # Search active: dim non-matches; matches get color + larger size.
+        # New proteins still keep their star shape, whether matched or not.
+        match_pred = "datum.is_match == 1"
+        if has_new:
+            shape_enc = alt.condition(new_pred, alt.value(STAR), alt.value("circle"))
+            # Stars are larger than circles in both states
+            size_enc = alt.condition(
+                f"({match_pred}) && ({new_pred})", alt.value(320),
+                alt.condition(match_pred, alt.value(160),
+                              alt.condition(new_pred, alt.value(120), alt.value(8)))
+            )
+        else:
+            shape_enc = alt.value("circle")
+            size_enc = alt.condition(match_pred, alt.value(160), alt.value(8))
+
+        return (
+            alt.Chart(df)
+            .mark_point(filled=True, stroke="black", strokeWidth=0.6)
+            .encode(
+                x=alt.X("UMAP_1:Q"), y=alt.Y("UMAP_2:Q"),
+                color=alt.condition(
+                    match_pred,
+                    alt.Color("clusters:N", scale=scale, legend=legend),
+                    alt.value("#cccccc"),
+                ),
+                shape=shape_enc,
+                size=size_enc,
+                opacity=alt.condition(match_pred, alt.value(1.0), alt.value(0.22)),
+                # Draw matches last (on top) so they aren't covered by dim points
+                order=alt.Order("is_match:Q", sort="ascending"),
+                tooltip=tooltip,
+            )
+            .add_params(selection)
+            .properties(width=800, height=600)
+        )
     return (scatter,)
 
 
@@ -335,10 +499,37 @@ def _(mo):
 
 
 @app.cell
-def _(checkbox, data_df, display, dropdown, mo, scatter):
+def _(checkbox, data_df, display, dropdown, mo, query, scatter):
+    # Build the df that gets plotted. If the search box has text, mark
+    # matching rows with is_match=1 so scatter() can highlight them on
+    # the UMAP (dim grey base + highlighted matches on top). When the
+    # box is empty, render the chart normally.
+    _df_to_plot = data_df.copy()
+    _q = (query.value or "").strip().lower()
+    if _q:
+        if dropdown.value == "protein centric":
+            _cols = ["Protein names", "Entry", "Entry Name", "Gene Names"]
+        else:
+            _cols = ["Compound Name", "Entry"]
+        _cols = [_c for _c in _cols if _c in _df_to_plot.columns]
+        if _cols:
+            _mask = _df_to_plot[_cols[0]].astype(str).str.lower().str.contains(
+                _q, na=False)
+            for _c in _cols[1:]:
+                _mask = _mask | _df_to_plot[_c].astype(str).str.lower().str.contains(
+                    _q, na=False)
+            _df_to_plot["is_match"] = _mask.astype(int)
+
     if dropdown.value != None:
-        chart = mo.ui.altair_chart(scatter(data_df, checkbox.value))
-        display("Drag and select clusters to explore them")
+        chart = mo.ui.altair_chart(scatter(_df_to_plot, checkbox.value))
+        if _q and "is_match" in _df_to_plot.columns:
+            _n_hits = int(_df_to_plot["is_match"].sum())
+            display(f"Highlighting {_n_hits:,} match"
+                    f"{'es' if _n_hits != 1 else ''} for "
+                    f"'{query.value}' on the UMAP. "
+                    "Drag to select clusters to explore them.")
+        else:
+            display("Drag and select clusters to explore them")
         display(chart)
     return (chart,)
 
@@ -353,7 +544,17 @@ def _(checkbox, enter_button):
 @app.cell
 def _(chart, display, dropdown, mo):
     if dropdown.value != None:
-        table = mo.ui.table(chart.value)
+        # Render the Paper column as a clickable link if present.
+        # format_mapping is keyed by column name and accepts a callable
+        # that returns a marimo-renderable (mo.md works for markdown).
+        _fmt = {}
+        if "Paper" in chart.value.columns:
+            def _fmt_paper(v):
+                if not v or str(v).strip() == "":
+                    return ""
+                return mo.md(f"[Open paper]({v})")
+            _fmt["Paper"] = _fmt_paper
+        table = mo.ui.table(chart.value, format_mapping=_fmt) if _fmt else mo.ui.table(chart.value)
         display("Select values from the table to explore interacting proteins, and the structures")
         display(table)
     return (table,)
@@ -459,7 +660,9 @@ def _(Chem, HTML, display, dropdown, max_scroll_height, mols_to_base64_html):
             for i, (p, e) in enumerate(paired, 1)
         )
         protein_box_html = f"""
-          <div style="font-size:16px; margin-bottom:6px;"><strong>Proteins</strong></div>
+          <div style="font-size:16px; margin-bottom:6px;">
+            <strong>Proteins associated with this steroid ({len(paired)})</strong>
+          </div>
           <div style="max-height:{max_scroll_height}px; overflow-y:auto; border:1px solid #e0e0e0; padding:8px; background:#fafafa;">
             <ul style="margin:0; padding-left:18px;">{protein_items}</ul>
           </div>
@@ -499,6 +702,9 @@ def _(Chem, HTML, display, mols_to_base64_html):
         smiles = row.get("SMILES", "")
         compound_names = row.get("Compound Name", "")
         organism = row.get("Organism", "[Unknown organism]")
+        paper_url = str(row.get("Paper", "") or "").strip()
+        annotation = str(row.get("Annotation", "") or "").strip()
+        is_new = int(row.get("is_new", 0) or 0)
 
         # handle semicolon-separated or list values
         if isinstance(proteins, str):
@@ -567,12 +773,28 @@ def _(Chem, HTML, display, mols_to_base64_html):
                 <strong>Organism:</strong> {organism}
             </div>
 
-            <div style="font-size:16px; margin-bottom:20px;">
+            <div style="font-size:16px; margin-bottom:6px;">
                 <strong>AlphaFold Structure:</strong>
                 <a href="{alphafold_link}" target="_blank" style="color:#1a73e8; text-decoration:underline;">
                     {alphafold_link}
                 </a>
             </div>
+
+            {(
+                '<div style="font-size:16px; margin-bottom:6px; padding:8px 10px; '
+                'background:#fff8d6; border-left:4px solid #d4a017; border-radius:4px;">'
+                '<strong>★ Newly recruited (2024-2026 literature)</strong><br>'
+                f'<span style="font-size:13px; color:#444;">{annotation}</span>'
+                '</div>'
+            ) if is_new else ''}
+
+            {(
+                '<div style="font-size:16px; margin-bottom:20px;">'
+                '<strong>Source paper:</strong> '
+                f'<a href="{paper_url}" target="_blank" '
+                'style="color:#1a73e8; text-decoration:underline;">'
+                f'{paper_url}</a></div>'
+            ) if paper_url else '<div style="margin-bottom:14px;"></div>'}
 
             <div style="font-size:18px; font-weight:bold; margin-bottom:10px;">
                 Interacting Small Molecules:
@@ -776,62 +998,105 @@ def _(BaseModel, List):
 
 
 @app.cell
-def _(load_dotenv, openai, os):
-    #Create openai instance, load API key
-
-    load_dotenv(dotenv_path=".env")
-    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-    if not OPENAI_API_KEY:
-        raise ValueError("❌ OPENAI_API_KEY not found in .env file")
-
-    # Create OpenAI client
-
-    client = openai.Client(api_key=OPENAI_API_KEY)
-    return (client,)
+def _(mo):
+    # Runtime RAG backend selector.
+    #   local   - both embeddings and chat via local Ollama (no key needed)
+    #   openai  - both via OpenAI cloud (needs OPENAI_API_KEY in .env)
+    #   hybrid  - local nomic embeddings + OpenAI chat completions
+    # The dropdown is reactive: flipping it re-loads the right FAISS index
+    # without restarting the visualizer.
+    backend_choice = mo.ui.dropdown(
+        options={
+            "Local — llama3.1:8b (offline, no key)": "local",
+            "OpenAI — gpt-4o-mini (cloud, needs key)": "openai",
+            "Hybrid — local retrieval + OpenAI chat": "hybrid",
+        },
+        value="Local — llama3.1:8b (offline, no key)",
+        label="RAG backend",
+    )
+    return (backend_choice,)
 
 
 @app.cell
-def _(OpenAI, faiss, json, np, os):
-    #Load RAG data and embed texts
+def _(backend_choice, load_dotenv, openai, os):
+    # Build the two clients the RAG pipeline needs: one for embeddings and
+    # one for chat completions. In local/openai modes they're the same
+    # object; in hybrid they diverge (Ollama for embeddings, OpenAI for chat).
+    load_dotenv(dotenv_path=".env")
+    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+    _mode = backend_choice.value or "local"
 
-    # retriever.py — load index & catalog once; simple top-k search
+    def _ollama_client():
+        import urllib.request
+        try:
+            with urllib.request.urlopen(
+                "http://127.0.0.1:11434/api/tags", timeout=2
+            ) as _r:
+                _r.read()
+            return openai.Client(
+                base_url="http://127.0.0.1:11434/v1",
+                api_key="ollama",
+            )
+        except Exception as _e:
+            print(
+                f"⚠️  Local Ollama not reachable at 127.0.0.1:11434 ({_e}) — "
+                "start it with `/home/adsiordia/ollama/bin/ollama serve &`."
+            )
+            return None
 
-    STORE = "RAG Training/rag_store"
-    _index = faiss.read_index(os.path.join(STORE, "index.faiss"))
-    _catalog = [json.loads(l) for l in open(os.path.join(STORE, "catalog.jsonl"), "r", encoding="utf-8")]
-    _client = OpenAI()
+    def _openai_client():
+        if not OPENAI_API_KEY:
+            print("⚠️  OPENAI_API_KEY missing — add it to .env for OpenAI/Hybrid modes")
+            return None
+        return openai.Client(api_key=OPENAI_API_KEY)
+
+    if _mode == "openai":
+        embed_client = _openai_client()
+        chat_client = embed_client
+        print("✅ RAG backend: OpenAI cloud (chat + embeddings)")
+    elif _mode == "hybrid":
+        embed_client = _ollama_client()
+        chat_client = _openai_client()
+        print("✅ RAG backend: hybrid (local nomic embeddings + OpenAI chat)")
+    else:
+        embed_client = _ollama_client()
+        chat_client = embed_client
+        print("✅ RAG backend: local Ollama (chat + embeddings)")
+    return chat_client, embed_client
+
+
+@app.cell
+def _(backend_choice, faiss, os):
+    # FAISS index dimension is locked by the embedder, so the store must
+    # match: nomic embeddings → rag_store_local (768-d); OpenAI embeddings
+    # → rag_store (3072-d). Hybrid uses nomic, so it stays on the local store.
+    _mode = backend_choice.value or "local"
+    if _mode == "openai":
+        STORE = "RAG Training/rag_store"
+    else:
+        STORE = "RAG Training/rag_store_local"
+
     INDEX_PATH = os.path.join(STORE, "index.faiss")
     CATALOG_PATH = os.path.join(STORE, "catalog.jsonl")
-    # Load FAISS index once
     index = faiss.read_index(INDEX_PATH)
-
-    def _embed(texts):
-        resp = _client.embeddings.create(model="text-embedding-3-large", input=texts)
-        arr = np.array([d.embedding for d in resp.data], dtype="float32")
-        arr /= (np.linalg.norm(arr, axis=1, keepdims=True) + 1e-12)
-        return arr
     return CATALOG_PATH, index
 
 
 @app.cell
-def _(CATALOG_PATH, client, index, json, np):
-    #Find closest chunks and embed query in vector space
-
+def _(CATALOG_PATH, backend_choice, embed_client, index, json, np):
     # Load catalog (maps vector IDs → text/metadata)
     with open(CATALOG_PATH, "r", encoding="utf-8") as f:
         catalog = [json.loads(line) for line in f]
 
+    _mode = backend_choice.value or "local"
+    EMBED_MODEL = "text-embedding-3-large" if _mode == "openai" else "nomic-embed-text"
+
     def embed_query(query: str) -> np.ndarray:
-        """Turn query into normalized vector"""
-        resp = client.embeddings.create(
-            model="text-embedding-3-large",
-            input=[query]
-        )
+        resp = embed_client.embeddings.create(model=EMBED_MODEL, input=[query])
         v = np.array(resp.data[0].embedding, dtype="float32")
         return v / (np.linalg.norm(v) + 1e-12)
 
     def retrieve(query: str, k: int = 6):
-        """Search index for top-k chunks matching query"""
         qv = embed_query(query).reshape(1, -1)
         scores, idxs = index.search(qv, k)
         hits = []
@@ -846,11 +1111,27 @@ def _(CATALOG_PATH, client, index, json, np):
 
 
 @app.cell
-def _(client, dropdown, np, retrieve, table):
-    #Actual model with system message. Also finds similarity with RAG data
-
+def _(backend_choice, chat_client, dropdown, np, retrieve, table):
+    # Chat function used by mo.ui.chat. Builds a RAG-augmented prompt and
+    # — when no retrieved chunk is on-topic — asks the model to fall back
+    # on its own training knowledge with an explicit "[General knowledge]"
+    # tag so the user can tell cited vs. uncited answers apart.
     def my_model(messages):
-        # Keep history like before
+        if chat_client is None:
+            _mode = backend_choice.value or "local"
+            if _mode in ("openai", "hybrid"):
+                return (
+                    "🛈 OpenAI chat is unavailable — no OPENAI_API_KEY is "
+                    "configured. Either add a key to `.env` and reload, or "
+                    "switch the RAG backend dropdown above to **Local**."
+                )
+            return (
+                "🛈 Local Ollama is not running on this server, so the chat "
+                "assistant is offline. Every other feature of the app still "
+                "works. Start Ollama with: "
+                "`/home/adsiordia/ollama/bin/ollama serve &`."
+            )
+
         history = []
         last_role = None
         for m in messages:
@@ -862,65 +1143,73 @@ def _(client, dropdown, np, retrieve, table):
         if not history:
             history = [{"role": "user", "content": "Hello!"}]
 
-
-
-
         selection_keywords = (
             "select", "selected", "selection",
             "selected values", "values selected",
             "the selected", "from the table", "from the list",
             "highlighted", "chosen", "picked"
         )
-        # Get the latest user query
-        user_q = next((m["content"] for m in reversed(history) if m["role"]=="user"), "Hello!")
+        user_q = next((m["content"] for m in reversed(history) if m["role"] == "user"), "Hello!")
         selected = any(kw in user_q.lower() for kw in selection_keywords)
 
         system_msg = (
-            "You are a precise assistant. "
-            "When context is available, always prioritize it. "
-            "If no context is relevant, answer briefly (2–3 simple sentences) from your own knowledge and note that it is general information. "
-            "Always mention what document is being referenced. If no document is referenced mention using general information.")
+            "You are a precise steroid-biology research assistant. You will "
+            "be given a Context block of excerpts retrieved from a library "
+            "of DeepResearch reports. Rules:\n"
+            "1. If the Context contains material that answers the question, "
+            "build your answer from it and cite each fact with the [n] tags "
+            "that prefix the excerpts. Name the source paper.\n"
+            "2. If the Context is empty, weakly relevant, or unrelated to "
+            "the question, answer in 3-6 sentences from your own training "
+            "knowledge and BEGIN your answer with the literal tag "
+            "'[General knowledge — no relevant report found]' so the user "
+            "knows it is uncited.\n"
+            "3. Never fabricate a citation. If you didn't actually use a "
+            "retrieved excerpt, don't cite it.\n"
+        )
 
-        if dropdown.value != None:
+        if dropdown.value is not None:
             if selected:
                 if len(np.array(table.value)) == 0:
-                    system_msg = "If asked about selected proteins, respond by requesting the user to first select values from the table."
+                    system_msg = (
+                        "If asked about selected proteins, respond by requesting "
+                        "the user to first select values from the table."
+                    )
                 elif dropdown.value == "small molecule centric":
                     user_q = f"{user_q}: {np.array(table.value['Compound Name'])}. "
-
                 elif dropdown.value == "protein centric":
                     user_q = f"{user_q}: {np.array(table.value['Protein names'])}. "
         else:
-            system_msg = "If asked about selected proteins, respond by requesting the user to first select type of graph from the dropdown."
+            system_msg = (
+                "If asked about selected proteins, respond by requesting the user "
+                "to first select type of graph from the dropdown."
+            )
 
-
-
-        # RAG part (Retrieval):
         hits = retrieve(user_q, k=6)
         context_blocks = []
         for i, h in enumerate(hits, 1):
             header = f"[{i}] {h['paper']} — {h.get('section') or '(no section)'} — page {h.get('page')}"
-            preview = h["text"]
-            context_blocks.append(f"{header}\n{preview}")
+            context_blocks.append(f"{header}\n{h['text']}")
         context = "\n\n".join(context_blocks) if context_blocks else "(no relevant context found)"
 
-        # Call the chat completion
-        resp = client.chat.completions.create(
-            model="gpt-4o-mini",  # or gpt-4.1-mini if you want
+        _mode = backend_choice.value or "local"
+        CHAT_MODEL = "gpt-4o-mini" if _mode in ("openai", "hybrid") else "llama3.1:8b"
+
+        resp = chat_client.chat.completions.create(
+            model=CHAT_MODEL,
             messages=[
                 {"role": "system", "content": system_msg},
-                {"role": "user", "content": f"Context:\n{context}\n\nQuestion: {user_q}"}
+                {"role": "user", "content": f"Context:\n{context}\n\nQuestion: {user_q}"},
             ],
             temperature=0.2,
         )
-
         return resp.choices[0].message.content
 
     return (my_model,)
 
 
 @app.cell
-def _(display, dropdown, mo, my_model):
+def _(backend_choice, display, dropdown, mo, my_model):
     chat_ui = mo.ui.chat(
         my_model,
         prompts=[
@@ -935,6 +1224,8 @@ def _(display, dropdown, mo, my_model):
         "overflow-y": "auto",
     })
     if dropdown.value !=None:
+        display(mo.md("**RAG chat assistant**"))
+        display(backend_choice)
         display(mo.Html(
             f"""
             <div id="chat-container" style="height:400px; overflow-y:auto; border:1px solid #ccc; border-radius:8px; padding:8px;">

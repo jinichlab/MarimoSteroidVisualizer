@@ -1,2 +1,17 @@
 .env
 .DS_Store
+
+# Large source ProtT5 embeddings - regenerate with prott5_embedder.py
+UMAP data/*.h5
+Small Molecule UMAP Gen/*.h5
+
+# Local backups
+*.OLD.csv
+*.PRE_*.csv
+
+# Local RAG vector store (regenerable via reembed_local.py)
+RAG Training/rag_store_local/
+
+# Python cache
+__pycache__/
+*.pyc

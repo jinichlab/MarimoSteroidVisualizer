@@ -1,0 +1,99 @@
+HAS_ACCESSIONS papers to validate: 18
+ENZYME_LIKELY papers to queue for review: 28
+
+
+[1/18] Systemic rhythmicity of host and bacterial bile acid amidates in the mouse
+  DOI: 10.1016/j.cels.2026.101541
+
+[2/18] Antibiotic Exposure Through Human Milk Influences the Infant Gut Microbiome
+  DOI: 10.64898/2026.03.31.715750
+   validating locus_tag:bsh ... OK len=325
+
+[3/18] Sex differences in bile acid homeostasis and excretion underlie the disparity in liver can
+  DOI: 10.7554/eLife.96783
+
+[4/18] Environmental and maternal imprints on infant gut metabolic development
+  DOI: 10.1016/j.chom.2025.11.002
+   validating uniprot:P11496 ... REJECT (short_or_invalid)
+   validating locus_tag:bsh ... OK len=325
+
+[5/18] Environmental and Maternal Imprints on Infant Gut Metabolic Programming
+  DOI: 10.1101/2025.07.24.666662
+   validating locus_tag:bsh ... OK len=325
+
+[6/18] A guide to reverse metabolomics — a framework for big data discovery strategy
+  DOI: 10.1038/s41596-024-01136-2
+   validating uniprot:C7D6F0 ... REJECT (http_200)
+
+[7/18] Metatranscriptomics uncover diurnal functional shifts in bacterial transgenes with profoun
+  DOI: 10.1016/j.chom.2025.05.024
+   validating locus_tag:bsh ... OK len=325
+
+[8/18] The International Space Station has a unique and extreme microbial and chemical environmen
+  DOI: 10.1016/j.cell.2025.01.039
+   validating uniprot:P11496 ... REJECT (short_or_invalid)
+   validating uniprot:P49007 ... OK len=773
+
+[9/18] Multi-omic signatures of host response associated with presence, type, and outcome of ente
+  DOI: 10.1128/msystems.01471-24
+   validating uniprot:Q32853 ... OK len=471
+
+[10/18] Bile salt hydrolase catalyses formation of amine-conjugated bile acids
+  DOI: 10.1038/s41586-023-06990-w
+   validating locus_tag:bsh ... OK len=325
+
+[11/18] The changing metabolic landscape of bile acids — keys to metabolism and immune regulation
+  DOI: 10.1038/s41575-024-00914-3
+   validating locus_tag:baiCD ... OK len=640
+   validating locus_tag:baiH ... OK len=661
+   validating locus_tag:bsh ... OK len=325
+
+[12/18] Pathogenic Bacteroides fragilis strains can emerge from gut-resident commensals
+  DOI: 10.1101/2024.06.19.599758
+   validating locus_tag:BF9343_1074 ... OK len=139
+   validating locus_tag:BF9343_1433 ... OK len=331
+   validating locus_tag:BF9343_1435 ... OK len=522
+   validating locus_tag:BF9343_1436 ... OK len=545
+   validating locus_tag:BF9343_1437 ... OK len=1127
+   validating locus_tag:BF9343_1444 ... OK len=534
+   validating locus_tag:BF9343_1919 ... OK len=790
+   validating locus_tag:BF9343_2449 ... OK len=404
+
+[13/18] Peripheral neuronal activation shapes the microbiome and alters gut physiology
+  DOI: 10.1016/j.celrep.2024.113953
+   validating uniprot:Q3U367 ... OK len=494
+   validating locus_tag:bsh ... OK len=325
+
+[14/18] microbeMASST: a taxonomically informed mass spectrometry search tool for microbial metabol
+  DOI: 10.1038/s41564-023-01575-9
+   validating uniprot:P31915 ... OK len=131
+
+[15/18] Empirically establishing drug exposure records directly from untargeted metabolomics data 
+  DOI: 10.1101/2024.10.07.617109
+   validating ncbi_protein:PMC11482764.1 ... REJECT (stop_string_or_pmc)
+   validating ncbi_protein:PMC11482764.2 ... REJECT (stop_string_or_pmc)
+
+[16/18] Large-scale tandem mass spectrum clustering using fast nearest neighbor searching
+  DOI: 10.1002/rcm.9153
+   validating uniprot:P00761 ... OK len=231
+
+[17/18] Structural annotation of full-scan MS data: A unified solution for LC-MS and MS imaging an
+  DOI: 10.1101/2024.10.14.618269
+   validating ncbi_protein:PMC11507738.1 ... REJECT (stop_string_or_pmc)
+   validating ncbi_protein:PMC11507738.2 ... REJECT (stop_string_or_pmc)
+
+[18/18] Possible Missing Sources of Atmospheric Glyoxal Part II: Oxidation of Toluene Derived from
+  DOI: 10.3390/metabo14110631
+   validating uniprot:P23938 ... OK len=107
+
+
+=== DONE ===
+Validated proteins: 23
+Rejected candidates: 7
+Manual review queue: 33
+
+Outputs:
+  /home/adsiordia/marimo_visualizer/MarimoSteroidVisualizer/literature/new_proteins_v2.json
+  /home/adsiordia/marimo_visualizer/MarimoSteroidVisualizer/literature/sequences_v2/  (23 FASTAs)
+  /home/adsiordia/marimo_visualizer/MarimoSteroidVisualizer/literature/manual_review_queue.tsv
+  /home/adsiordia/marimo_visualizer/MarimoSteroidVisualizer/literature/rejected_candidates.tsv
