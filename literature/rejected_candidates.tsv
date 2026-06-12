@@ -1,0 +1,8 @@
+candidate	kind	reason	paper_doi	paper_title
+P11496	uniprot	short_or_invalid	10.1016/j.chom.2025.11.002	Environmental and maternal imprints on infant gut metabolic development
+C7D6F0	uniprot	http_200	10.1038/s41596-024-01136-2	A guide to reverse metabolomics — a framework for big data discovery strategy
+P11496	uniprot	short_or_invalid	10.1016/j.cell.2025.01.039	The International Space Station has a unique and extreme microbial and chemical environment driven by use patterns
+PMC11482764.1	ncbi_protein	stop_string_or_pmc	10.1101/2024.10.07.617109	Empirically establishing drug exposure records directly from untargeted metabolomics data (preprint)
+PMC11482764.2	ncbi_protein	stop_string_or_pmc	10.1101/2024.10.07.617109	Empirically establishing drug exposure records directly from untargeted metabolomics data (preprint)
+PMC11507738.1	ncbi_protein	stop_string_or_pmc	10.1101/2024.10.14.618269	Structural annotation of full-scan MS data: A unified solution for LC-MS and MS imaging analyses
+PMC11507738.2	ncbi_protein	stop_string_or_pmc	10.1101/2024.10.14.618269	Structural annotation of full-scan MS data: A unified solution for LC-MS and MS imaging analyses

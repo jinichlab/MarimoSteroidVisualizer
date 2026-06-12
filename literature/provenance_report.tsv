@@ -1,0 +1,14 @@
+gene_name	organism	verdict	uniprot_claimed	uniprot_in_paper	ncbi_claimed	ncbi_in_paper	candidate_accessions_near_gene	rationale	fetch_status
+bsh (BlBSH)	Bifidobacterium longum NCTC 11818	GUESS		no		no		JSON itself labels this as a community ortholog	skipped
+bsh	Bacteroides fragilis NCTC 9343	INFERRED	Q5LF84	no		no		claimed accession(s) not found in fetched paper text; likely looked up via UniProt/NCBI search by gene+organism. Checked: Q5LF84	ok
+bsh/T	Clostridium perfringens (primary kinetics strain)	GUESS		no		no		JSON itself labels this as a community ortholog	skipped
+OsrA	Clostridium steroidoreducens HCS.1	IN_PAPER		no	MFU7516964.1	yes	MFU7515415.1;MFU7517346.1;PMC11482826.1;PMC11482826.2	accession(s) literally appear in fetched paper text: NCBI MFU7516964.1	ok
+OsrB	Clostridium steroidoreducens HCS.1	IN_PAPER		no	MFU7517346.1	yes	MFU7515415.1;MFU7516964.1	accession(s) literally appear in fetched paper text: NCBI MFU7517346.1	ok
+OsrC	Clostridium steroidoreducens HCS.1	IN_PAPER		no	MFU7515415.1	yes	MFU7516964.1;MFU7517346.1	accession(s) literally appear in fetched paper text: NCBI MFU7515415.1	ok
+ci2350 (5beta-reductase)	Clostridium innocuum 6_1_30	UNVERIFIABLE		no		no		JSON has no parseable accession in either field	ok
+ci2349 (Delta6-3-ketosteroid reductase, baiH homolog)	Clostridium innocuum 6_1_30	UNVERIFIABLE		no		no		JSON has no parseable accession in either field	ok
+3beta-HSDH/Delta5-4 isomerase	Clostridium innocuum 6_1_30 (PF01073 domain family)	GUESS		no		no		JSON specifies only a Pfam family, no locus	skipped
+Elen_2451 (fdhD)	Eggerthella lenta DSM 2243	INFERRED	C8WL28	no	ACV56407.1	no		claimed accession(s) not found in fetched paper text; likely looked up via UniProt/NCBI search by gene+organism. Checked: C8WL28 ACV56407.1	ok
+Elen_2452 (4Fe-4S ferredoxin)	Eggerthella lenta DSM 2243	INFERRED	C8WL29	no	ACV56408.1	no		claimed accession(s) not found in fetched paper text; likely looked up via UniProt/NCBI search by gene+organism. Checked: C8WL29 ACV56408.1	ok
+Elen_2453 (molybdopterin oxidoreductase)	Eggerthella lenta DSM 2243	INFERRED	C8WL30	no	ACV56409.1	no		claimed accession(s) not found in fetched paper text; likely looked up via UniProt/NCBI search by gene+organism. Checked: C8WL30 ACV56409.1	ok
+Elen_2454 (SPFH/band-7)	Eggerthella lenta DSM 2243	INFERRED	C8WL31	no	ACV56410.1	no		claimed accession(s) not found in fetched paper text; likely looked up via UniProt/NCBI search by gene+organism. Checked: C8WL31 ACV56410.1	ok

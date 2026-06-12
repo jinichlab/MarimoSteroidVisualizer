@@ -1,0 +1,14 @@
+gene_name	organism	tier	identifier_used	fetched_header	length	genus_match	function_keyword_match	status	notes
+bsh (BlBSH)	Bifidobacterium longum NCTC 11818	T4_guess						SKIPPED	community-ortholog guess — needs user decision
+bsh	Bacteroides fragilis NCTC 9343	T1_uniprot	Q5LF84	tr|Q5LF84|Q5LF84_BACFN Choloylglycine hydrolase OS=Bacteroides fragilis (strain ATCC 25285 / DSM 2151 / CCUG 4856 / JCM 11019 / LMG 10263 / 	331	yes	yes	OK	
+bsh/T	Clostridium perfringens (primary kinetics strain)	T4_guess						SKIPPED	community-ortholog guess — needs user decision
+OsrA	Clostridium steroidoreducens HCS.1	T2_ncbi	MFU7516964.1	MFU7516964.1 FAD-dependent oxidoreductase [Clostridium sp. HCS.1]	620	yes	yes	OK	
+OsrB	Clostridium steroidoreducens HCS.1	T2_ncbi	MFU7517346.1	MFU7517346.1 FAD-dependent oxidoreductase [Clostridium sp. HCS.1]	645	yes	yes	OK	
+OsrC	Clostridium steroidoreducens HCS.1	T2_ncbi	MFU7515415.1	MFU7515415.1 SDR family NAD(P)-dependent oxidoreductase [Clostridium sp. HCS.1]	254	yes	yes	OK	
+ci2350 (5beta-reductase)	Clostridium innocuum 6_1_30	T2_ncbi	GCA_000183585.2					FAILED	fetched body was not FASTA / empty
+ci2349 (Delta6-3-ketosteroid reductase, baiH homolog)	Clostridium innocuum 6_1_30	T2_ncbi	GCA_000183585.2					FAILED	fetched body was not FASTA / empty
+3beta-HSDH/Delta5-4 isomerase	Clostridium innocuum 6_1_30 (PF01073 domain family)	T4_family_only						SKIPPED	paper only specifies the protein family, not a locus
+Elen_2451 (fdhD)	Eggerthella lenta DSM 2243	T1_uniprot	C8WL28	tr|C8WL28|C8WL28_EGGLE Protein FdhD OS=Eggerthella lenta (strain ATCC 25559 / DSM 2243 / CCUG 17323 / JCM 9979 / KCTC 3265 / NCTC 11813 / VP	281	yes	yes	OK	
+Elen_2452 (4Fe-4S ferredoxin)	Eggerthella lenta DSM 2243	T1_uniprot	C8WL29	tr|C8WL29|C8WL29_EGGLE 4Fe-4S ferredoxin iron-sulfur binding domain protein OS=Eggerthella lenta (strain ATCC 25559 / DSM 2243 / CCUG 17323 	203	yes	yes	OK	
+Elen_2453 (molybdopterin oxidoreductase)	Eggerthella lenta DSM 2243	T1_uniprot	C8WL30	tr|C8WL30|C8WL30_EGGLE Molybdopterin oxidoreductase OS=Eggerthella lenta (strain ATCC 25559 / DSM 2243 / CCUG 17323 / JCM 9979 / KCTC 3265 /	909	yes	yes	OK	
+Elen_2454 (SPFH/band-7)	Eggerthella lenta DSM 2243	T1_uniprot	C8WL31	tr|C8WL31|C8WL31_EGGLE Band 7 protein OS=Eggerthella lenta (strain ATCC 25559 / DSM 2243 / CCUG 17323 / JCM 9979 / KCTC 3265 / NCTC 11813 / 	307	yes	yes	OK	
